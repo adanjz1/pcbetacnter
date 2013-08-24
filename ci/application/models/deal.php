@@ -50,7 +50,7 @@ class Deal extends CI_Model {
     
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-        $this->db->order_by("id", "desc");  
+        $this->db->order_by("title", "random");  
         $this->db->limit($qty,$from);
         if($q != ''){
             $this->db->like('title',$q);
@@ -67,6 +67,7 @@ class Deal extends CI_Model {
         }
         $this->db->where('is_active', '1');
         $query = $this->db->get('deals');
+        
         return $query->result();
     }
    
