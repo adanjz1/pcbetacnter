@@ -8,11 +8,11 @@
         </title>
         <meta name="keywords" content="{metaKeywords}"/>
         <meta name="description" content="{metaDescription}"/>
-        <link href="{siteUrl}media/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="{siteUrlMedia}media/css/style.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
-        <script type="text/javascript" src="{siteUrl}media/js/main.js"></script>
+        <script type="text/javascript" src="{siteUrlMedia}media/js/main.js"></script>
         <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
-        <script type="text/javascript" src="{siteUrl}media/js/code.js"></script>
+        <script type="text/javascript" src="{siteUrlMedia}media/js/code.js"></script>
         
     </head>
     <body>
