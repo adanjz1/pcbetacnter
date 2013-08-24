@@ -1,0 +1,51 @@
+
+
+<html>
+<head>
+    <title>File Not Found</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <link rel="stylesheet" href="style/style.css" type="text/css">
+</head>
+
+<body bgcolor="#FFFFFF" link="#339900" vlink="#339900" alink="#339900">
+<p>&nbsp;</p>
+<!--
+  -- Unfortunately, Microsoft has added a clever new
+  -- "feature" to Internet Explorer.  If the text in
+  -- an error's message is "too small", specifically
+  -- less than 512 bytes, Internet Explorer returns
+  -- its own error message.  Yes, you can turn that
+  -- off, but *surprise* it's pretty tricky to find
+  -- buried as a switch called "smart error
+  -- messages"  That means, of course, that many of
+  -- Resin's error messages are censored by default.
+  -- And, of course, you'll be shocked to learn that
+  -- IIS always returns error messages that are long
+  -- enough to make Internet Explorer happy.  The
+  -- workaround is pretty simple: pad the error
+  -- message with a big comment to push it over the
+  -- five hundred and twelve byte minimum.  Of course,
+  -- that's exactly what you're reading right now.
+  -->
+
+<table width="500" border="0" cellpadding="9" align="center" cellspacing="0">
+    <tr bgcolor="#000000" align="center">
+        <td colspan=3><img src="images/cj_logo.gif" width="227" height="37" border="0" alt="Commission Junction"></a>
+        </td>
+    </tr>
+    <tr bgcolor="#CCCCCC" bordercolor="#000000">
+        <td width="10%">&nbsp;</td>
+        <td>
+            <br>
+
+            <p>
+                <b>The file you requested cannot be found. Most likely it has been replaced by a newer version. Please
+                    check your email and retrieve the newest file as specified in your email.
+                    <br/><br/>We apologize for any inconvenience.</b></p>
+            <br>
+        </td>
+        <td width="10%">&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>
