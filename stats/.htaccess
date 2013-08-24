@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "pccounter.net Statistics"
+AuthUserFile /var/chroot/home/content/75/9711075/html/stats/.statspwd
+Require valid-user
+DirectoryIndex index.html
