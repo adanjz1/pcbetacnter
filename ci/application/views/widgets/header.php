@@ -20,7 +20,7 @@
             <div id="header">
                 <div class="header_left">
                     <a href="{siteUrl}">
-                        <img src="{siteUrl}media/images/logo.png" alt="" width="360" height="48" border="0"/>
+                        <img src="{siteUrlMedia}media/images/logo.png" alt="" width="360" height="48" border="0"/>
                     </a>
                 </div>
 
@@ -50,27 +50,27 @@
                         <ul>
                             <li>
                                 <a href="{siteUrl}">							
-                                    <img src="{siteUrl}media/images/home_icon.png" alt="" width="16" height="18" border="0" style="margin-bottom: 6px;"/> Home
+                                    <img src="{siteUrlMedia}media/images/home_icon.png" alt="" width="16" height="18" border="0" style="margin-bottom: 6px;"/> Home
                                 </a>
                             </li>
                             <li>
                                 <a href="{dealsUrl}">
-                                    <img src="{siteUrl}media/images/tag1.png" alt="" width="16" height="23" border="0"/> Deals
+                                    <img src="{siteUrlMedia}media/images/tag1.png" alt="" width="16" height="23" border="0"/> Deals
                                 </a>
                             </li>
                             <li>
                                 <a href="{couponsUrl}">
-                                    <img src="{siteUrl}media/images/tag2.png" alt="" width="20" height="18" border="0"/> Coupon Codes
+                                    <img src="{siteUrlMedia}media/images/tag2.png" alt="" width="20" height="18" border="0"/> Coupon Codes
                                 </a>
                             </li>
                             <li>
                                 <a href="{categoriesUrl}">
-                                    <img src="{siteUrl}media/images/tag3.png" alt="" width="16" height="15" border="0"/> Categories
+                                    <img src="{siteUrlMedia}media/images/tag3.png" alt="" width="16" height="15" border="0"/> Categories
                                 </a>
                             </li>
                             <li>
                                 <a href="{storesUrl}">
-                                    <img src="{siteUrl}media/images/tag4.png" alt="" width="16" height="16" border="0"/> Stores
+                                    <img src="{siteUrlMedia}media/images/tag4.png" alt="" width="16" height="16" border="0"/> Stores
                                 </a>
                             </li>
                         </ul>
@@ -89,7 +89,7 @@
                             <li>
                             <?php if (!'{userPost}'){ ?>
                                 <a href="{loginUrl}" >
-                                    <img src="{siteUrl}media/images/signin.png" alt="" width="73" height="44" border="0"/>
+                                    <img src="{siteUrlMedia}media/images/signin.png" alt="" width="73" height="44" border="0"/>
                                 </a>
                             <?php } else { ?>
                                 <form name="logout" style="padding:0px; margin:0px; float:none;" method="post" action="{loginUrl}">
@@ -108,7 +108,7 @@
                             ?>
                             <li style="background:none;">
                                 <a href="?login&oauth_provider=twitter">
-                                    <img src="{siteUrl}media/images/signin1.png" alt="" width="73" height="44" border="0"/>
+                                    <img src="{siteUrlMedia}media/images/signin1.png" alt="" width="73" height="44" border="0"/>
                                 </a>
                             </li>
                             <?php
