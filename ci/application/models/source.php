@@ -47,6 +47,16 @@ class Source extends CI_Model {
         $row = $query->result();
         return $row[0]->deal_source_logo_url;
     }
+    function getNonEmptyStores(){
+        
+        $query = $this->db->query('SELECT Distinct deal_sources_id FROM deals');
+        $ids = array();
+        foreach ($query->result_array() as $dealSourceId){
+            //var_dump($dealSourceId['deal_sources_id']);
+            $ids[]=$dealSourceId['deal_sources_id'];
+        }
+        return $ids;
+    }
     function get_totalStores($initial='')
     {
         if(!empty($initial)){
@@ -65,6 +75,8 @@ class Source extends CI_Model {
                 $this->db->like('deal_source_name',$initial,'after');
             }
         }
+        $idStoresNonEmpty = (array)$this->getNonEmptyStores();
+        $this->db->where_in('deal_source_id',$idStoresNonEmpty);
         $this->db->from('deal_sources');
         return $this->db->count_all_results();
     }
@@ -74,6 +86,9 @@ class Source extends CI_Model {
         }
         $this->db->limit($qty,$limit);
         $this->db->order_by("deal_source_id", "desc"); 
+        $idStoresNonEmpty = (array)$this->getNonEmptyStores();
+        $this->db->where_in('deal_source_id',$idStoresNonEmpty);
+        var_dump($idStoresNonEmpty);
         $query = $this->db->get('deal_sources');
         return $query->result();
     }
