@@ -7,7 +7,7 @@
                 var thisThumb = $(this);
                 $.ajax({
                 type: "POST",
-                url: "{base_url}ajax/like/"+$(this).attr('rel'),
+                url: "{base_url}/ajax/like/"+$(this).attr('rel'),
                 data: { null:0}
               }).done(function( msg ) {
                  thisThumb.find('.thumbsValue').html(msg);
