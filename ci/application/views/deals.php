@@ -12,7 +12,7 @@
             $('.share').click(function(){
                 $(this).parent().parent().find('.shareBox').toggle();
             });
-              $('.thumbs').click(function(){
+              $('.thumbs, .thumbActive').click(function(){
                 var thisThumb = $(this);
                 $.ajax({
                     type: "POST",
