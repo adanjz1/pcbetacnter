@@ -50,7 +50,7 @@ class Deals extends CI_Controller {
                 $limit = 0;
             }
             $merge = $this->Deal->get_lastDeals(52,$limit,$q,$category,$subcat,$store); //Get the other deals
-            
+            $this->load->library('session');
             foreach($merge as $deal){
                 if(empty($deal->display_name)){
                     $deal->display_name = $deal->title;
@@ -69,7 +69,11 @@ class Deals extends CI_Controller {
                     $deal->hot = '';
                 }
                 $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
-                
+                 if(!empty($this->session->all_userdata()[$deal->id])){
+                     $deal->thumbsClass = 'thumbActive';
+                }else{
+                    $deal->thumbsClass = 'thumbs';
+                }
             }
             $data['deals'] = $merge;
             $data['totalDeals'] = $this->Deal->get_totalDeals($q,$category,$subcat,$store);
@@ -126,11 +130,12 @@ class Deals extends CI_Controller {
             }
             
         }
-        public function review($id='',$saved=false){
+        public function review($id='',$saved=false,$dat=false){
             $this->load->helper('metaHelper');
             $this->load->helper(array('form', 'url')); 
             $data = getConstData($this);
-           
+            
+            
             $data['pageTitle'] = 'Dell Coupons, HP Coupons, Cheap Laptops, Computer Sales';//Title tag
             $data['page_title'] = '';//H1 tag
             $data['page_desc'] = '';
@@ -206,11 +211,20 @@ class Deals extends CI_Controller {
                     $comment->comId = $comment->id;
                 }
             }
+            if(!$dat){
+                $data['reviewForm'] = 'TabbedPanelsContentVisible" style="display:none"';
+                $data['descriptionForm'] = "";
+            }else{
+                $data['descriptionForm'] = 'TabbedPanelsContentVisible" style="display:none"';
+                $data['reviewForm'] = "";
+            }
+            //$data['shcms'] = array('false');
              $data['formSubmitted'] = '';
             if(!empty($saved)){
                 $data['formSubmitted'] = '<font color="#FF0000">Your rating successfully submitted.</font> ';
             }
             $data['deal'] = $deals;
+            
               /**
                * Footer
                */

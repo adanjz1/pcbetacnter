@@ -72,8 +72,10 @@ class Deal extends CI_Model {
     }
    
     function findMatchDeals($params){
+        $this->db->select('id');
         $this->db->where($params); 
         $query = $this->db->get('deals');
+        
         return $query->result();
     }
     function get_dealsWithCode($qty)
@@ -131,7 +133,12 @@ class Deal extends CI_Model {
         return $query->result();
     }
     function set_deal($params){
-        $this->db->insert('deals', $params); 
+        if(count($params) > 1){
+            $this->db->insert_batch('deals', $params); 
+        }else{
+            $this->db->insert('deals', $params); 
+        }
+        
     }
     function set_activation($idDeal='', $value=0){
         if(!empty($idDeal)){
@@ -141,6 +148,19 @@ class Deal extends CI_Model {
                'is_active' => $value,
             );
         $this->db->update('deals',$data);
+    }
+    function set_plusOnedeal($idDeal='',$dealLikes=0){
+        $this->db->where('id',$idDeal);
+        $data = array(
+               'thumbs' => $dealLikes,
+            );
+        $this->db->update('deals',$data);
+    }
+    function get_dealLikes($idDeal=''){
+        $this->db->select('thumbs');
+        $this->db->where('id',$idDeal);
+        $query = $this->db->get('deals');
+        return $query->result();
     }
 }
 

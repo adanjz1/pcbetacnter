@@ -516,7 +516,7 @@ div#content{
 }
 .pro_box{
 	width: 185px;
-	height: 345px;
+	height: 335px;
 	background: none;
 	float: left;
 	margin: 13px 12px 13px 0px;
@@ -913,17 +913,22 @@ div#content{
 }
 
 .hot_dealbtn2{
-	width: 160px;
-	height: 38px;
-	background: url(http://pccounter.net/ci/media/images/btn_orange2.png) left top no-repeat;
-	position: absolute;
-	z-index: 1000;
-	float: left;
-	margin: -27px 0 0 13px;
-	font: bold 15px/38px Arial, Helvetica, sans-serif;
-	color: #fff !important;
-	text-align: center !important;
-	text-transform: uppercase;
+    width: 120px;
+    height: 28px;
+    background: url(http://pccounter.net/ci/media/images/btn_orange2.png) left top no-repeat;
+    position: absolute;
+    z-index: 1000;
+    float: left;
+    margin: -25px 0px 0px 34px;
+    font: bold 15px/38px Arial, Helvetica, sans-serif;
+    color: #fff !important;
+    text-align: center !important;
+    text-transform: uppercase;
+    background-size: 100%;
+    font-size: 12px;
+}
+.getDealStr{
+    margin-top: -5px;
 }
 .hot_dealbtn2:hover{
 	color: #000 !important;
@@ -2390,4 +2395,63 @@ table.details td a.get_deal:hover{
     text-decoration: none;
         padding: 0 6px;
 
+}
+.shareBox{
+    display: none;
+background-color: #fff;
+z-index: 9999999;
+border: 1px solid;
+padding: 10px;
+height: 40px;
+width: 160px;
+position: absolute;
+}
+.thumbsValue{
+    margin-left: -21px;
+    margin-top: 8px;
+    width: 21px;
+    font-size: 9px;
+}
+.shareLinks{
+    margin: auto;
+    width: 123px;
+    
+}
+.shareLinks .thumbs{
+    background: url('http://pccounter.net/ci/media/images/thumb-on.png') no-repeat;
+    width: 21px;
+    height: 21px;
+    float: left;
+    margin:0 10px;
+    cursor:pointer;
+}
+.shareLinks .share{
+    background: url('http://pccounter.net/ci/media/images/share.png') no-repeat;
+    width: 21px;
+    height: 21px;
+    float: left;
+    margin:0 10px;
+    cursor:pointer;
+}
+.shareLinks .comment{
+    background: url('http://pccounter.net/ci/media/images/comment.png') no-repeat;
+    width: 21px;
+    height: 21px;
+    float: left;
+    margin:0 10px;
+    cursor:pointer;
+}
+.thumbActive{
+    background: url('http://pccounter.net/ci/media/images/thumb-on_hover.png') no-repeat;
+       width: 21px;
+    height: 21px;
+    float: left;
+    margin:0 10px;
+    cursor:pointer;
+}
+.shareLinks .thumbs.active{
+    background: url('http://pccounter.net/ci/media/images/thumb-on_hover.png') no-repeat;
+}
+.shareLinks .thumbs:hover{
+    background: url('http://pccounter.net/ci/media/images/thumb-on_hover.png') no-repeat;
 }

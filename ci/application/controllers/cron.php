@@ -10,6 +10,7 @@ class Cron extends CI_Controller {
     }
     
     public function index(){
+       ini_set('memory_limit', '256M');
        error_reporting(E_ALL);  
        ini_set('display_errors','On');
         if(empty($_GET['secure']) || $_GET['secure'] != md5('securepccounter123456')){
@@ -32,6 +33,7 @@ class Cron extends CI_Controller {
         $i = 0;
         $sleepBetweenPages = 5; //Every 5 pages, sleeps 1 Second
         $sleepI = 0;
+        $insertStack = array();
         for ($k = 0; $k < count($keyword); $k++) {
             $totalPages = 1;
             $page = 1;
@@ -73,7 +75,11 @@ class Cron extends CI_Controller {
                             $params['cat_id'] = detectPosibleCat(array($product->productname,$longDesc,$product->keywords),$this);
                             $params['sub_cat_id'] = detectPosibleSubCat(array($product->productname,$longDesc),$params['cat_id'],$this);
                             $params['is_active'] = 1;
-                            $this->Deal->set_deal($params);
+                            $insertStack[] = $params;
+                                if(count($insertStack) == 500){
+                                    $this->Deal->set_deal($insertStack);
+                                    $insertStack = array();
+                                }
                             }
                             //Search text in deal title
                         }else{
@@ -98,6 +104,7 @@ class Cron extends CI_Controller {
                 sleep(1);
             }
         }
+        $this->Deal->set_deal($insertStack);
     }
     
    // }
@@ -106,6 +113,7 @@ class Cron extends CI_Controller {
 //        $this->load->model('Source');
     if(empty($_GET['debug']) || $_GET['debug'] == 'linkshareCoupons'){
         sleep(2);
+        $insertStack[] = array();
         $xmlLink = "http://couponfeed.linksynergy.com/coupon?token=9c572896dedff9f2f640edaceeff1e37ead2a7a844ceb2ca7360d19f89807f07&category=10|13|27|29";
         $xml = simpleXML_load_file($xmlLink, "SimpleXMLElement", LIBXML_NOCDATA);
         //
@@ -133,7 +141,11 @@ class Cron extends CI_Controller {
                 $params['cat_id'] = detectPosibleCat(array($product->offerdescription,$longDesc),$this);
                 $params['sub_cat_id'] = detectPosibleSubCat(array($product->offerdescription,$longDesc),$params['cat_id'],$this);
                 $params['is_active'] = 1;
-                $this->Deal->set_deal($params);
+                $insertStack[] = $params;
+                if(count($insertStack) == 500){
+                    $this->Deal->set_deal($insertStack);
+                    $insertStack = array();
+                }
             }else{
                  if(is_array($matchDeal)){
                     $this->Deal->set_activation($matchDeal[0]->id,1);
@@ -142,6 +154,7 @@ class Cron extends CI_Controller {
                 }
             }
         }
+        $this->Deal->set_deal($insertStack);
     }
     
 //    }
@@ -154,15 +167,77 @@ class Cron extends CI_Controller {
         $dbug = 0;
         sleep(2);
         set_time_limit(0);
+        $insertStack = array();
         $CJ_ID = '009d3d49b3a21ad21e29bc4e88997388512c6f3bc7a2396d33ddab99df3297f12a42f56699f46a92d4696ed1a32323ba08325dab5d62fcefd5f65dac9c68261445/2c605fac92d37ef9844de0dc2c72aec63a042a9aecedc8241b2b9301ab05b6ca040b826ae03916508a7b3beb226719a0cd9a5b05005f9fbb91bc976318972301';
-        $advertisers = array('3015561', '2948661', '3054995', '2069963', '2758031', '1513033', '2743018', '1637643', '3776933', '1596784', '1957211', '2125808', '3124983', '1818328', '3274480', '2446104', '2395398', '242732', '3295320', '2728387', '2540350', '3800140', '1357495', '237343', '777292', '3718229', '1808802', '3144657', '3768420', '2461402', '3579991', '3132762', '2503677', '2906885', '2837956', '1983932', '1525519', '2452483', '1880125', '3194603', '3739663', '3410489', '2431611', '2443929', '2136193', '2292829', '2461829', '2641935', '3727174', '1097361', '1560854', '2381550', '998086', '2833145', '2529698', '3413608', '2503687', '3099532', '2461831', '1529833', '2057995', '1646298', '3692834', '2045991', '3413974', '1552894', '1826017');
+        switch($_GET['key']){
+                case 1:
+            $advertisers = array('3662048,3692834,1596784,1826017'
+                                ,'3579991,2503677,3194603,1552894,3776933'
+                              ,'998086,777292,1097361'
+                              ,'2743018,2125808'
+                              );
+                    break;
+                
+                case 2:
+            $advertisers = array('1957211'
+                                ,'3054995'
+                              ,'3727174,2069963'
+                                ,'3768420,3387105,1513033'
+                                ,'2948661,2837956,2057995');
+                    break;
+                
+                case 3:
+            $advertisers = array('1525519'
+                                ,'2641935'
+                                ,'2461829,2461831'
+                                ,'2443929,2758031'
+                                ,'1357495,3274480,2503687,22928290'
+                              );
+                    break;
+                case 4:
+            $advertisers = array('1592463,2540350,1983932'
+                                ,'3739663,3144657,1818328,1646298'
+                              ,'1529833,2395398,1637643'
+                                ,'2461402,3124983'
+                                ,'3099532,2381550'
+                              );
+                    break;
+                case 5:
+            $advertisers = array('3635222'
+                                ,'2833145'
+                                ,'2728387'
+                                ,'3413974,2906885,3678977'
+                                ,'2136193,3800140,2431611'
+                                ,'2446104'
+                                    ,'3015561,1880125'
+                                  ,'2452483,3413608,2529698'
+                                  ,'3718229,3410489,1560854'
+                                );
+                break;
+                case 6:
+            $advertisers = array('3304009'
+                                ,'3132762'
+                                ,'242732'
+                                ,'3295320'
+                                ,'237343' 
+                                ,'1807847'
+                                ,'2045991');
+                break;
+        }
+        
+       
         foreach ($advertisers as $advId) {
             $websiteid = '2033446';
             $pagenumber = 1;
+            $breakPageNumber = 1;
             $howmany = 1000;
             $totalPages = 1;
+            $keywords = '';
+            if($advId == '2045991' || $advId =='1807847' || $advId=='3295320'){
+                $keywords = urlencode('laptop notebook cellphone printer ink tabet smartphone server game keyboard mouse network gaming');
+            }
             while ($pagenumber <= $totalPages) {
-                $url = "https://product-search.api.cj.com/v2/product-search?website-id=$websiteid&advertiser-ids=$advId&page-number=$pagenumber&records-per-page=$howmany";
+                $url = "https://product-search.api.cj.com/v2/product-search?website-id=$websiteid&advertiser-ids=$advId&page-number=$pagenumber&records-per-page=$howmany&keywords=$keywords";
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_POST, FAlSE);
@@ -173,7 +248,12 @@ class Cron extends CI_Controller {
                 $curl_results = curl_exec($ch);
                 curl_close($ch);
                 $returnXML = simplexml_load_string($curl_results);
-               
+                if(empty($returnXML->products)){
+                    var_dump($returnXML);
+                    var_dump($advId);
+                }
+                
+//               die();
                 foreach ($returnXML->products->product as $product) {
                     $bu = $product->{'buy-url'};
                     $iu = $product->{'image-url'};
@@ -188,16 +268,11 @@ class Cron extends CI_Controller {
                     $ai = $product->{'ad-id'};
                     $desc = utf8_decode($product->description);
                     $pname = utf8_decode($product->name);
+                    $hash = md5($bu.$product->sku);
                     $params = array(
-                        'deal_url' => "$bu",
-                        'image_url' => "$iu",
-                        'actual_price' => $sp,
-                        'deal_price' => $product->price,
-                        'savings_amount' => $sp - $product->price,
-                        'manufacturer' => "$mn",
-                        'manufacturerid' => "$ms",
-                        'instock' => "$is",
-                        'sku' => "$product->sku"
+                        'hash_md5'=> "$hash",
+//                        'deal_url' => "$bu",
+//                        'sku' => "$product->sku"
                     );
                     $matchDeal = $this->Deal->findMatchDeals($params);
                     if (empty($matchDeal)) {
@@ -205,6 +280,7 @@ class Cron extends CI_Controller {
                         if (empty($SourceId)) {
                             $SourceId = $this->Source->set_newSource("$an", $ai);
                         }
+                        $params['hash_md5']="$hash";
                         $params['description'] = "$desc";
                         $params['title'] = "$pname";
                         $params['deal_sources_id'] = $SourceId;
@@ -215,10 +291,15 @@ class Cron extends CI_Controller {
                         $pcat = trim($pcat);
                         $catStr = str_replace(';',' ',$pcat);
                         if($product->price >0 && !strpos($bu,'language%3Dfr-CA')){
-                            $params['cat_id'] = detectPosibleCat(array($pcat,$pname,$desc),$this);
+                           $params['cat_id'] = detectPosibleCat(array($pcat,$pname,$desc),$this);
                             $params['sub_cat_id'] = detectPosibleSubCat(array($pcat,$pname,$desc),$params['cat_id'],$this);
                             $params['is_active'] = 1;
-                            $this->Deal->set_deal($params);
+                            //$this->Deal->set_deal($params);
+                            $insertStack[] = $params;
+                            if(count($insertStack) == 500){
+                                $this->Deal->set_deal($insertStack);
+                                $insertStack = array();
+                            }
                         }
                         
                     }else{
@@ -231,13 +312,24 @@ class Cron extends CI_Controller {
 //                    var_dump($params);
 //                    die();
                 }
-                $tm = 'total-matched';
-                $totalProducts = $returnXML->products->attributes()->{$tm};
-                $totalPages = intval($totalProducts) / 1000;
+                if($pagenumber == 1){
+                    $tm = 'total-matched';
+                    $totalProducts = $returnXML->products->attributes()->{$tm};
+                    $totalPages = ceil(intval($totalProducts) / 1000);
+                }
+                if($breakPageNumber == 11 ){
+                    //sleep(1);
+                    $breakPageNumber = 1;
+                }
                 $pagenumber++;
-                sleep(10);
+                $breakPageNumber++;
+               // sleep(10);
                 
             }
+        }
+        if(count($insertStack) >0){
+            $this->Deal->set_deal($insertStack);
+            $insertStack = array();
         }
     }
 //    }
@@ -249,7 +341,7 @@ class Cron extends CI_Controller {
     if(empty($_GET['debug']) || $_GET['debug'] == 'shareSale'){
         sleep(2);
         set_time_limit(0);
-
+        $insertStack = array();
         $myAffiliateID = '245502';
         $APIToken = "CcwWfQgGO569gCLn";
         $APISecretKey = "LGf0tk4t2KPcxz8jDTv0cf5j0YImni2z";
@@ -271,12 +363,13 @@ class Cron extends CI_Controller {
         curl_setopt($ch, CURLOPT_HEADER, 0);
 
         $returnResult = curl_exec($ch);
-
+        
         if (!empty($returnResult)) {
                     
             $xml = simplexml_load_string($returnResult);
             
             foreach ($xml->dealcouponlistreportrecord as $product) {
+                //var_dump($product);
                 $image = ($product->bigimage=='http://')?'':$product->bigimage;
                         $params = array(
                             'title' => "$product->title",
@@ -295,12 +388,17 @@ class Cron extends CI_Controller {
                             if (empty($SourceId)) {
                                 $SourceId = $this->Source->set_newSource("$product->merchant", $product->merchantid);
                             }
+                            
                             $params['deal_sources_id'] = $SourceId;
                             if(!strpos($product->trackingurl,'language%3Dfr-CA')){
                                 $params['cat_id'] = detectPosibleCat(array($product->title,$product->description,$product->keywords),$this);
                                 $params['sub_cat_id'] = detectPosibleSubCat(array($product->title,$product->description,$product->keywords),$params['cat_id'],$this);
                                 $params['is_active'] = 1;
-                                $this->Deal->set_deal($params);
+                                $insertStack[] = $params;
+                                if(count($insertStack) == 500){
+                                    $this->Deal->set_deal($insertStack);
+                                    $insertStack = array();
+                                }
                             }
                         }else{
                              if(is_array($matchDeal)){
@@ -311,7 +409,7 @@ class Cron extends CI_Controller {
                         }
                 }
         }
-
+        $this->Deal->set_deal($insertStack);
         curl_close($ch);
         }
     }
@@ -776,6 +874,7 @@ function detectPosibleCat($strings,$cron){
     }
      function detectPosibleSubCat($strings, $cat,$cron){
          $subcats = $cron->Category->get_Subcategories(50,null,$cat);
+         $contCat = array();
          foreach($subcats as $cat){
                $contCat[$cat->id]['count'] = 0;
                $keys = explode(',',$cat->keyword);

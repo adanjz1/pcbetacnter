@@ -88,7 +88,7 @@ class Source extends CI_Model {
         $this->db->order_by("deal_source_id", "desc"); 
         $idStoresNonEmpty = (array)$this->getNonEmptyStores();
         $this->db->where_in('deal_source_id',$idStoresNonEmpty);
-        var_dump($idStoresNonEmpty);
+       // var_dump($idStoresNonEmpty);
         $query = $this->db->get('deal_sources');
         return $query->result();
     }
