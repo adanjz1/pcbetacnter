@@ -15,7 +15,7 @@
 |
 */
 //    $config['base_url']	= 'http://pccounter/ci/';
-    $config['base_url']	= 'http://pccounter.net/ci/';
+    $config['base_url']	= 'http://ec2-54-213-191-45.us-west-2.compute.amazonaws.com/index.php';
 
 /*
 |--------------------------------------------------------------------------

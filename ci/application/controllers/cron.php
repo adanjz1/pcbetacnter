@@ -235,7 +235,7 @@ class Cron extends CI_Controller {
                 $totalProducts = $returnXML->products->attributes()->{$tm};
                 $totalPages = intval($totalProducts) / 1000;
                 $pagenumber++;
-                sleep(10);
+                //sleep(1);
                 
             }
         }
