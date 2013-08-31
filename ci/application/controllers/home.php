@@ -28,6 +28,7 @@ public function index()
              */
             $this->load->helper('metaHelper');
             $this->load->helper(array('form', 'url'));
+            $this->load->library('session');
             $data = getConstData($this);
             $data['pageTitle'] = 'Dell Coupons, HP Coupons, Cheap Laptops, Computer Sales';//Title tag
             $data['page_title'] = 'Best Deals, Dell Coupons, HP Coupons, Cheap Laptops';//H1 tag
@@ -61,7 +62,11 @@ public function index()
                     $deal->hot = '';
                 }
                 $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
-                
+                if(!empty($this->session->all_userdata()[$deal->id])){
+                     $deal->thumbsClass = 'thumbActive';
+                }else{
+                    $deal->thumbsClass = 'thumbs';
+                }
             }
             $data['deals'] = $merge;
             /********************************************/

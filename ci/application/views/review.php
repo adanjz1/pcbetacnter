@@ -163,15 +163,16 @@
             <li class="TabbedPanelsTab TabbedPanelsTabSelected" rel="desc" tabindex="0" style="border-bottom:0;">Deal Description</li>	    
             <li class="TabbedPanelsTab" rel="rev" tabindex="0" style="border-bottom:0;">Reviews</li>    
         </ul>
-        <div class="TabbedPanelsContentGroup">
-            <div class="TabbedPanelsContent TabbedPanelsContentVisible" id="desc">
+        <div class="TabbedPanelsContentGroup">  
+            
+            
+            <div class="TabbedPanelsContent {descriptionForm} id="desc">
                 <div class="sumit_base">
                     <h1>{title}</h1> 
                 </div> 
                 {description}
             </div>
-
-            <div class="TabbedPanelsContent" style="display:none" id="rev">
+            <div class="TabbedPanelsContent" {reviewForm} id="rev">
                 <div class="reviews_base">
                     <form name="rateform" method="post" action="{dealReviewForm}" onsubmit="return validate_feedback();">
                         <input name="productid" id="productid" type="hidden" value="{id}" />

@@ -30,12 +30,14 @@
             
             }
             $data['siteUrl']  = $data['base_url'];
+
             $data['siteUrlMedia']  = 'http://pccounter.net/ci/';
             $data['dealsUrl']  = $data['base_url'].$t->config->item('index_page').'/deals';
             $data['couponsUrl']  = $data['base_url'].$t->config->item('index_page').'/coupons/index';
             $data['categoriesUrl']  = $data['base_url'].$t->config->item('index_page').'/categories/index';
             $data['storesUrl']  = $data['base_url'].$t->config->item('index_page').'/stores/index';
             $data['offerUrlPop'] = $data['base_url'].$t->config->item('index_page').'/deals/pop';
+
              /***********************************/
             
             /**
