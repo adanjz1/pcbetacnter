@@ -2468,7 +2468,9 @@ position: absolute;
 }
 .dealCategoryList{
     margin-top: 5px;
-    margin-left: 55px;
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
 }
 .dealCategoryList a {
     color: #000;

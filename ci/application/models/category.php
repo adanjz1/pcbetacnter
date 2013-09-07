@@ -63,13 +63,18 @@ class Category extends CI_Model {
     {
         $this->db->where('id',$category);
         $query = $this->db->get('categories');
-        return $query->result();
+        $result = $query->result();
+        if(!empty($result[0])){
+            return $result[0]->name;
+        }else{
+            return '';
+        }
     }
     function get_catCant($category)
     {
         
-        $this->db->where('id',$category);
-        $this->db->from('categories');
+        $this->db->where('cat_id',$category);
+        $this->db->from('deals');
         return $this->db->count_all_results();
     }
     function get_totalCategories(){
