@@ -53,6 +53,7 @@ class Deal extends CI_Model {
         $this->db->limit($qty);
         $this->db->where('mainMenuOrder', '0');
         $this->db->where('deal_sources_id', $dealSourceId);
+        $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
         $query = $this->db->get('deals');
         //var_dump($this->db->last_query());
