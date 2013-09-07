@@ -1,4 +1,3 @@
-/**********************/
 /* CSS Document */
 body{
 	margin:0;
@@ -2455,22 +2454,4 @@ position: absolute;
 }
 .shareLinks .thumbs:hover{
     background: url('http://pccounter.net/ci/media/images/thumb-on_hover.png') no-repeat;
-}
-.actualPriceList{
-    text-decoration: line-through;
-    color:#777 !important;
-}
-.dealPriceList{
-    padding-bottom:0px !important;
-}
-.dealShareList{
-    padding-top:0px !important;
-}
-.dealCategoryList{
-    margin-top: 5px;
-    margin-left: 55px;
-}
-.dealCategoryList a {
-    color: #000;
-    font-size: 9pt;
 }

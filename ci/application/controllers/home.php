@@ -40,9 +40,17 @@ public function index()
              */
             $deals = array();
             $this->load->model('Deal');
+            $this->load->model('Category');
+            $this->load->model('Source');
             $dealsList = $this->Deal->get_mainMenuDeals(52); //Get the main menu deal list
             $others = 52-count($deals);
-            $dealsList2 = $this->Deal->get_lastDeals($others); //Get the other deals
+            $dealSources = $this->Source->get_stores(99);
+            $dealsList2 = array();
+            foreach($dealSources as $source){
+                $auxDeals = $this->Deal->get_homeDeals(3,$source->deal_source_id); //Get the other deals
+                $dealsList2 = array_merge($dealsList2, $auxDeals);
+            }
+            
             $merge = array_merge($dealsList, $dealsList2);
             foreach($merge as $deal){
                 if(empty($deal->display_name)){
@@ -67,6 +75,9 @@ public function index()
                 }else{
                     $deal->thumbsClass = 'thumbs';
                 }
+                $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
+                $deal->categoryCount = $this->Category->get_catCant($deal->cat_id);
+                
             }
             $data['deals'] = $merge;
             /********************************************/
@@ -96,6 +107,7 @@ public function index()
                 }
                 $deal->couponCode = $deal->coupon_code;
                 $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/pop/'.$deal->id;
+                $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
             }
             $data['newestCoupons'] = $coupons;
             /********************************************************/

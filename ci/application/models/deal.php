@@ -47,7 +47,17 @@ class Deal extends CI_Model {
         $query = $this->db->get('deals');
         return $query->result();
     }
-    
+    function get_homeDeals($qty,$dealSourceId){
+        
+        $this->db->order_by("title", "random");  
+        $this->db->limit($qty);
+        $this->db->where('mainMenuOrder', '0');
+        $this->db->where('deal_sources_id', $dealSourceId);
+        $this->db->where('is_active', '1');
+        $query = $this->db->get('deals');
+        //var_dump($this->db->last_query());
+        return $query->result();
+    }
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
         $this->db->order_by("title", "random");  
