@@ -16,16 +16,15 @@
                         <li style="display:none">List Price: <strong>${actual_price}</strong></li>
                         <?php } ?>
 
-                        <li class="price">
-                            Price: 
-                            <span class="redtext">
+                        <li class="price dealPriceList">
+                            <span class="actualPriceList">
                                 ${deal_price}
                             </span> 
-                            <strong>
-                                + FREE SHIPPING
-                            </strong>
+                            <span class="redtext">
+                                ${actual_price}
+                            </span> 
                         </li>
-                        <li>
+                        <li class="dealShareList">
                             <div class="shareLinks">
                                 <div class="{thumbsClass}" rel="{id}"><div class="thumbsValue">{thumbs}</div></div>
                                 <div class="share"></div>
@@ -73,5 +72,8 @@
                     <a class="hot_dealbtn2" href="{deal_url}" target="_blank">
                         <div class="getDealStr">Get Deal</div>
                     </a>
+                </div>
+                <div class="dealCategoryList">
+                    <a href="deals/index/0/category/{cat_id}">{categoryStr}({categoryCount})</a>
                 </div>
             </div>

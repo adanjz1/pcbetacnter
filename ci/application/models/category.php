@@ -65,6 +65,13 @@ class Category extends CI_Model {
         $query = $this->db->get('categories');
         return $query->result();
     }
+    function get_catCant($category)
+    {
+        
+        $this->db->where('id',$category);
+        $this->db->from('categories');
+        return $this->db->count_all_results();
+    }
     function get_totalCategories(){
          $this->db->from('categories');
         return $this->db->count_all_results();

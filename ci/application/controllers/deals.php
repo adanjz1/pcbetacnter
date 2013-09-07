@@ -46,6 +46,7 @@ class Deals extends CI_Controller {
             $deals = array();
             $this->load->model('Deal');
             $this->load->model('Source');
+            $this->load->model('Category');
             if($limit == ''){
                 $limit = 0;
             }
@@ -74,6 +75,9 @@ class Deals extends CI_Controller {
                 }else{
                     $deal->thumbsClass = 'thumbs';
                 }
+                $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
+                $deal->categoryCount = $this->Category->get_catCant($deal->cat_id);
+                
             }
             $data['deals'] = $merge;
             $data['totalDeals'] = $this->Deal->get_totalDeals($q,$category,$subcat,$store);
