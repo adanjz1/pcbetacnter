@@ -31,7 +31,7 @@
             }
             $data['siteUrl']  = $data['base_url'];
 
-            $data['siteUrlMedia']  = 'http://pccounter.net/ci/';
+            $data['siteUrlMedia']  = 'http://ec2-54-213-191-45.us-west-2.compute.amazonaws.com/';
             $data['dealsUrl']  = $data['base_url'].$t->config->item('index_page').'/deals';
             $data['couponsUrl']  = $data['base_url'].$t->config->item('index_page').'/coupons/index';
             $data['categoriesUrl']  = $data['base_url'].$t->config->item('index_page').'/categories/index';
