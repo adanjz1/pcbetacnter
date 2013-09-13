@@ -8,52 +8,41 @@
 						  <h1>BROWSE THE LATEST SAVINGS</h1>          
 						  <ul>
 							<li><a href="{couponsUrl}">Coupon Codes</a></li>  
-							<li><a href="{dealsUrl}">Deals & Clearance</a></li>  
-							<li><a href="{localOffersUrl}">Local Offers</a></li>  
-							<li><a href="{groceryCouponsUrl}">Grocery Coupons</a></li>  
-							<li><a href="{freeOffersUrl}">Free Offers</a></li>
-							<li><a href="{travelUrl}">Travel</a></li>
-							<li><a href="{computersUrl}">Computers</a></li>
-							<li><a href="{softwareUrl}">Software</a></li>
-							<li><a href="{homeAndKitchenUrl}">Home & Kitchen</a></li>
-							<li><a href="{creditCardsUrl}">Credit Cards</a></li>   		     
+							<li><a href="{dealsUrl}">Deals & Clearance</a></li>	     
 						  </ul>
 				</div>
 				<div class="footer_link" style="width: 220px;padding-left: 20px;">
 						  <h1>GET STARTED</h1>          
 						  <ul>
 								<li><a href="{categoriesUrl}">Categories</a></li>
-								<li><a href="{storeBrandUrl}">Brands</a></li>
 								<li><a href="{storesUrl}">Stores</a></li>
-								<li><a href="{savingGuidesUrl}">Savings Guides</a></li>
 								<li><a href="{blogUrl}">Blog</a></li>			
 						  </ul>
 				</div>
 				<div class="footer_link1">
-						  <h1>HOLIDAY & LIFESTYLE SAVINGS</h1>          
-						  <ul>
-							  <li><a href="#">Labor Day 2012 Deals, Sales and Coupons</a></li>	
-							  <li><a href="#">Halloween 2012 Coupons, Sales, and Deals</a></li>	
-							  <li><a href="#">Black Friday 2012 Deals and Sales</a></li>	
-							  <li><a href="#">Cyber Monday 2012 Deals and Sales</a></li>
-						  </ul>
+                                        <h1>HOLIDAY & LIFESTYLE SAVINGS</h1>          
+                                        <ul>
+                                            {specialPages_1}
+                                              <li><a href="{specialPageUrl}">{name}</a></li>	
+                                            {/specialPages_1}
+
+                                        </ul>
 				</div>
 				<div class="footer_link2">                  
-						  <ul>
-							  <li><a href="#">Small Business</a></li>
-							  <li><a href="#">Vacation Planning</a></li>
-							  <li><a href="#">Weddings</a></li>
-							 <li><a href="#">Spring Cleaning</a></li>		
-						  </ul>
+                                    <ul>
+                                        {specialPages_2}
+                                          <li><a href="{specialPageUrl}">{name}</a></li>	
+                                        {/specialPages_2}
+                                    </ul>
 				</div>					
 				<div class="clear"></div>
 				<div class="footer_brands">			
-						   <h1>TOP STORES & BRANDS</h1>          
-						   <ul>
-                                                       {topStores}
-                                                            <li><a href={intStoreUrl}">{store_name}</a></li>	
-                                                       {/topStores}
-						  </ul>
+                                    <h1>TOP STORES & BRANDS</h1>          
+                                    <ul>
+                                        {dealSources}
+                                             <li><a href={deal_source_url}">{deal_source_name}</a></li>	
+                                        {/dealSources}
+                                   </ul>
 			    </div>
 				<div class="clear"></div>
 			    <div class="footer2">
@@ -63,8 +52,6 @@
 						  {staticPages}
                                                         <a href="{url}">{name}</a>  |  
                                                   {/staticPages}
-						 
-                          <a href="{siteMapUrl}">Site Map</a>
 				  </div>
 				  <div class="footer_right">Follow us: <a href="http://www.facebook.com/PcCounterProducts" target="_blank"><img src="http://pccounter.net/ci/media/images/facebook1.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a> <a href="#" target="_blank"><img src="http://pccounter.net/ci/media/images/twitter.png" alt="" width="36" height="37" border="0" align="absmiddle"/></a> <a href="{rssUrl}" target="_blank"><img src="http://pccounter.net/ci/media/images/rss.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a>
 				  </div>

@@ -58,6 +58,33 @@
                                             </li>':'';
             $data['banners_type1'] = array();
             /*********************************/
+            
+            
+            
+            /****FOOTER****/
+                $t->load->model('Pages');
+                $specialPages = $t->Pages->getAllSpecialPages();
+                foreach($specialPages as $key=>$val){
+                    $specialPages[$key]->specialPageUrl = $data['siteUrlMedia'].'specialPage/index/0/'.$val->id;
+                }
+                $cantSpecialPages = ceil(count($specialPages)/2);
+                for($i=0;$i<$cantSpecialPages;$i++){
+                    $data['specialPages_1'][] = $specialPages[$i];
+                }
+                
+                for($i=$cantSpecialPages;$i<count($specialPages);$i++){
+                    $data['specialPages_2'][] = $specialPages[$i];
+                }
+                
+                $staticPages = $t->Pages->getAllStaticPages();
+                
+                foreach( $staticPages as $key=>$val){
+                    $staticPages[$key]->url = $data['siteUrlMedia'].'staticPage/index/'.$val->id;
+                }
+                $data['staticPages'] = $staticPages;
+                
+                
+            /**************************/
             return $data;
     }
 

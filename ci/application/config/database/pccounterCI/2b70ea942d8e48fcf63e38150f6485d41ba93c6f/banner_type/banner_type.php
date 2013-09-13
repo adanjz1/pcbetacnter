@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"ids":["name","height","width"],"table":{"crudTitle":"banner_type manager","crudRowsPerPage":"20"},"filter":{"list":["id","height","width","name"],"atrr":{"id":{"alias":"id"}}},"column":{"list":["id","height","width","name"],"actived":["name"],"atrr":{"id":{"alias":"id"}}},"frm_type":"2"}

@@ -291,6 +291,16 @@ class Cron extends CI_Controller {
                         $pcat = trim($pcat);
                         $catStr = str_replace(';',' ',$pcat);
                         if($product->price >0 && !strpos($bu,'language%3Dfr-CA')){
+                            $params['deal_url'] = "$bu";
+                            $params['image_url'] = "$iu";
+                            $params['actual_price'] = "$sp";
+                            $params['deal_price'] = "$product->price";
+                            $params['savings_amount'] = "$sp - $product->price";
+                            $params['manufacturer'] = "$mn";
+                            $params['manufacturerid'] = "$ms";
+                            $params['instock'] = "$is";
+                            $params['sku'] = "$product->sku";
+                                
                            $params['cat_id'] = detectPosibleCat(array($pcat,$pname,$desc),$this);
                             $params['sub_cat_id'] = detectPosibleSubCat(array($pcat,$pname,$desc),$params['cat_id'],$this);
                             $params['is_active'] = 1;

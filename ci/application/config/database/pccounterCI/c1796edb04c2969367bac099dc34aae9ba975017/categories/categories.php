@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"ids":["name","category_description","image"],"table":{"crudTitle":"categories manager","crudRowsPerPage":"20"},"filter":{"list":["id","name","category_description","image"],"atrr":{"category_description":{"alias":"Description"},"id":{"alias":"id"}}},"column":{"list":["id","name","category_description","image"],"atrr":{"category_description":{"alias":"Description"},"id":{"alias":"id"}},"actived":["name"]},"frm_type":"2"}

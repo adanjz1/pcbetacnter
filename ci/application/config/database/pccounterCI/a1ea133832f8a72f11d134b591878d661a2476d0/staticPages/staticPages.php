@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"ids":["name","heading","html"],"table":{"crudTitle":"staticPages manager","crudRowsPerPage":"20"},"filter":{"list":["id","name","html","heading"],"atrr":{"name":{"alias":"Title"},"heading":{"alias":"Heading"}}},"column":{"list":["id","name","html","heading"],"atrr":{"name":{"alias":"Title"},"heading":{"alias":"Heading"}}},"frm_type":"2"}
