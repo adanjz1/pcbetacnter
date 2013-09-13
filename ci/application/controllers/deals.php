@@ -143,9 +143,14 @@ class Deals extends CI_Controller {
             $data = getConstData($this);
             
             
-            $data['pageTitle'] = 'Dell Coupons, HP Coupons, Cheap Laptops, Computer Sales';//Title tag
-            $data['page_title'] = '';//H1 tag
-            $data['page_desc'] = '';
+             $this->load->model('pages');
+            $seoPg = $this->pages->getSEOPage('deals');
+            $seoPg = $seoPg[0];
+            $data['pageTitle'] = $seoPg->Title;//Title tag
+            $data['headerText'] = $seoPg->Header;//H1 tag
+            $data['metaTitle'] = $seoPg->Meta_title;
+            $data['metaKeywords'] = $seoPg->Meta_keywords;
+            $data['metaDescription'] = $seoPg->Meta_Description;
            
             $this->load->model('Deal');
             $this->load->model('Category');
@@ -167,7 +172,7 @@ class Deals extends CI_Controller {
                 if(!empty($catName)){
                     $deal->category = $catName[0]->name;
                 }
-                if($deal->hot){
+                if(!empty($deal->hot)){
                     $deal->hot = '<div class="hot_deal"></div>';
                 }else{
                     $deal->hot = '';
