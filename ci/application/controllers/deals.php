@@ -169,7 +169,7 @@ class Deals extends CI_Controller {
                 }
                 $deal->category='';
                 $catName = $this->Category->get_CatName($deal->cat_id);
-                if(!empty($catName)){
+                if(!empty($catName) && (!empty($catName[0]->name))){
                     $deal->category = $catName[0]->name;
                 }
                 if(!empty($deal->hot)){
