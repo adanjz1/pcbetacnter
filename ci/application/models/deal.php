@@ -52,7 +52,7 @@ class Deal extends CI_Model {
         
         $this->db->order_by("title", "random");  
         $this->db->limit($qty);
-        $this->db->where('mainMenuOrder', '0');
+        $this->db->where('(mainMenuOrder is NULL or mainMenuOrder = 0)');
         $this->db->where('deal_sources_id', $dealSourceId);
         $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
