@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"field":"article_date","label":"Date","type":"date","options":[""],"list_choose":"default","type_options":{"size":"","width":"","height":""},"db_options":{"table":""},"validation":"date"}

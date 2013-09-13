@@ -6,6 +6,7 @@
         <title>
             {pageTitle}
         </title>
+        <meta name="Title" content="{metaTitle}">
         <meta name="keywords" content="{metaKeywords}"/>
         <meta name="description" content="{metaDescription}"/>
         <link href="{siteUrlMedia}media/css/style.css" rel="stylesheet" type="text/css"/>
@@ -135,8 +136,7 @@
 	<div class="topbox">
 		<div class="topbox_1">
 			{msg}
-			<h1>{page_title}</h1>
-			<p>{page_desc}</p>
+                        {headerText}
 		</div>
         
 		<div class="topbox_r">

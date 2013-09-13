@@ -45,6 +45,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->limit($qty);
         $query = $this->db->get('deals');
+        
         return $query->result();
     }
     function get_homeDeals($qty,$dealSourceId){
@@ -58,6 +59,21 @@ class Deal extends CI_Model {
         $query = $this->db->get('deals');
         //var_dump($this->db->last_query());
         return $query->result();
+    }
+    function get_pageDeals($qty,$from='',$idPages=0){
+        $this->db->order_by("title", "random");  
+        $this->db->limit($qty,$from);
+        $this->db->like('specialPages',','.$idPages.',');
+        $this->db->where('is_active', '1');
+        $query = $this->db->get('deals');
+        
+        return $query->result();
+    }
+    function get_totalDeals_page($idPages=0){
+        $this->db->where('specialPages',','.$idPages.',');
+        $this->db->where('is_active', '1');
+        $this->db->get('deals');
+        return $this->db->count_all_results();
     }
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {

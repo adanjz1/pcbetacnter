@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"ids":["email","password","FBid","FBGraph","TWid"],"table":{"crudTitle":"Clients manager","crudRowsPerPage":"20"},"filter":{"list":["id","FBid","FBGraph","TWid","email","password"],"atrr":{"id":{"alias":"id"}}},"column":{"list":["id","FBid","FBGraph","TWid","email","password"],"actived":["FBid","TWid","email"],"atrr":{"id":{"alias":"id"}}},"frm_type":"2"}

@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"field":"category_name","label":"Name","type":"text","options":[""],"list_choose":"default","type_options":{"size":"","width":"","height":""},"db_options":{"table":""},"validation":"notEmpty"}

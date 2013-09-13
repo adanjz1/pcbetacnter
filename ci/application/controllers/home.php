@@ -30,9 +30,14 @@ public function index()
             $this->load->helper(array('form', 'url'));
             $this->load->library('session');
             $data = getConstData($this);
-            $data['pageTitle'] = 'Dell Coupons, HP Coupons, Cheap Laptops, Computer Sales';//Title tag
-            $data['page_title'] = 'Best Deals, Dell Coupons, HP Coupons, Cheap Laptops';//H1 tag
-            $data['page_desc'] = 'Best Deals & Discount Coupons on technology products every day. We research thousands of cheap laptops deal & discount coupon & codes on Dell, HP, Sony, Lenovo and may more word class brands.';
+            $this->load->model('pages');
+            $seoPg = $this->pages->getSEOPage('home');
+            $seoPg = $seoPg[0];
+            $data['pageTitle'] = $seoPg->Title;//Title tag
+            $data['headerText'] = $seoPg->Header;//H1 tag
+            $data['metaTitle'] = $seoPg->Meta_title;
+            $data['metaKeywords'] = $seoPg->Meta_keywords;
+            $data['metaDescription'] = $seoPg->Meta_Description;
            
            
             /**
@@ -122,7 +127,7 @@ public function index()
               /**
                * Footer
                */
-              $data['staticPages'] = array();
+              
               /**********************************************/
                 $this->load->library('parser');
                 $this->parser->parse('widgets/header', $data);

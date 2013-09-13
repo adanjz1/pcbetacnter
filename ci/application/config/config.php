@@ -14,8 +14,10 @@
 | path to your installation.
 |
 */
+
 //    $config['base_url']	= 'http://pccounter/ci/';
     $config['base_url']	= 'http://ec2-54-213-191-45.us-west-2.compute.amazonaws.com/index.php';
+
 
 /*
 |--------------------------------------------------------------------------
@@ -357,6 +359,40 @@ $config['rewrite_short_tags'] = FALSE;
 |
 */
 $config['proxy_ips'] = '';
+
+/*
+|--------------------------------------------------------------------------
+| Facebook App ID
+|
+| If you want to integrate with Facebook Connect authentication, put your
+| Facebook App ID below.
+|--------------------------------------------------------------------------
+*/
+$config['facebook_app_id'] = '607430695967375';
+$config['facebook_app_key'] = '607430695967375';
+$config['facebook_app_secret'] = '6c7298d6b3eafe7ce5950601746c3112';
+
+/*
+|--------------------------------------------------------------------------
+| Twitter App ID
+|
+| If you want to integrate with Twitter oAuth authentication, put your
+| Twitter app details below.
+|--------------------------------------------------------------------------
+*/
+$config['tweet_consumer_key'] = 'Jn1ahgpWquqViPGkJHQOA';
+$config['tweet_consumer_secret'] = 'GPZNc2PxWVuJwAGHsH9okxyedYnh1fIh0mSOD7rg0';
+
+/*
+|--------------------------------------------------------------------------
+| Google Friend Connect App ID
+|
+| If you want to integrate with Twitter oAuth authentication, put your
+| Twitter app details below.
+|--------------------------------------------------------------------------
+*/
+$config['google_app_id'] = '';
+
 
 
 /* End of file config.php */

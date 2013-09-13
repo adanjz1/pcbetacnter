@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"field":"mainMenuOrder","label":"mainMenu","type":"checkbox","type_options":{"size":"210","width":"300","height":"100","thumbnail":"mini"},"validation":"","list_choose":"default","multiple":"","values":["1"],"options":["Yes"]}

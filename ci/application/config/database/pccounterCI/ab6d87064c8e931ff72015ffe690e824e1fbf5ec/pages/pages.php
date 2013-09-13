@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"ids":["Identifier","Title","Header","Paragraph","Meta_title","Meta_keywords","Meta_Description"],"table":{"crudTitle":"pages manager","crudRowsPerPage":"20"},"filter":{"list":["id","Identifier","Title","Header","Paragraph","Meta_title","Meta_keywords","Meta_Description"],"actived":["Identifier","Title","Header"],"atrr":{"id":{"alias":"id"}}},"column":{"list":["id","Identifier","Title","Header","Paragraph","Meta_title","Meta_keywords","Meta_Description"],"atrr":{"id":{"alias":"id"}}},"frm_type":"2"}

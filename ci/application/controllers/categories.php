@@ -32,9 +32,15 @@ class Categories extends CI_Controller {
              * HEADER
              */
             $data['categoriesPaginatorUrl'] = $this->config->item('base_url').$this->config->item('index_page').'/categories/paginator';
-            $data['pageTitle'] = 'Dell Coupons, HP Coupons, Cheap Laptops, Computer Sales';//Title tag
-            $data['page_title'] = '';//H1 tag
-            $data['page_desc'] = '';
+            $this->load->model('pages');
+            $seoPg = $this->pages->getSEOPage('categories');
+            $seoPg = $seoPg[0];
+            $data['pageTitle'] = $seoPg->Title;//Title tag
+            $data['headerText'] = $seoPg->Header;//H1 tag
+            $data['metaTitle'] = $seoPg->Meta_title;
+            $data['metaKeywords'] = $seoPg->Meta_keywords;
+            $data['metaDescription'] = $seoPg->Meta_Description;
+           
             
             /***********************************/
              /**
@@ -67,7 +73,6 @@ class Categories extends CI_Controller {
                  /**
                * Footer
                */
-              $data['staticPages'] = array();
               /**********************************************/
                 $this->load->library('parser');
                 $this->parser->parse('widgets/header', $data);
@@ -87,9 +92,15 @@ class Categories extends CI_Controller {
              * HEADER
              */
             $data['SubcategoriesPaginatorUrl'] = $this->config->item('base_url').$this->config->item('index_page').'/categories/paginator';
-            $data['pageTitle'] = 'Dell Coupons, HP Coupons, Cheap Laptops, Computer Sales';//Title tag
-            $data['page_title'] = '';//H1 tag
-            $data['page_desc'] = '';
+            $this->load->model('pages');
+            $seoPg = $this->pages->getSEOPage('subcategories');
+            $seoPg = $seoPg[0];
+            $data['pageTitle'] = $seoPg->Title;//Title tag
+            $data['headerText'] = $seoPg->Header;//H1 tag
+            $data['metaTitle'] = $seoPg->Meta_title;
+            $data['metaKeywords'] = $seoPg->Meta_keywords;
+            $data['metaDescription'] = $seoPg->Meta_Description;
+           
             
             /***********************************/
              /**
@@ -122,7 +133,6 @@ class Categories extends CI_Controller {
                  /**
                * Footer
                */
-              $data['staticPages'] = array();
               /**********************************************/
                 $this->load->library('parser');
                 $this->parser->parse('widgets/header', $data);
