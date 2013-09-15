@@ -31,7 +31,8 @@
             }
             $data['siteUrl']  = $data['base_url'];
 
-            $data['siteUrlMedia']  = 'http://ec2-54-213-191-45.us-west-2.compute.amazonaws.com/';
+            //$data['siteUrlMedia']  = 'http://ec2-54-213-191-45.us-west-2.compute.amazonaws.com/';
+            $data['siteUrlMedia']  = 'http://pccounter/ci/';
             $data['dealsUrl']  = $data['base_url'].$t->config->item('index_page').'/deals';
             $data['couponsUrl']  = $data['base_url'].$t->config->item('index_page').'/coupons/index';
             $data['categoriesUrl']  = $data['base_url'].$t->config->item('index_page').'/categories/index';
@@ -46,7 +47,16 @@
             
             $data['newsletterMsg'] = '';
             $t->load->model('Source');
-            $data['dealSources'] = $t->Source->get_stores(9);
+            $stor =$t->Source->get_stores(9);
+            foreach($stor as $st){
+                if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
+                    $st->image = $st->deal_source_logo_url;
+                }else{
+                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
+                }
+                
+            }
+            $data['dealSources'] = $stor;
             $data['rightContentTitle'] = 'OUR PROMISE';
             $data['rightContentDescription'] = 'At pccounter.net its all about saving money on your online purchases, we scout the internet 24/7 looking for deals & discount coupon codes. You will find hundereds of thousands of offers that works and let you save money instantly, whether it is an instant discount or free shipping';
             
@@ -57,7 +67,19 @@
             $data['blogUrl'] = (count($data['blogPosts'])>0)?'<li>
                                                 <span style="padding: 0 0 0 120px;"><a href="'.'">Read More</a></span>
                                             </li>':'';
-            $data['banners_type1'] = array();
+            $t->load->model('Banner');
+            $ban = $t->Banner->get_banners();
+            foreach($ban as $st){
+                if(strpos($st->image,'ttp://') || strpos($st->image,'ttps://')){
+                    $st->image = $st->image;
+                }else{
+                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->image;
+                }
+                
+            }
+            $data['banners_type1'] = $ban;
+            $t->load->model('Rightbox');
+            $data['rightBox'] = $t->Rightbox->get_boxes();
             /*********************************/
             
             
@@ -82,6 +104,7 @@
                 foreach( $staticPages as $key=>$val){
                     $staticPages[$key]->url = $data['siteUrlMedia'].'staticPage/index/'.$val->id;
                 }
+                $data['mapUrl'] = $data['siteUrlMedia'].'siteMap/';
                 $data['staticPages'] = $staticPages;
                 
                 

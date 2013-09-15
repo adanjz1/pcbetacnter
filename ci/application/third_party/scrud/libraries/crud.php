@@ -250,7 +250,6 @@ class Crud {
 
         $action = (isset($_GET['xtype'])) ? trim($_GET['xtype']) : '';
         ob_start();
-       
         switch ($action) {
         	case 'index':
         		$this->index();
@@ -306,8 +305,8 @@ class Crud {
         $auth = $CI->crud_auth;
         $src = $CI->input->post('src');
         
-        if (!empty($src)){
-	        foreach ($src[$this->conf['table']] as $k => $v){
+        if (!empty($src) && !empty($src[$this->conf['table']])){
+                foreach ($src[$this->conf['table']] as $k => $v){
 	        
 	        	if (isset($this->conf['form_elements'][$this->conf['table'].'.'.$k]) &&
 	        	$this->conf['form_elements'][$this->conf['table'].'.'.$k]['element'][0] == 'date' && $v != ''){
@@ -493,7 +492,6 @@ class Crud {
         } else {
             $fields = $this->fields;
         }
-
         if (is_file($this->conf['theme_path'] . '/index.php')) {
             require_once $this->conf['theme_path'] . '/index.php';
         } else {
@@ -882,7 +880,8 @@ class Crud {
         	if (is_array($v)){
         		$this->data[$this->conf['table']][$k] = ','.implode(',', $v).',';
         	}else{
-                     if($k=='hot' || $k=='is_active' || $k=='IsDailyDeal' || $k=='mainMenuOrder' ){
+                     if($k=='hot' || $k=='is_active' || $k=='IsDailyDeal' || $k=='mainMenuOrder' || $k=='hotCategory'
+                             || $k=='hotSubCategoty' || $k=='hotDeals'){
                          $vnew = str_replace(',','',$v);
                          if($vnew>0){
                             $this->data[$this->conf['table']][$k] = 1;

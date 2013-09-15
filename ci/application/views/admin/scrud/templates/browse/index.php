@@ -310,9 +310,19 @@ foreach ($this->colsWidth as $k => $v) {
                                                         break;
                                                     case 'image':
                                                     	if (file_exists(__IMAGE_UPLOAD_REAL_PATH__ . '/thumbnail_' . $__value)) {
-                                                    		echo "<img src='" . __MEDIA_PATH__ . "images/thumbnail_" . $__value . "' />";
+                                                            if(strpos($__value, 'ttp://') || strpos($__value, 'ttps://')){
+                                                                echo "<img src='" . $__value . "' />";
+                                                            }else{
+                                                                echo "<img src='" . __MEDIA_PATH__ . "images/thumbnail_" . $__value . "' />";
+                                                            }
+                                                            
                                                     	} else if (__IMAGE_UPLOAD_REAL_PATH__ . '/mini_thumbnail_' . $__value) {
-                                                            echo "<img src='" . __MEDIA_PATH__ . "images/mini_thumbnail_" . $__value . "' />";
+                                                            if(strpos($__value, 'ttp://') || strpos($__value, 'ttps://')){
+                                                                echo "<img src='" . $__value . "' />";
+                                                            }else{
+                                                                echo "<img src='" . __MEDIA_PATH__ . "images/mini_thumbnail_" . $__value . "' />";
+                                                            }
+                                                            
                                                         } else {
                                                             echo '';
                                                         }

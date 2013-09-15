@@ -43,8 +43,26 @@ class Stores extends CI_Controller {
            
             
             $this->load->model('Source');
-            $data['stores'] = $this->Source->get_stores(15);
-            $data['stores2'] = $this->Source->get_stores(21,$limit,$initial);
+            $stor = $this->Source->get_stores(15);
+            foreach($stor as $st){
+                if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
+                    $st->image = $st->deal_source_logo_url;
+                }else{
+                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
+                }
+                
+            }
+            $data['stores'] = $stor;
+            $stor =$this->Source->get_stores(21,$limit,$initial);
+            foreach($stor as $st){
+                if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
+                    $st->image = $st->deal_source_logo_url;
+                }else{
+                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
+                }
+                
+            }
+            $data['stores2'] = $stor;
             $data['noStores'] =  ((count($data['stores2'])==0)?'<div class="pro_box">
                                                         <span style="color:#FF0000;">NO STORES ARE THERE.</span>
                                                  </div>':'');

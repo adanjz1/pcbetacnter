@@ -55,7 +55,7 @@
 					<div class="right_mid">
                                             {dealSources}
                                                 <div class="pic_box">
-                                                    <a href="{deal_source_url}"><img src="{deal_source_logo_url}" alt="" max-width="69" max-height="60" class="border" border="0"/></a>   
+                                                    <a href="{deal_source_url}"><img src="{image}" alt="" max-width="69" max-height="60" class="border" border="0"/></a>   
                                                 </div>
                                             {/dealSources}
 					</div>
@@ -68,16 +68,17 @@
 			
 			<!--OUR OFFERS CMS STARTS-->
 			
-			
+			{rightBox}
 			<div class="right_box">
 				<div class="right_top">
-					<h1>{rightContentTitle}</h1>
+					<h1>{title}</h1>
 				</div>
 				<div class="right_mid">
-					{rightContentDescription}
+					{text}
 				</div>
 				<div class="right_bot"></div>
 			</div>
+                        {/rightBox}
 			
 			<!--OUR OFFERS CMS ENDS-->
 			

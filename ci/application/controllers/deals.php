@@ -36,25 +36,44 @@ class Deals extends CI_Controller {
             $this->load->helper(array('form', 'url')); 
             $data = getConstData($this);
             $this->load->model('pages');
-            $seoPg = $this->pages->getSEOPage('deals');
-            $seoPg = $seoPg[0];
-            $data['pageTitle'] = $seoPg->Title;//Title tag
-            $data['headerText'] = $seoPg->Header;//H1 tag
-            $data['metaTitle'] = $seoPg->Meta_title;
-            $data['metaKeywords'] = $seoPg->Meta_keywords;
-            $data['metaDescription'] = $seoPg->Meta_Description;
-           
+            $this->load->model('Source');
+            if(empty($store)){
+                $seoPg = $this->pages->getSEOPage('deals');
+                $seoPg = $seoPg[0];
+                $data['pageTitle'] = $seoPg->Title;//Title tag
+                $data['headerText'] = $seoPg->Header;//H1 tag
+                $data['metaTitle'] = $seoPg->Meta_title;
+                $data['metaKeywords'] = $seoPg->Meta_keywords;
+                $data['metaDescription'] = $seoPg->Meta_Description;
+            }else{
+                $seoPg = $this->Source->get_source($store);
+                $data['pageTitle'] = $seoPg->title_tag;//Title tag
+                $data['headerText'] = $seoPg->htmlHeader;//H1 tag
+                $data['metaTitle'] = $seoPg->meta_title;
+                $data['metaKeywords'] = $seoPg->meta_keywords;
+                $data['metaDescription'] = $seoPg->meta_description;
+            }
             /**
              * Selected Menu deals and lastest deals
              */
             $deals = array();
             $this->load->model('Deal');
-            $this->load->model('Source');
+            
             $this->load->model('Category');
             if($limit == ''){
                 $limit = 0;
             }
-            $merge = $this->Deal->get_lastDeals(52,$limit,$q,$category,$subcat,$store); //Get the other deals
+            $starred = array();
+            if(!empty($subcat)){
+                $starred = $this->Deal->get_lastStarredSubcatDeals(52,$limit,$q,$category,$subcat,$store); //Get the other deals
+            }elseif(!empty($category)){
+                $starred = $this->Deal->get_lastStarredCatDeals(52,$limit,$q,$category,$subcat,$store); //Get the other deals
+            }else{
+                $starred = $this->Deal->get_lastStarredDeals(52,$limit,$q,$category,$subcat,$store); //Get the other deals
+            }
+            
+            $merge = $this->Deal->get_lastDeals(52-count($starred),$limit,$q,$category,$subcat,$store); //Get the other deals
+            $merge = array_merge($starred,$merge);
             $this->load->library('session');
             foreach($merge as $deal){
                 if(empty($deal->display_name)){

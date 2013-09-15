@@ -81,7 +81,7 @@ class Category extends CI_Model {
          $this->db->from('categories');
         return $this->db->count_all_results();
     }
-    function get_Subcategories($qty,$limit='',$category)
+    function get_Subcategories($qty='',$limit='',$category)
     {
         if(!empty($qty)){
             $this->db->limit($qty,$limit);

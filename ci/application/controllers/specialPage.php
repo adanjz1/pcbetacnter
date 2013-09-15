@@ -28,16 +28,17 @@ class SpecialPage extends CI_Controller {
             $this->load->helper(array('form', 'url')); 
             $data = getConstData($this);
            
-            $data['pageTitle'] = 'Dell Coupons, HP Coupons, Cheap Laptops, Computer Sales';//Title tag
-            $data['page_title'] = '';//H1 tag
-            $data['page_desc'] = '';
-           
-            /**
-             * Selected Menu deals and lastest deals
-             */
             $this->load->model('Pages');
             $page = $this->Pages->getSpecialPage($idPage);
             $page = $page[0];
+           
+            $data['pageTitle'] = $page->title_tag;//Title tag
+            $data['metaTitle'] = $page->meta_title;
+            $data['metaKeywords'] = $page->meta_keywords;
+            $data['metaDescription'] = $page->meta_desc;
+            /**
+             * Selected Menu deals and lastest deals
+             */
             $data['pageName'] = $page->title;
             $data['headerText'] = $page->heading;
             

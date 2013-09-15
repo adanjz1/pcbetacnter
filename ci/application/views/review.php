@@ -83,7 +83,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="details_right">
                             <tr>
                                 <td colspan="2">
-                                    <a href="{deal_url}">{title}</a>
+                                    <a href="{deal_url}">{display_name}</a>
                                 </td>
                             </tr>
                             <tr>

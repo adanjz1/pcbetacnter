@@ -1,4 +1,4 @@
 RewriteEngine on
 RewriteCond $1 !^(index.php|media|images|phpmyadmin|captcha|robots.txt)
-RewriteRule ^(.*)$ /index.php?/$1 [L]
+RewriteRule ^(.*)$ /ci/index.php?/$1 [L]
 

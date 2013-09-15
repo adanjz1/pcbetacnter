@@ -75,13 +75,64 @@ class Deal extends CI_Model {
         $this->db->get('deals');
         return $this->db->count_all_results();
     }
+    
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
         $this->db->order_by("title", "random");  
         $this->db->limit($qty,$from);
+        
+        if($subcat != '' && $subcat != 'null'){
+            $this->db->where('sub_cat_id',$subcat);
+        }
+        if($category != '' && $category != 'null'){
+            $this->db->where('cat_id',$category);
+        }
+        if($store != '' && $store != 'null'){
+            $this->db->where('deal_sources_id',$store);
+        }
         if($q != ''){
-            $this->db->like('title',$q);
-            $this->db->or_like('description',$q);
+            $str = explode('%20',$q);
+            $sep = '';
+            $like='((';
+            foreach($str as $qsearch){
+                $like .= $sep.' title like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $sep = '';
+            $like.=') or (';
+            foreach($str as $qsearch){
+                $like .= $sep.' description like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $like .= '))';
+            $this->db->where($like);
+        }
+        
+        $this->db->where('is_active', '1');
+        $query = $this->db->get('deals');
+        
+        return $query->result();
+    }
+    function get_lastStarredSubcatDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
+    {
+        $this->db->order_by("title", "random");  
+        $this->db->limit($qty,$from);
+        if($q != ''){
+            $str = explode('%20',$q);
+            $sep = '';
+            $like='((';
+            foreach($str as $qsearch){
+                $like .= $sep.' title like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $sep = '';
+            $like.=') or (';
+            foreach($str as $qsearch){
+                $like .= $sep.' description like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $like .= '))';
+            $this->db->where($like);
         }
         if($subcat != '' && $subcat != 'null'){
             $this->db->where('sub_cat_id',$subcat);
@@ -93,6 +144,79 @@ class Deal extends CI_Model {
             $this->db->where('deal_sources_id',$store);
         }
         $this->db->where('is_active', '1');
+        $this->db->where('hotSubCategoty', '1');
+        $query = $this->db->get('deals');
+        
+        return $query->result();
+    }
+    function get_lastStarredCatDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
+    {
+        $this->db->order_by("title", "random");  
+        $this->db->limit($qty,$from);
+       if($q != ''){
+            $str = explode('%20',$q);
+            $sep = '';
+            $like='((';
+            foreach($str as $qsearch){
+                $like .= $sep.' title like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $sep = '';
+            $like.=') or (';
+            foreach($str as $qsearch){
+                $like .= $sep.' description like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $like .= '))';
+            $this->db->where($like);
+        }
+        if($subcat != '' && $subcat != 'null'){
+            $this->db->where('sub_cat_id',$subcat);
+        }
+        if($category != '' && $category != 'null'){
+            $this->db->where('cat_id',$category);
+        }
+        if($store != '' && $store != 'null'){
+            $this->db->where('deal_sources_id',$store);
+        }
+        $this->db->where('hotCategory', '1');
+        $this->db->where('is_active', '1');
+        $query = $this->db->get('deals');
+        
+        return $query->result();
+    }
+    function get_lastStarredDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
+    {
+        $this->db->order_by("title", "random");  
+        $this->db->limit($qty,$from);
+        if($q != ''){
+            $str = explode('%20',$q);
+            $sep = '';
+            $like='((';
+            foreach($str as $qsearch){
+                $like .= $sep.' title like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $sep = '';
+            $like.=') or (';
+            foreach($str as $qsearch){
+                $like .= $sep.' description like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $like .= '))';
+            $this->db->where($like);
+        }
+        if($subcat != '' && $subcat != 'null'){
+            $this->db->where('sub_cat_id',$subcat);
+        }
+        if($category != '' && $category != 'null'){
+            $this->db->where('cat_id',$category);
+        }
+        if($store != '' && $store != 'null'){
+            $this->db->where('deal_sources_id',$store);
+        }
+        $this->db->where('is_active', '1');
+        $this->db->where('hotDeals', '1');
         $query = $this->db->get('deals');
         
         return $query->result();
