@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" >
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
@@ -79,7 +79,7 @@
                     <div class="sighin_box">
                         <ul>
                         <?php
-                        if ('{userId}' == '') {
+                        if ('' == '') {//{userId}
                             ?>
                             <li>
                                 <a href="{registerUrl}">Register</a>
@@ -92,12 +92,7 @@
                                 <a href="{loginUrl}" >
                                     <img src="{siteUrlMedia}media/images/signin.png" alt="" width="73" height="44" border="0"/>
                                 </a>
-                            <?php } else { ?>
-                                <form name="logout" style="padding:0px; margin:0px; float:none;" method="post" action="{loginUrl}">
-                                    <input type="hidden" name="mode" value="logout" />
-                                    <input type="submit" value="Log Out" name="logout" />
-                                </form>
-                                <?php } ?>
+                            <?php } ?>
                             </li>
                             <?php
                             if (array_key_exists("login", $_GET)) {
@@ -107,22 +102,45 @@
                                 }
                             }
                             ?>
-                            <li style="background:none;">
-                                <a href="?login&oauth_provider=twitter">
-                                    <img src="{siteUrlMedia}media/images/signin1.png" alt="" width="73" height="44" border="0"/>
-                                </a>
-                            </li>
+                            
+                            <?php foreach ($this->config->item('third_party_auth_providers') as $provider) : ?>
+                                <li class="third_party <?php echo $provider; ?>"><?php echo anchor('account/connect_'.$provider, ' ', array('title' => sprintf(lang('sign_in_with'), lang('connect_'.$provider)))); ?></li>
+                            <?php endforeach; ?>
+                                <li class="third_party facebook">
+                                    <fb:login-button></fb:login-button>
+                                </li>
+                        	<div id="fb-root"></div>
+                                <script>
+                                        window.fbAsyncInit = function() {
+                                                FB.init({
+                                                        appId: '607430695967375',
+                                                        cookie: true,
+                                                        xfbml: true,
+                                                        oauth: true
+                                                });
+                                                FB.Event.subscribe('auth.login', function(response) {
+                                                        window.location.reload();
+                                                });
+                                                FB.Event.subscribe('auth.logout', function(response) {
+                                                        window.location.reload();
+                                                });
+                                        };
+                                        (function() {
+                                                var e = document.createElement('script'); e.async = true;
+                                                e.src = document.location.protocol +
+                                                '//connect.facebook.net/en_US/all.js';
+                                                document.getElementById('fb-root').appendChild(e);
+                                        }());
+                                </script>
                             <?php
                             } else {
                                 ?>	
                                 <li>
-                                    <a href="{userAccountUrl}">
+<!--                                    <a href="{userAccountUrl}">
                                         My Account
-                                    </a>
+                                    </a>-->
                                 </li>
-                                <li style="background:none;">
-                                    <a href="{logoutUrl}">Log Out</a>
-                                </li>
+                                
                                 <?php
                             }
                             ?>
@@ -141,16 +159,22 @@
         
 		<div class="topbox_r">
 
-			<div id="fb-root" style="float:left;  width: 60px; margin: 0 auto 0 40px;"></div>
-
-			<script>(function(d, s, id) {
-			  var js, fjs = d.getElementsByTagName(s)[0];
-			  if (d.getElementById(id)) return;
-			  js = d.createElement(s); js.id = id;
-			  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-			  fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
-            </script>
+			<div id="fb-root"></div>
+		<script src="http://connect.facebook.net/en_US/all.js"></script>
+		<script type="text/javascript">
+		  	FB.init({appId: "<?php echo $this->config->item('facebook_app_id'); ?>", status: true, cookie: true, xfbml: true});
+		  	FB.Event.subscribe('auth.sessionChange', function(response) {
+		    	if (response.session) 
+		    	{
+		      		// A user has logged in, and a new cookie has been saved
+					//window.location.reload(true);
+		    	} 
+		    	else 
+		    	{
+		      		// The user has logged out, and the cookie has been cleared
+		    	}
+		  	});
+		</script>
              
 			<div class="fb-like" data-href="http://www.unifiedinfotech.net/pc_counter/" data-send="false" data-layout="button_count" data-width="100" data-show-faces="true" style="float: right; width: 81px;"></div>
 

@@ -1898,7 +1898,7 @@ input.signin_btn:hover{
 	position: absolute;
 	float: right;
 	z-index: 1000; 
-	margin: 14px 0 0 470px;
+	margin: 0px 180px;
 }
 table.registration{
 	width: 427px;
@@ -2613,4 +2613,26 @@ position: absolute;
 .dealCategoryList a {
     color: #000;
     font-size: 9pt;
+}
+.third_party.twitter { background: url(../images/signin1.png) no-repeat !important; border-radius: 5px;width: 80px;
+height: 40px;
+}
+li.facebook { width: 80px;
+height: 40px; 
+margin-top: 5px !important;
+border: 0;
+background: none !important;} 
+.third_party.facebook a,.third_party.twitter a{
+    height: 40px;
+    width: 73px;
+    padding-left: 0px;
+}
+.field_error{
+    color:#cc0000;
+    font-size:8pt;
+}
+.left_mid input, .left_mid textarea{
+    width:98%;
+    margin-bottom: 10px;
+    
 }

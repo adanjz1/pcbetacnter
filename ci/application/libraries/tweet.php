@@ -197,7 +197,7 @@
 					
 					if ( isset($this->_responses[$key]) )
 					{
-						
+						var_dump($this->_responses);
 						$response = new tweetResponseOauth( (object) $this->_responses[$key] );
 						if ( $response->__resp->code !== 200 )
 						{
@@ -390,7 +390,6 @@
 				header('Location: '.$this->_getAuthorizationUrl());
 				return;
 			}
-			
 			return $this->_checkLogin();
 		}
 		

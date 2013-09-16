@@ -28,15 +28,12 @@
 						</div>
 						<div class="right_mid">
 							<h1>The Best Coupons & Deals</h1>
-                                                        {newsletterMsg}
-							<ul>
-								<li>Get one daily email featuring our very best offers</li>
-								<li><input type="text" class="search_bg1" name="email" placeholder="Enter Your Email address here"/>
-								<br /><span style="color:#FF0000;" id="err_email"></span>
-								</li>
-								<li><input type="submit" name="Submit2" class="search_btn1" value=""/></li>
-								<li><span><a href="{static_sampleEmailUrl}">Sample Email</a>  |  <a href="{static_privacyPolicyUrl}">Privacy Policy</a></span></li>
-							</ul>
+                                                        <? echo form_open(current_url()); ?>
+                                                        {newsletterMessage}
+							
+                                                        <?
+                                                                echo form_close();
+                                                        ?>
 						</div>
 						<div class="right_bot"></div>
 					</div>
