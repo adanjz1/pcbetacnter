@@ -38,6 +38,7 @@
             $data['categoriesUrl']  = $data['base_url'].$t->config->item('index_page').'/categories/index';
             $data['storesUrl']  = $data['base_url'].$t->config->item('index_page').'/stores/index';
             $data['contactUrl']  = $data['base_url'].$t->config->item('index_page').'/contact/index';
+            $data['registerUrl']  = $data['base_url'].$t->config->item('index_page').'/register/index';
             $data['offerUrlPop'] = $data['base_url'].$t->config->item('index_page').'/deals/pop';
 
              /***********************************/

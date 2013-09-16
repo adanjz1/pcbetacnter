@@ -84,16 +84,6 @@
                             <li>
                                 <a href="{registerUrl}">Register</a>
                             </li>
-                            <li>
-                                <a href="#dialog" name="modal">Sign in</a>
-                            </li>
-                            <li>
-                            <?php if (!'{userPost}'){ ?>
-                                <a href="{loginUrl}" >
-                                    <img src="{siteUrlMedia}media/images/signin.png" alt="" width="73" height="44" border="0"/>
-                                </a>
-                            <?php } ?>
-                            </li>
                             <?php
                             if (array_key_exists("login", $_GET)) {
                                 $oauth_provider = $_GET['oauth_provider'];
