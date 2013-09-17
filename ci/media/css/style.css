@@ -140,7 +140,7 @@ thead>tr>th {
 }
 body{
 	margin:0;
-	background: url(http://pccounter.net/ci/media/images/bg_back.gif) left top repeat-x #ffffff;
+	background: url(http://www.pccounter.net/media/images/bg_back.gif) left top repeat-x #ffffff;
 }
 a{
 	color: #ccc;
@@ -322,7 +322,7 @@ iframe{
 		vertical-align: middle;
 	}
 .dot_line{
-	background: url(http://pccounter.net/ci/media/images/dot_line.gif) left bottom  repeat-x;
+	background: url(http://www.pccounter.net/media/images/dot_line.gif) left bottom  repeat-x;
 }
 img.border{
 	margin: 0;
@@ -415,7 +415,7 @@ div#header ul li.redtext{
 }
 
 .search_box{
-	background: url(http://pccounter.net/ci/media/images/search_bg.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/search_bg.png) left top no-repeat;
 	width: 474px;
 	height: 53px;
 	border:0;
@@ -425,7 +425,7 @@ div#header ul li.redtext{
 .search_bg{
 	font: normal 12px/20px  Arial, Helvetica, sans-serif;
 	color: #9b9b9b;
-	background: url(http://pccounter.net/ci/media/images/textfield_bg.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/textfield_bg.png) left top no-repeat;
 	width: 402px;
 	height: 36px;	
 	border: 0;
@@ -445,7 +445,7 @@ input.search_field{
 	margin: 0;
 }
 input.search_btn{
-	background: url(http://pccounter.net/ci/media/images/go_btn.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/go_btn.png) left top no-repeat;
 	width: 46px;
 	height: 36px;
 	border: 0;
@@ -467,14 +467,14 @@ input.search_bg1{
 	margin: 10px 0;
 }
 input.search_btn1{
-	background: url(http://pccounter.net/ci/media/images/sub_btn.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/sub_btn.gif) left top no-repeat;
 	width: 94px;
 	height: 33px;
 	border: 0;
 	cursor: pointer;
 }
 #navigation_bg{
-	background: url(http://pccounter.net/ci/media/images/nav_bg.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/nav_bg.png) left top no-repeat;
 	width: 1104px;
 	height: 44px;	
 	border: 0;
@@ -497,7 +497,7 @@ input.search_btn1{
 	margin: 0;
 	text-align: left;
 	float: left;
-	background: url(http://pccounter.net/ci/media/images/menu_bar.gif) right top no-repeat;	
+	background: url(http://www.pccounter.net/media/images/menu_bar.gif) right top no-repeat;	
 	list-style-type: none;
 	display: block;	
 	text-decoration: none;
@@ -538,7 +538,7 @@ input.search_btn1{
 	margin: 0;
 	text-align: left;
 	float: right;
-	background: url(http://pccounter.net/ci/media/images/menu_bar.gif) right top no-repeat;	
+	background: url(http://www.pccounter.net/media/images/menu_bar.gif) right top no-repeat;	
 	list-style-type: none;
 	line-height: 44px;	
 }
@@ -632,12 +632,12 @@ div#content{
 .left_top{
 	width: 807px;
 	height: 50px;
-	background: url(http://pccounter.net/ci/media/images/top_heading.gif) left bottom no-repeat;
+	background: url(http://www.pccounter.net/media/images/top_heading.gif) left bottom no-repeat;
 }
 .left_subcat{
 	width: 795px;
 	height: auto;
-	background: url(http://pccounter.net/ci/media/images/top_heading.gif) left bottom no-repeat;
+	background: url(http://www.pccounter.net/media/images/top_heading.gif) left bottom no-repeat;
 }
 .left_top h1{
     margin: 0;
@@ -649,7 +649,7 @@ div#content{
 .left_mid{
 	width: 807px;
 	height: auto;
-	background: url(http://pccounter.net/ci/media/images/mid_heading.gif) left top repeat-y;
+	background: url(http://www.pccounter.net/media/images/mid_heading.gif) left top repeat-y;
 	overflow: hidden;
 	padding-left: 11px;
 }
@@ -666,7 +666,7 @@ div#content{
 .pro_top{
 	width: 185px;
 	height: 5px;
-	background: url(http://pccounter.net/ci/media/images/probg_top.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/probg_top.gif) left top no-repeat;
 	background-size:185px;
 }
 .pro_mid{
@@ -741,14 +741,14 @@ div#content{
 .pro_bot{
 	width: 185px;
 	height: 23px;
-	background: url(http://pccounter.net/ci/media/images/probg_bot.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/probg_bot.png) left top no-repeat;
 	background-size:185px;
 }
 
 .left_bot{
 	width: 807px;
 	height: 9px;
-	background: url(http://pccounter.net/ci/media/images/bot_heading.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/bot_heading.gif) left top no-repeat;
 }
 .rightcol{
 	width: 278px;
@@ -767,7 +767,7 @@ div#content{
 .right_top{
 	width: 278px;
 	height: 49px;
-	background: url(http://pccounter.net/ci/media/images/right_top.gif) left bottom no-repeat;
+	background: url(http://www.pccounter.net/media/images/right_top.gif) left bottom no-repeat;
 }
 .right_top h1{
     margin: 0;
@@ -779,7 +779,7 @@ div#content{
 .right_mid{
 	width: 278px;
 	height: auto;
-	background: url(http://pccounter.net/ci/media/images/right_mid.gif) left top repeat-y;
+	background: url(http://www.pccounter.net/media/images/right_mid.gif) left top repeat-y;
 	overflow: hidden;
 }
 .right_mid h1{
@@ -831,7 +831,7 @@ div#content{
 .right_bot{
 	width: 278px;
 	height: 13px;
-	background: url(http://pccounter.net/ci/media/images/right_bot.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/right_bot.gif) left top no-repeat;
 }
 .pic_box{
 	width: 80px;
@@ -999,7 +999,7 @@ div#content{
 .hot_deal{
 	width: 94px;
 	height: 96px;
-	background: url(http://pccounter.net/ci/media/images/hot_deal.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/hot_deal.png) left top no-repeat;
 	position: absolute;
 	z-index: 1000;
 	float: left;
@@ -1010,7 +1010,7 @@ div#content{
 .hot_dealbtn{
 	width: 160px;
 	height: 38px;
-	background: url(http://pccounter.net/ci/media/images/btn_orange.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/btn_orange.png) left top no-repeat;
 	position: absolute;
 	z-index: 1000;
 	float: left;
@@ -1031,7 +1031,7 @@ div#content{
 .hot_dealbtn1{
 	width: 160px;
 	height: 38px;
-	background: url(http://pccounter.net/ci/media/images/btn_orange.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/btn_orange.png) left top no-repeat;
 	position: absolute;
 	z-index: 1000;
 	float: left;
@@ -1054,7 +1054,7 @@ div#content{
 .hot_dealbtn2{
     width: 120px;
     height: 28px;
-    background: url(http://pccounter.net/ci/media/images/btn_orange2.png) left top no-repeat;
+    background: url(http://www.pccounter.net/media/images/btn_orange2.png) left top no-repeat;
     position: absolute;
     z-index: 1000;
     float: left;
@@ -1077,7 +1077,7 @@ div#content{
 .hot_dealbtn3{
 	width: 160px;
 	height: 38px;
-	background: url(http://pccounter.net/ci/media/images/btn_orange3.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/btn_orange3.png) left top no-repeat;
 	position: absolute;
 	z-index: 1000;
 	float: left;
@@ -1199,7 +1199,7 @@ div#content{
 #footer_bg{
 	width: 100%;
 	height: 375px;
-	background: url(http://pccounter.net/ci/media/images/footerbg.gif) left top repeat-x;
+	background: url(http://www.pccounter.net/media/images/footerbg.gif) left top repeat-x;
 	float: none;
 	margin: 14px auto 0 auto;
 }
@@ -1209,7 +1209,7 @@ div#content{
 	background: none;
 	float: none;
 	margin: 0 auto;
-}.footer2{	width: 1104px;	height: auto;	background: url(http://pccounter.net/ci/media/images/greybg.gif) left top repeat-x;	padding-top:20px;	float: none;	margin: 13px 0px 0px 0px;}
+}.footer2{	width: 1104px;	height: auto;	background: url(http://www.pccounter.net/media/images/greybg.gif) left top repeat-x;	padding-top:20px;	float: none;	margin: 13px 0px 0px 0px;}
 .footer_left{
 	width: 750px;
 	height: auto;
@@ -1259,7 +1259,7 @@ div#content{
 	float: left;
 	text-align: left;
 	margin: 20px 0px 20px 10px;
-	background: url(http://pccounter.net/ci/media/images/line_r.gif) right top repeat-y;
+	background: url(http://www.pccounter.net/media/images/line_r.gif) right top repeat-y;
 	overflow: hidden;
 	font: normal 12px/14px Arial, Helvetica, sans-serif;
 	color: #757575;
@@ -1288,14 +1288,14 @@ div#content{
 }
 .footer_link ul li a{
 	color: #3d3d3d;
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 	text-decoration: none;
 	font: normal 13px/19px Arial, Helvetica, sans-serif;	
 	padding: 2px 14px;
 }
 .footer_link ul li a:hover{
 	color: #399fbf;	
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 	text-decoration: none;
 	font: normal 13px/19px Arial, Helvetica, sans-serif;	
 	padding: 2px 14px;	
@@ -1309,7 +1309,7 @@ footer_link span{
 }
 .footer_link span a{
 	color: #757575;
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 	text-decoration: none;	
 	padding: 0 14px;
 }
@@ -1317,7 +1317,7 @@ footer_link span{
 	color: #757575;	
 	text-decoration: underline;	
 	padding: 0 14px;
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 }
 
 .footer_link1{
@@ -1353,14 +1353,14 @@ footer_link span{
 }
 .footer_link1 ul li a{
 	color: #3d3d3d;
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 	text-decoration: none;
 	font: normal 13px/19px Arial, Helvetica, sans-serif;	
 	padding: 2px 14px;
 }
 .footer_link1 ul li a:hover{
 	color: #399fbf;	
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 	text-decoration: none;
 	font: normal 13px/19px Arial, Helvetica, sans-serif;	
 	padding: 2px 14px;	
@@ -1400,21 +1400,21 @@ footer_link span{
 }
 .footer_link2 ul li a{
 	color: #3d3d3d;
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 	text-decoration: none;
 	font: normal 13px/19px Arial, Helvetica, sans-serif;	
 	padding: 2px 14px;
 }
 .footer_link2 ul li a:hover{
 	color: #399fbf;	
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 	text-decoration: none;
 	font: normal 13px/19px Arial, Helvetica, sans-serif;	
 	padding: 2px 14px;	
 }
 .footer_brands{
 	height: auto;
-	background: url(http://pccounter.net/ci/media/images/greybg.gif) left top repeat-x;
+	background: url(http://www.pccounter.net/media/images/greybg.gif) left top repeat-x;
 	float: none;
 	margin: 0px auto;	padding:0px 10px;
 }
@@ -1435,14 +1435,14 @@ footer_link span{
 }
 .footer_brands ul li a{
 	color: #3d3d3d;
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 	text-decoration: none;
 	font: normal 13px/19px Arial, Helvetica, sans-serif;	
 	padding: 2px 14px;
 }
 .footer_brands ul li a:hover{
 	color: #399fbf;	
-	background: url(http://pccounter.net/ci/media/images/bullets.gif) left center no-repeat;	
+	background: url(http://www.pccounter.net/media/images/bullets.gif) left center no-repeat;	
 	text-decoration: none;
 	font: normal 13px/19px Arial, Helvetica, sans-serif;	
 	padding: 2px 14px;	
@@ -1638,7 +1638,7 @@ img.border2{
 .category_top{
 	width: 189px;
 	height: 37px;
-	background: url(http://pccounter.net/ci/media/images/cat_topbg.gif) left bottom no-repeat;
+	background: url(http://www.pccounter.net/media/images/cat_topbg.gif) left bottom no-repeat;
 }
 .category_top h1{
     margin: 0;
@@ -1662,7 +1662,7 @@ img.border2{
 .category_mid{
 	width: 189px;
 	height: 133px;
-	background: url(http://pccounter.net/ci/media/images/catbg_mid.gif) left top repeat-y;
+	background: url(http://www.pccounter.net/media/images/catbg_mid.gif) left top repeat-y;
 	overflow: hidden;
 }
 .category_mid h1{
@@ -1714,14 +1714,14 @@ img.border2{
 .category_bot{
 	width: 189px;
 	height: 25px;
-	background: url(http://pccounter.net/ci/media/images/catbg_bot.png) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/catbg_bot.png) left top no-repeat;
 }
 
 .category_bg{
 	width: 252px;
 	height: auto;
 	min-height: 680px;
-	background: url(http://pccounter.net/ci/media/images/catbg.gif) left top repeat-y;
+	background: url(http://www.pccounter.net/media/images/catbg.gif) left top repeat-y;
 	overflow: hidden;
 	float: left;
 	color: #646464;
@@ -1832,7 +1832,7 @@ input.txtfieldbg{
 input.signin_btn{
 	width: 94px;
 	height: 33px;
-	background: url(http://pccounter.net/ci/media/images/sign_btn.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/sign_btn.gif) left top no-repeat;
 	font: normal 13px/30px Arial, Helvetica, sans-serif;	
 	color:#fff;
 	text-transform: uppercase;
@@ -1845,7 +1845,7 @@ input.signin_btn{
 input.signin_btn:hover{
 	width: 94px;
 	height: 33px;
-	background: url(http://pccounter.net/ci/media/images/sign_btnh.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/sign_btnh.gif) left top no-repeat;
 	font: normal 13px/30px Arial, Helvetica, sans-serif;	
 	color:#fff;
 	text-transform: uppercase;
@@ -1863,7 +1863,7 @@ input.signin_btn:hover{
 #registration_box{
 	width: 924px;
 	height: 563px;
-	background: url(http://pccounter.net/ci/media/images/registration_back.jpg) center top no-repeat;
+	background: url(http://www.pccounter.net/media/images/registration_back.jpg) center top no-repeat;
 	border: 0;
 	float: none;
 	margin: 28px auto;
@@ -1893,7 +1893,7 @@ input.signin_btn:hover{
 .registration_bg{
 	width: 427px;
 	height: 542px;
-	background: url(http://pccounter.net/ci/media/images/registration_bg.jpg) center top no-repeat;
+	background: url(http://www.pccounter.net/media/images/registration_bg.jpg) center top no-repeat;
 	border: 0;
 	position: absolute;
 	float: right;
@@ -1942,7 +1942,7 @@ input.txtfieldbg{
 input.signin_btn{
 	width: 94px;
 	height: 33px;
-	background: url(http://pccounter.net/ci/media/images/sign_btn.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/sign_btn.gif) left top no-repeat;
 	font: normal 13px/30px Arial, Helvetica, sans-serif;	
 	color:#fff;
 	text-transform: uppercase;
@@ -1955,7 +1955,7 @@ input.signin_btn{
 input.signin_btn:hover{
 	width: 94px;
 	height: 33px;
-	background: url(http://pccounter.net/ci/media/images/sign_btnh.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/sign_btnh.gif) left top no-repeat;
 	font: normal 13px/30px Arial, Helvetica, sans-serif;	
 	color:#fff;
 	text-transform: uppercase;
@@ -1969,7 +1969,7 @@ input.signin_btn:hover{
 input.create_btn{
 	width: 172px;
 	height: 32px;
-	background: url(http://pccounter.net/ci/media/images/create_btnh.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/create_btnh.gif) left top no-repeat;
 	font: normal 13px/30px Arial, Helvetica, sans-serif;	
 	color:#fff;
 	text-transform: uppercase;
@@ -1982,7 +1982,7 @@ input.create_btn{
 input.create_btn:hover{
 	width: 172px;
 	height: 32px;
-	background: url(http://pccounter.net/ci/media/images/create_btn.gif) left top no-repeat;
+	background: url(http://www.pccounter.net/media/images/create_btn.gif) left top no-repeat;
 	font: normal 13px/30px Arial, Helvetica, sans-serif;	
 	color:#fff;
 	text-transform: uppercase;
@@ -2000,7 +2000,7 @@ input.create_btn:hover{
 .forgot_box{
 	width: 1090px;
 	height: 424px;
-	background: url(http://pccounter.net/ci/media/images/envelope.png) left top no-repeat #b5e5fa;
+	background: url(http://www.pccounter.net/media/images/envelope.png) left top no-repeat #b5e5fa;
 	border: 0;
 	float: none;
 	margin: 28px auto;
@@ -2367,7 +2367,7 @@ color: lightyellow;
 	color: #434343;	
 	font: normal 14px/16px Arial, Helvetica, sans-serif;
 	padding: 7px 18px;
-	background: url(http://pccounter.net/ci/media/images/bullet.gif) left center no-repeat;
+	background: url(http://www.pccounter.net/media/images/bullet.gif) left center no-repeat;
 	margin: 0;
 	list-style-type: none;
 }
@@ -2447,7 +2447,7 @@ color: lightyellow;
     text-align: right;
 }
 .buy .button-outer .peelie {
-    background-image: url("http://pccounter.net/ci/media/images/peel1.png");
+    background-image: url("http://www.pccounter.net/media/images/peel1.png");
     background-repeat: no-repeat;
     background-size: 104% auto;
     height: 2.2em;
@@ -2464,7 +2464,7 @@ table.details td a.get_deal{
 	width: 100px;
 	height: 30px;
 	display: inline-block;
-	background: url(http://pccounter.net/ci/media/images/btn_orange2.png) center center repeat-x;
+	background: url(http://www.pccounter.net/media/images/btn_orange2.png) center center repeat-x;
 	color: #fff !important;
 	padding: 0 10x !important;
 	border-radius: 4px !important;
@@ -2557,7 +2557,7 @@ position: absolute;
     
 }
 .shareLinks .thumbs{
-    background: url('http://pccounter.net/ci/media/images/thumb-on.png') no-repeat;
+    background: url('http://www.pccounter.net/media/images/thumb-on.png') no-repeat;
     width: 21px;
     height: 21px;
     float: left;
@@ -2565,7 +2565,7 @@ position: absolute;
     cursor:pointer;
 }
 .shareLinks .share{
-    background: url('http://pccounter.net/ci/media/images/share.png') no-repeat;
+    background: url('http://www.pccounter.net/media/images/share.png') no-repeat;
     width: 21px;
     height: 21px;
     float: left;
@@ -2573,7 +2573,7 @@ position: absolute;
     cursor:pointer;
 }
 .shareLinks .comment{
-    background: url('http://pccounter.net/ci/media/images/comment.png') no-repeat;
+    background: url('http://www.pccounter.net/media/images/comment.png') no-repeat;
     width: 21px;
     height: 21px;
     float: left;
@@ -2581,7 +2581,7 @@ position: absolute;
     cursor:pointer;
 }
 .thumbActive{
-    background: url('http://pccounter.net/ci/media/images/thumb-on_hover.png') no-repeat;
+    background: url('http://www.pccounter.net/media/images/thumb-on_hover.png') no-repeat;
        width: 21px;
     height: 21px;
     float: left;
@@ -2589,10 +2589,10 @@ position: absolute;
     cursor:pointer;
 }
 .shareLinks .thumbs.active{
-    background: url('http://pccounter.net/ci/media/images/thumb-on_hover.png') no-repeat;
+    background: url('http://www.pccounter.net/media/images/thumb-on_hover.png') no-repeat;
 }
 .shareLinks .thumbs:hover{
-    background: url('http://pccounter.net/ci/media/images/thumb-on_hover.png') no-repeat;
+    background: url('http://www.pccounter.net/media/images/thumb-on_hover.png') no-repeat;
 }
 .actualPriceList{
     text-decoration: line-through;
