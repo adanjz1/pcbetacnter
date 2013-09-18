@@ -7,7 +7,7 @@
                     </h1>
                     <div class="border_bg">
                         <a href="{offerUrl}">
-                            <img src="{image}" alt="{display_name}" class="border" border="0"/>
+                            <img src="/ci/media/imageCroper.php?url={image}" alt="{display_name}" class="border" border="0"/>
                         </a>
                     </div>
                     <ul>
