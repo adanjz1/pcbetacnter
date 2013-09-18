@@ -52,7 +52,7 @@ class Categories extends CI_Controller {
                     $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
                     $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$categ->id;
                     if(empty($categ->image)){
-                        $categ->image = 'http://pccounter.net/ci/media/images/noImage.jpg';
+                        $categ->image = 'http://pccounter.net/media/images/noImage.jpg';
                     }
                 }
                 $data['categories'] = $categ_list;
@@ -112,7 +112,7 @@ class Categories extends CI_Controller {
                     $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$cat.'/'.$categ->id;
                     $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$cat.'/'.$categ->id;
                     if(empty($categ->image)){
-                        $categ->image = 'http://pccounter.net/ci/media/images/noImage.jpg';
+                        $categ->image = 'http://pccounter.net/media/images/noImage.jpg';
                     }
                 }
                 $data['categories'] = $categ_list;

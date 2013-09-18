@@ -54,7 +54,7 @@
                                                   {/staticPages}
                                                   <a href="{mapUrl}">Site Map</a>
 				  </div>
-				  <div class="footer_right">Follow us: <a href="http://www.facebook.com/PcCounterProducts" target="_blank"><img src="http://pccounter.net/ci/media/images/facebook1.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a> <a href="#" target="_blank"><img src="http://pccounter.net/ci/media/images/twitter.png" alt="" width="36" height="37" border="0" align="absmiddle"/></a> <a href="{rssUrl}" target="_blank"><img src="http://pccounter.net/ci/media/images/rss.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a>
+				  <div class="footer_right">Follow us: <a href="http://www.facebook.com/PcCounterProducts" target="_blank"><img src="http://pccounter.net/media/images/facebook1.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a> <a href="#" target="_blank"><img src="http://pccounter.net/cidia/images/twitter.png" alt="" width="36" height="37" border="0" align="absmiddle"/></a> <a href="{rssUrl}" target="_blank"><img src="http://pccounter.net/ci/me/images/rss.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a>
 				  </div>
 			    </div>		
 				</div>
@@ -67,7 +67,7 @@
 				<div id="dialog" class="window">
 				   <div>
 					<a href="#" style="position:absolute; margin: -12px 0 0 198px; width:19px; height:19px;" class="close">
-						<img src="http://pccounter.net/ci/media/images/modal-close.png" alt="" width="19" height="19" border="0" align="absmiddle"/>
+						<img src="http://pccounter.net/media/images/modal-close.png" alt="" width="19" height="19" border="0" align="absmiddle"/>
 					</a>
 					</div>
 				  <div style="clear:both; height:10px; line-height:0px;"></div>

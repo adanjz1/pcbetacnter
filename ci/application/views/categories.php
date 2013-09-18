@@ -15,7 +15,7 @@
                     </ul>
                 </div>
                 <div class="category_mid" style="text-align:center;">
-                    <img src="http://pccounter.net/ci/media/images/categories/{image}" onclick="document.location='{dealCategoryUrl}' " alt="" style="max-width:147px; max-height: 133px; cursor:pointer;"  border="0"/>
+                    <img src="http://pccounter.net/media/images/categories/{image}" onclick="document.location='{dealCategoryUrl}' " alt="" style="max-width:147px; max-height: 133px; cursor:pointer;"  border="0"/>
                 </div>
                 <div class="category_bot"></div>
             </div>

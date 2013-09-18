@@ -7,7 +7,7 @@
                     </h1>
                     <div class="border_bg">
                         <a href="{offerUrl}">
-                            <img src="/ci/media/imageCroper.php?url={image}" alt="{display_name}" class="border" border="0"/>
+                            <img src="/media/imageCroper.php?url={image}" alt="{display_name}" class="border" border="0"/>
                         </a>
                     </div>
                     <ul>
@@ -38,13 +38,13 @@
                             
                             <!--TWITTER SHARE STARTS-->
                             <span id="custom-tweet-button">
-                                <a href="javascript: void(0);"  data-via="unifiedinfotech"  data-count="none" onclick="window.open('https://twitter.com/share?url={offerUrl}', 'Twitter', 'width=500,height=500');"><img src="http://pccounter.net/ci/media/images/twitter.gif" alt="" width="16" height="16" border="0" align="top"/></a>
+                                <a href="javascript: void(0);"  data-via="unifiedinfotech"  data-count="none" onclick="window.open('https://twitter.com/share?url={offerUrl}', 'Twitter', 'width=500,height=500');"><img src="http://pccounter.net/media/images/twitter.gif" alt="" width="16" height="16" border="0" align="top"/></a>
                             </span>
                             
                             <!--TWITTER SHARE ENDS-->
 
                             <!--FACEBOOK SHARE STARTS-->
-                            <a target="_blank" href="http://www.facebook.com/dialog/feed?app_id=158698274267858&link={encodedUrl}&picture={image}&name={display_name}&description={encodedDesc}&redirect_uri={offerUrl}"><img src="http://pccounter.net/ci/media/images/facebook.gif" alt="" width="16" height="16" border="0" align="top"/></a>
+                            <a target="_blank" href="http://www.facebook.com/dialog/feed?app_id=158698274267858&link={encodedUrl}&picture={image}&name={display_name}&description={encodedDesc}&redirect_uri={offerUrl}"><img src="http://pccounter.net/media/images/facebook.gif" alt="" width="16" height="16" border="0" align="top"/></a>
                             
                             <!--FACEBOOK SHARE ENDS-->
 
@@ -52,19 +52,19 @@
                             <a href="javascript: void(0);" onclick="popUp = window.open('https://plus.google.com/share?url={reviewUrl}{id}', 'popupwindow', 'scrollbars=yes,width=800,height=400');
                                         popUp.focus();
                                         return false">
-                                <img src="http://pccounter.net/ci/media/images/g1+.gif" alt="Google+" title="Google+"/>
+                                <img src="http://pccounter.net/media/images/g1+.gif" alt="Google+" title="Google+"/>
                             </a>
                             <!--GOOGLE PLUS SHARE ENDS-->
 
                             <!--PINTEREST SHARE STARTS-->
                             <a href="http://pinterest.com/pin/create/button/?url={offerUrl}&media={offerUrl}" target="_blank">
-                                <img src="http://pccounter.net/ci/media/images/pinterest.gif" alt="Pinterest" title="Pinterest"/>
+                                <img src="http://pccounter.net/media/images/pinterest.gif" alt="Pinterest" title="Pinterest"/>
                             </a>
                             <!--PINTEREST SHARE ENDS-->
                                 
                         </li>
                         <li>
-                            <img src="http://pccounter.net/ci/media/images/spacer.gif" alt="" width="1" height="20" border="0"/>
+                            <img src="http://pccounter.net/media/images/spacer.gif" alt="" width="1" height="20" border="0"/>
                         </li>
                     </ul>
                 </div>

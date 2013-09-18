@@ -80,7 +80,7 @@ class Deals extends CI_Controller {
                     $deal->display_name = $deal->title;
                 }
                 if(empty($deal->image_url)){
-                    $deal->image = 'http://pccounter.net/ci/media/images/noImage.jpg';
+                    $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
                 }else{
                     $deal->image =$deal->image_url;
                 }
@@ -179,7 +179,7 @@ class Deals extends CI_Controller {
                     $deal->display_name = $deal->title;
                 }
                 if(empty($deal->image_url)){
-                    $deal->image = 'http://pccounter.net/ci/media/images/noImage.jpg';
+                    $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
                 }else{
                     $deal->image =$deal->image_url;
                 }
@@ -221,9 +221,9 @@ class Deals extends CI_Controller {
                 $deal->avgStars='';
                 for ($i = 1; $i <= 10; $i++) {
                     if (intval($i) <= intval($deal->starPerc)) {
-                        $deal->avgStars.='<img class="star" src="http://pccounter.net/ci/media/images/star2.gif">';
+                        $deal->avgStars.='<img class="star" src="http://pccounter.net/media/images/star2.gif">';
                     } else {
-                        $deal->avgStars.='<img class="star" src="http://pccounter.net/ci/media/images/star1.gif">';
+                        $deal->avgStars.='<img class="star" src="http://pccounter.net/media/images/star1.gif">';
                     }
                 }
 
@@ -286,7 +286,7 @@ class Deals extends CI_Controller {
                     $deal->display_name = $deal->title;
                 }
                 if(empty($deal->image_url)){
-                    $deal->image = 'http://pccounter.net/ci/media/images/noImage.jpg';
+                    $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
                 }else{
                     $deal->image =$deal->image_url;
                 }
@@ -330,9 +330,9 @@ class Deals extends CI_Controller {
                 $deal->avgStars='';
                 for ($i = 1; $i <= 10; $i++) {
                     if (intval($i) <= intval($deal->starPerc)) {
-                        $deal->avgStars.='<img class="star" src="http://pccounter.net/ci/media/images/star2.gif">';
+                        $deal->avgStars.='<img class="star" src="http://pccounter.net/media/images/star2.gif">';
                     } else {
-                        $deal->avgStars.='<img class="star" src="http://pccounter.net/ci/media/images/star1.gif">';
+                        $deal->avgStars.='<img class="star" src="http://pccounter.net/media/images/star1.gif">';
                     }
                 }
 
@@ -357,7 +357,7 @@ class Deals extends CI_Controller {
 			</div>';
                 }else{
 			$deal->couponCode ='<div class="code">
-				<div class="code_top">Use this code <span><img src="http://pccounter.net/ci/media/images/click_to_copy.png" border="0" alt="click to copy" /></span></div>
+				<div class="code_top">Use this code <span><img src="http://pccounter.net/media/images/click_to_copy.png" border="0" alt="click to copy" /></span></div>
 				<div class="main_code">'.$deal->coupon_code.'</div>
 			</div> ';
                 }

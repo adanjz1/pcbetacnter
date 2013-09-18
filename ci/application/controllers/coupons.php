@@ -65,7 +65,7 @@ class Coupons extends CI_Controller {
                     $deal->display_name = $deal->title;
                 }
                 if(empty($deal->image_url)){
-                    $deal->image = 'http://pccounter.net/ci/media/images/noImage.jpg';
+                    $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
                 }else{
                     $deal->image =$deal->image_url;
                 }

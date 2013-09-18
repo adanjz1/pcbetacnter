@@ -7,7 +7,7 @@
             <div id='carousel_container' class="carousel_container">
                 <div id='left_scroll' style="width:28px; float:left; z-index:1000;">
                     <a href='javascript:slide("left");'>
-                        <img src='http://pccounter.net/ci/media/images/left.png' width="26" height="60" border="0" />
+                        <img src='http://pccounter.net/media/images/left.png' width="26" height="60" border="0" />
                     </a>
                 </div>
                 <div id='carousel_inner' style="width:715px; float:left; z-index:0; overflow:hidden; padding-left:2px;">
@@ -23,7 +23,7 @@
                 </div>
                 <div id='right_scroll' style="width:30px; float:left;">
                     <a href='javascript:slide("right");'>
-                        <img src='http://pccounter.net/ci/media/images/right.png' width="26" height="60" border="0"/>
+                        <img src='http://pccounter.net/media/images/right.png' width="26" height="60" border="0"/>
                     </a>
                 </div>
                 <input type='hidden' id='hidden_auto_slide_seconds' value=0 />
@@ -47,7 +47,7 @@
                     </li>
                     <li style="margin: 6px 0;">
                         <a href="{storesUrl}">
-                            <img src="http://pccounter.net/ci/media/images/all_btn.gif" alt="" width="89" height="22" border="0"/>
+                            <img src="http://pccounter.net/media/images/all_btn.gif" alt="" width="89" height="22" border="0"/>
                         </a>
                     </li>
                 </ul>

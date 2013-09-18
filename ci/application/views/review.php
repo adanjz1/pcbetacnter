@@ -1,5 +1,5 @@
-<script src="http://pccounter.net/ci/media/js/SpryTabbedPanels.js" type="text/javascript"></script>
-<link href="http://pccounter.net/ci/media/css/SpryTabbedPanels.css" rel="stylesheet" type="text/css"/>
+<script src="http://pccounter.net/media/js/SpryTabbedPanels.js" type="text/javascript"></script>
+<link href="http://pccounter.net/media/css/SpryTabbedPanels.css" rel="stylesheet" type="text/css"/>
 <script language=javascript>
     $(document).ready(function(){
         $('.TabbedPanelsTab').click(function(){
@@ -14,11 +14,11 @@
   {
   	for(var x=1;x<=10;x++)
 	{
-		$('#'+name+x).attr('src',"http://pccounter.net/ci/media/images/star1.gif");
+		$('#'+name+x).attr('src',"http://pccounter.net/media/images/star1.gif");
 	}
 	for(var x=1;x<=val;x++)
 	{
-            $('#'+name+x).attr('src',"http://pccounter.net/ci/media/images/star2.gif");
+            $('#'+name+x).attr('src',"http://pccounter.net/media/images/star2.gif");
 	}
 	document.getElementById(field).value = val;
 	
@@ -27,7 +27,7 @@
   {
 	for(var x=1;x<=val;x++)
 	{
-		document[name+x].src="http://pccounter.net/ci/media/images/star1.gif";
+		document[name+x].src="http://pccounter.net/media/images/star1.gif";
 	}
   }
 
@@ -196,11 +196,11 @@
                                         }
                                         if ($i <= '{starPerc}') {
                                             ?>
-                                            <img name=i<?= $i ?> id="i<?= $i ?>" class=star onmouseover="selstar(<?= $i ?>, 'item_rating', 'i')" onclick="setrate(<?= $i ?>, 'item_rating', 'i')" src="http://pccounter.net/ci/media/images/star2.gif">&nbsp;&nbsp;
+                                            <img name=i<?= $i ?> id="i<?= $i ?>" class=star onmouseover="selstar(<?= $i ?>, 'item_rating', 'i')" onclick="setrate(<?= $i ?>, 'item_rating', 'i')" src="http://pccounter.net/media/images/star2.gif">&nbsp;&nbsp;
                                             <?php
                                         } else {
                                             ?>
-                                            <img name=i<?= $i ?> id="i<?= $i ?>" class=star onmouseover="selstar(<?= $i ?>, 'item_rating', 'i')" onclick="setrate(<?= $i ?>, 'item_rating', 'i')" src="http://pccounter.net/ci/media/images/star1.gif">&nbsp;&nbsp;
+                                            <img name=i<?= $i ?> id="i<?= $i ?>" class=star onmouseover="selstar(<?= $i ?>, 'item_rating', 'i')" onclick="setrate(<?= $i ?>, 'item_rating', 'i')" src="http://pccounter.net/media/images/star1.gif">&nbsp;&nbsp;
                                             <?php
                                         }
                                     }

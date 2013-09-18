@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Welcome</title>
-<link href="http://pccounter.net/ci/media/css/popup_style.css" rel="stylesheet" type="text/css" />
+<link href="http://pccounter.net/media/css/popup_style.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
 	function newscheck()
 	{
@@ -50,8 +50,8 @@
 	<div class="offerid_actions">
 		<ul>
 			
-			<li><a href="{productReviewUrl}"><span><img src="http://pccounter.net/ci/media/images/thumb-on.png" border="0" /></span>{qtyReviews} Review (s)</a></li>
-			<li><a style="padding-left:0px;" href="{productReviewUrl}"><span><img src="http://pccounter.net/ci/media/images/comment.png" border="0" /></span>{qtyComments} comment(s)</a></li>
+			<li><a href="{productReviewUrl}"><span><img src="http://pccounter.net/media/images/thumb-on.png" border="0" /></span>{qtyReviews} Review (s)</a></li>
+			<li><a style="padding-left:0px;" href="{productReviewUrl}"><span><img src="http://pccounter.net/media/images/comment.png" border="0" /></span>{qtyComments} comment(s)</a></li>
                 </ul>
 	</div>
 <div class="clear"></div>	
