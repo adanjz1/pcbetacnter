@@ -1,6 +1,15 @@
 <?php
 //header("Content-Type: image/jpeg");
-$jpg = imagecreatefrompng($_GET['url']);
+if(substr($_GET['url'],-3) == 'png' ||  substr($_GET['url'],-3) == 'PNG'){
+    $jpg = imagecreatefrompng($_GET['url']);
+}elseif(substr($_GET['url'],-3) == 'jpg' ||  substr($_GET['url'],-3) == 'JPG'){
+    $jpg = imagecreatefromjpeg($_GET['url']);
+}elseif(substr($_GET['url'],-3) == 'gif' ||  substr($_GET['url'],-3) == 'GIF'){
+    $jpg = imagecreatefromgif($_GET['url']);
+}else{
+    echo $_GET['url'];
+    die();
+}
 
 //$img = imagecreatefromjpeg($image_path);
 $black = array("red" => 255, "green" => 255, "blue" => 255, "alpha" => 127);
