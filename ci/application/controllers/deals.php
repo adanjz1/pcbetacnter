@@ -37,7 +37,29 @@ class Deals extends CI_Controller {
             $data = getConstData($this);
             $this->load->model('pages');
             $this->load->model('Source');
-            if(empty($store)){
+            $this->load->model('Category');
+            if(!empty($store)){
+                $seoPg = $this->Source->get_source($store);
+                $data['pageTitle'] = $seoPg->title_tag;//Title tag
+                $data['headerText'] = $seoPg->htmlHeader;//H1 tag
+                $data['metaTitle'] = $seoPg->meta_title;
+                $data['metaKeywords'] = $seoPg->meta_keywords;
+                $data['metaDescription'] = $seoPg->meta_description;
+            }elseif(!empty($subcat)){
+                $seoPg = $this->Category->get_subcategoryById($subcat);
+                $data['pageTitle'] = $seoPg->title;//Title tag
+                $data['headerText'] = $seoPg->header;//H1 tag
+                $data['metaTitle'] = $seoPg->meta_title;
+                $data['metaKeywords'] = $seoPg->meta_keywords;
+                $data['metaDescription'] = $seoPg->meta_description;
+            }elseif(!empty($category)){
+                $seoPg = $this->Category->get_categoryById($category);
+                $data['pageTitle'] = $seoPg->title;//Title tag
+                $data['headerText'] = $seoPg->header;//H1 tag
+                $data['metaTitle'] = $seoPg->meta_title;
+                $data['metaKeywords'] = $seoPg->meta_keywords;
+                $data['metaDescription'] = $seoPg->meta_description;
+            }else{
                 $seoPg = $this->pages->getSEOPage('deals');
                 $seoPg = $seoPg[0];
                 $data['pageTitle'] = $seoPg->Title;//Title tag
@@ -45,13 +67,6 @@ class Deals extends CI_Controller {
                 $data['metaTitle'] = $seoPg->Meta_title;
                 $data['metaKeywords'] = $seoPg->Meta_keywords;
                 $data['metaDescription'] = $seoPg->Meta_Description;
-            }else{
-                $seoPg = $this->Source->get_source($store);
-                $data['pageTitle'] = $seoPg->title_tag;//Title tag
-                $data['headerText'] = $seoPg->htmlHeader;//H1 tag
-                $data['metaTitle'] = $seoPg->meta_title;
-                $data['metaKeywords'] = $seoPg->meta_keywords;
-                $data['metaDescription'] = $seoPg->meta_description;
             }
             /**
              * Selected Menu deals and lastest deals
@@ -59,7 +74,7 @@ class Deals extends CI_Controller {
             $deals = array();
             $this->load->model('Deal');
             
-            $this->load->model('Category');
+            
             if($limit == ''){
                 $limit = 0;
             }

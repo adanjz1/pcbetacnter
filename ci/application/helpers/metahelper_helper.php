@@ -2,7 +2,7 @@
 
 
        function getConstData ($t){
-         // $t->output->cache(5);
+          //$t->output->cache(10);
            $data['base_url'] = $t->config->item('base_url');
             $data['msg']='';
             if(!empty($_REQUEST['msg'])){

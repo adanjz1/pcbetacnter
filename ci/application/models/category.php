@@ -26,6 +26,18 @@ class Category extends CI_Model {
         
         return $query->result();
     }
+    function get_categoryById($cat){
+        $this->db->like('id',$cat);
+        $query = $this->db->get('categories');
+        $row = $query->result();
+        return $row[0];
+    }
+    function get_subcategoryById($cat){
+        $this->db->like('id',$cat);
+        $query = $this->db->get('subCategories');
+        $row = $query->result();
+        return $row[0];
+    }
     function get_categoryByStr($catName){
         $this->db->like('name',$catName);
         $query = $this->db->get('categories');
