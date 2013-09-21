@@ -1,4 +1,9 @@
 <?php
+$img = get_headers($_GET['url'], 1);
+$size = $img["Content-Length"]/1024/1024;
+if($size > 1.5){
+    die();
+}
 //header("Content-Type: image/jpeg");
 if(substr($_GET['url'],-3) == 'png' ||  substr($_GET['url'],-3) == 'PNG'){
     $jpg = imagecreatefrompng($_GET['url']);
@@ -73,8 +78,8 @@ imagefill($im, 0, 0, $white);
 # do whatever you want with transparent image
 $lime = imagecolorallocate($im, 204, 255, 51);
 imagecopy($im, $jpg, 0, 0, $removeLeft, $removeTop, imagesx($im), imagesy($im));
-header("Content-type: image/png");
-imagepng($im);
+header("Content-type: image/jpg");
+imagejpeg($im);
 imagedestroy($im);
 
 ?>

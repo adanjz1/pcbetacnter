@@ -12,8 +12,11 @@
         <link href="{siteUrlMedia}media/css/style.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
         <script type="text/javascript" src="{siteUrlMedia}media/js/main.js"></script>
-        <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
         <script type="text/javascript" src="{siteUrlMedia}media/js/code.js"></script>
+        <meta http-equiv="cache-control" content="no-cache"></meta>
+        <meta http-equiv="content-language" content="en-US"></meta>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"></meta>
+        <meta http-equiv="set-cookie" content="w3scookie=myContent;expires=Fri, 30 Dec 2020 12:00:00 GMT; path=http://www.w3schools.com">
         
     </head>
     <body>
@@ -170,7 +173,13 @@
 
 			
 
-			<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+			<script type="text/javascript">
+                            (function() {
+                              var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                              po.src = 'https://apis.google.com/js/plusone.js';
+                              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                            })();
+                          </script>
 
 			<div class="g-plusone"></div>
 		</div>
