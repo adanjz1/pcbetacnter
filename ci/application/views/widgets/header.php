@@ -10,16 +10,16 @@
         <meta name="keywords" content="{metaKeywords}"/>
         <meta name="description" content="{metaDescription}"/>
         <link href="{siteUrlMedia}media/css/style.css" rel="stylesheet" type="text/css"/>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
-        <script type="text/javascript" src="{siteUrlMedia}media/js/main.js"></script>
-        <script type="text/javascript" src="{siteUrlMedia}media/js/code.js"></script>
-        <meta http-equiv="cache-control" content="no-cache"></meta>
+        <meta http-equiv="Cache-control" content="public">
         <meta http-equiv="content-language" content="en-US"></meta>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"></meta>
         <meta http-equiv="set-cookie" content="w3scookie=myContent;expires=Fri, 30 Dec 2020 12:00:00 GMT; path=http://www.w3schools.com">
         
     </head>
     <body>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+        <script type="text/javascript" src="{siteUrlMedia}media/js/main.js"></script>
+        <script type="text/javascript" src="{siteUrlMedia}media/js/code.js"></script>
         <div id="maindiv">
             <div id="header">
                 <div class="header_left">
