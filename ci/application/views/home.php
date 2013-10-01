@@ -44,7 +44,7 @@
             {newestCoupons}
             <div class="coupon_box">
                 <div class="coupon" style="margin: 10px auto 0 6px;">
-                    <img src="{image}" alt="" width="162" height="77" border="0" class="border"/>
+                    <img src="{image}" alt="" style="max-width: 162px;max-height:77px;" border="0" class="border"/>
                 </div>
                 <div class="coupon" style="width: 184px; padding: 0 0 0 19px;">
                     <ul>

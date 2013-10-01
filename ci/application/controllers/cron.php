@@ -972,7 +972,7 @@ function detectPosibleCat($strings,$cron){
     }
 //      $aws_key = 'AKIAJGCWM3IREFTDZUKA';
 //$aws_secret = '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';
-    function s3upload($source_file,$aws_object,$batch){
+    function s3upload($source_file,$aws_object){
        // Include the SDK using the Composer autoloader
         
         // Instantiate the S3 client with your AWS credentials and desired AWS region

@@ -98,13 +98,14 @@ public function index()
                 if(empty($deal->display_name)){
                     $deal->display_name = $deal->title;
                 }
+                $source = $this->Source->get_source($deal->deal_sources_id);
                 if(empty($deal->image_url)){
-                    $deal->image = 'media/images/noImage.jpg';
+                    $deal->image = $source->deal_source_logo_url;
                 }else{
                     $deal->image =$deal->image_url;
                 }
                 if(!empty($deal->deal_sources_id)){
-                    $deal->provider = $this->Source->get_dealSourceStr($deal->deal_sources_id);
+                    $deal->provider = $source->deal_source_name;
                 }
                 if($deal->actual_price >0){
                     $savings = ($deal->actual_price - $deal->deal_price);
@@ -115,7 +116,6 @@ public function index()
                 $deal->couponCode = $deal->coupon_code;
                 $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
                 $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
-                var_dump($deal->categoryStr );
                 $deal->catUrl = $this->Category->get_CatUrl($deal->cat_id);
             }
             $data['newestCoupons'] = $coupons;

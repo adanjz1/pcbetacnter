@@ -21,7 +21,7 @@
             {deals}
             <div class = "coupon_box">
                 <div class = "coupon" style = "margin: 10px auto 0 6px;">
-                    <img src="{image}"  alt="{display_name}" border="0" width="162" height="77"  class="border"/>
+                    <img src="{image}"  alt="{display_name}" border="0" style="max-width:162px; max-height:77px;"  class="border"/>
                 </div>
                 <div class="coupon" style="width: 184px; padding: 0 0 0 19px;">
                     <ul>

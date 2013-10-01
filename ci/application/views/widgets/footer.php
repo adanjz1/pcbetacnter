@@ -54,7 +54,7 @@
                                                   {/staticPages}
                                                   <a href="{mapUrl}">Site Map</a>
 				  </div>
-				  <div class="footer_right">Follow us: <a href="http://www.facebook.com/PcCounterProducts" target="_blank"><img src="http://pccounter.net/media/images/facebook1.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a> <a href="#" target="_blank"><img src="http://pccounter.net/cidia/images/twitter.png" alt="" width="36" height="37" border="0" align="absmiddle"/></a> <a href="{rssUrl}" target="_blank"><img src="http://pccounter.net/ci/me/images/rss.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a>
+				  <div class="footer_right">Follow us: <a href="http://www.facebook.com/PcCounterProducts" target="_blank"><img src="http://pccounter.net/media/images/facebook1.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a> <a href="#" target="_blank"><img src="http://pccounter.net/media/images/twitter.png" alt="" width="36" height="37" border="0" align="absmiddle"/></a> <a href="{rssUrl}" target="_blank"><img src="http://pccounter.net/media/images/rss.png" alt="" width="35" height="37" border="0" align="absmiddle"/></a>
 				  </div>
 			    </div>		
 				</div>

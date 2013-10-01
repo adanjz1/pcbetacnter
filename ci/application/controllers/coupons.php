@@ -64,13 +64,14 @@ class Coupons extends CI_Controller {
                 if(empty($deal->display_name)){
                     $deal->display_name = $deal->title;
                 }
+                $source = $this->Source->get_source($deal->deal_sources_id);
                 if(empty($deal->image_url)){
-                    $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
+                    $deal->image = $source->deal_source_logo_url;
                 }else{
                     $deal->image =$deal->image_url;
                 }
                 if(!empty($deal->deal_sources_id)){
-                    $deal->provider = $this->Source->get_dealSourceStr($deal->deal_sources_id);
+                    $deal->provider = $source->deal_source_name;
                 }
                 if($deal->hot){
                     $deal->hot = '<div class="hot_deal"></div>';
