@@ -43,7 +43,10 @@ $route['default_controller'] = "home";
 $route['404_override'] = '';
 
 
+$route['coupon-codes/(:num)'] = 'coupons/index/$1';
+$route['deals-list/(:num)'] = 'deals/index/$1';
 $route['coupon-codes'] = 'coupons';
+$route['deals-list'] = 'deals';
 $route['all-stores'] = 'stores';
 $route["categories/(:num)"] = "categories/index/$1";
 $route["web-hosting-deals"] = "deals/index/0/20/20";
