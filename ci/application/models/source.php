@@ -19,6 +19,7 @@ class Source extends CI_Model {
     function set_newSource($name, $programId){
         $this->db->set('programId', $programId);
         $this->db->set('deal_source_name', $name);
+        $this->db->set('name', $name);
         $this->db->insert('deal_sources');
         return $this->db->insert_id();
     }
