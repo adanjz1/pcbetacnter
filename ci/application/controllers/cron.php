@@ -39,7 +39,7 @@ class Cron extends CI_Controller {
     if(empty($_GET['debug']) || $_GET['debug'] == 'linkshare'){
         
         set_time_limit(0);
-        $keyword = array("MP3", "Camera", "Software", "Hardware", "DVD Player", "Computer", "Xerox", "Printer", "telephone", "ipaq", "Notebook", "Antivirus", "Keyboard", "Mouse", "HP", "Mac", "Sony", "Samsung", "Amazon");
+        $keyword = array("MP3", "Camera", "Software", "Hardware", "DVD Player", "Computer", "Xerox", "Printer", "telephone", "ipaq", "Notebook", "Antivirus", "Keyboard", "Mouse", "HP", "Mac", "Sony", "Samsung", "Amazon","Apple","Dell","Microsoft","logitech","cisco","tplink","game");
 
         $totalRecords = 1000; //AUXILIAR
         $i = 0;
@@ -60,22 +60,29 @@ class Cron extends CI_Controller {
                     if (intVal($product->price) > 0) {
                         $longDesc = htmlentities($product->description->long);
                         $shortDesc = htmlentities($product->description->short);
+                        $hash = md5($product->productname.$product->linkurl.$product->sku);
                         $params = array(
-                            'title' => "$product->productname",
-                            'description' => "$longDesc",
-                            'short_description' => "$shortDesc",
-                            'deal_url' => "$product->linkurl",
-                            'image_url' => "$product->imageurl",
-                            'deal_start_date' => str_replace('/', ' ', $product->createdon),
-                            'deal_price' => $product->price,
-                            'actual_price' => $product->saleprice,
-                            'meta_keywords' => "$product->keywords",
-                            'savings_amount' => $product->saleprice - $product->price,
-                            'keywords' => "$product->keywords",
-                            'sku' => "$product->sku"
+                            'hash_md5'=> "$hash"
                         );
+                        
+                        
                         $matchDeal = $this->Deal->findMatchDeals($params);
                         if (empty($matchDeal)) {
+                            $params = array(
+                                'title' => "$product->productname",
+                                'description' => "$longDesc",
+                                'short_description' => "$shortDesc",
+                                'deal_url' => "$product->linkurl",
+                                'image_url' => "$product->imageurl",
+                                'deal_start_date' => str_replace('/', ' ', $product->createdon),
+                                'deal_price' => $product->price,
+                                'actual_price' => $product->saleprice,
+                                'meta_keywords' => "$product->keywords",
+                                'savings_amount' => $product->saleprice - $product->price,
+                                'keywords' => "$product->keywords",
+                                'sku' => "$product->sku",
+                                'hash_md5'=> "$hash"
+                            );
                             $SourceId = $this->Source->get_dealSourceIdByStr("$product->merchantname");
                             if (empty($SourceId)) {
                                 $SourceId = $this->Source->set_newSource("$product->merchantname", $product->mid);
@@ -110,11 +117,6 @@ class Cron extends CI_Controller {
             if ($xml->TotalMatches > 100) {
                 $totalPages = $xml->TotalPages;
             }
-            $sleepI++;
-            if ($sleepBetweenPages == $sleepI) {
-                $sleepI = 0;
-                sleep(1);
-            }
         }
         $this->Deal->set_deal($insertStack);
     }
@@ -124,25 +126,30 @@ class Cron extends CI_Controller {
 //        $this->load->model('Deal');
 //        $this->load->model('Source');
     if(empty($_GET['debug']) || $_GET['debug'] == 'linkshareCoupons'){
-        sleep(2);
-        $insertStack[] = array();
+        $insertStack = array();
         $xmlLink = "http://couponfeed.linksynergy.com/coupon?token=9c572896dedff9f2f640edaceeff1e37ead2a7a844ceb2ca7360d19f89807f07&category=10|13|27|29";
         $xml = simpleXML_load_file($xmlLink, "SimpleXMLElement", LIBXML_NOCDATA);
         //
         //$prod->category can be array
         foreach ($xml->link as $product) {
             $longDesc = htmlentities($product->offerdescription);
+            $hash = md5($product->offerdescription.$product->clickurl.$product->couponcode);
             $params = array(
-                'title' => "$product->offerdescription",
-                'description' => "$longDesc",
-                'deal_url' => "$product->clickurl",
-                'deal_start_date' => $product->offerstartdate,
-                'deal_end_date' => str_replace('ongoing', '', $product->offerenddate),
-                'coupon_code' => "$product->couponcode",
-                'image_url' => "$product->imageurl"
+                'hash_md5'=> "$hash"
             );
+            
             $matchDeal = $this->Deal->findMatchDeals($params);
             if (empty($matchDeal)) {
+                $params = array(
+                    'title' => "$product->offerdescription",
+                    'description' => "$longDesc",
+                    'deal_url' => "$product->clickurl",
+                    'deal_start_date' => $product->offerstartdate,
+                    'deal_end_date' => str_replace('ongoing', '', $product->offerenddate),
+                    'coupon_code' => "$product->couponcode",
+                    'image_url' => "$product->imageurl",
+                    'hash_md5'=> "$hash"
+                 );
                 $SourceId = $this->Source->get_dealSourceIdByStr("$product->advertisername");
                 if (empty($SourceId)) {
                     $SourceId = $this->Source->set_newSource("$product->advertisername", $product->advertiserid);
@@ -154,7 +161,7 @@ class Cron extends CI_Controller {
                 $params['sub_cat_id'] = detectPosibleSubCat(array($product->offerdescription,$longDesc),$params['cat_id'],$this);
                 $params['is_active'] = 1;
                 $insertStack[] = $params;
-                if(count($insertStack) == 500){
+                if(count($insertStack) == 500 && count($insertStack)>0){
                     $this->Deal->set_deal($insertStack);
                     $insertStack = array();
                 }
@@ -166,7 +173,9 @@ class Cron extends CI_Controller {
                 }
             }
         }
-        $this->Deal->set_deal($insertStack);
+        if(count($insertStack) >0){
+            $this->Deal->set_deal($insertStack);
+        }
     }
     
 //    }
@@ -177,7 +186,6 @@ class Cron extends CI_Controller {
 //        $this->load->model('Category');
     if(empty($_GET['debug']) || $_GET['debug'] == 'comissionJunction'){
         $dbug = 0;
-        sleep(2);
         set_time_limit(0);
         $insertStack = array();
         $batch = array();
@@ -245,10 +253,8 @@ class Cron extends CI_Controller {
             $breakPageNumber = 1;
             $howmany = 1000;
             $totalPages = 1;
-            $keywords = '';
-            if($advId == '2045991' || $advId =='1807847' || $advId=='3295320'){
-                $keywords = urlencode('laptop notebook cellphone printer ink tabet smartphone server game keyboard mouse network gaming');
-            }
+            $keywords = urlencode('laptop notebook cellphone printer ink tabet smartphone server game keyboard mouse network gaming netbook apple toshiba dell samsung sony hp microsoft adobe autodesk');
+            
             while ($pagenumber <= $totalPages) {
                 $url = "https://product-search.api.cj.com/v2/product-search?website-id=$websiteid&advertiser-ids=$advId&page-number=$pagenumber&records-per-page=$howmany&keywords=$keywords";
                 $ch = curl_init();
@@ -284,8 +290,6 @@ class Cron extends CI_Controller {
                     $hash = md5($bu.$product->sku);
                     $params = array(
                         'hash_md5'=> "$hash",
-//                        'deal_url' => "$bu",
-//                        'sku' => "$product->sku"
                     );
                     
                     $matchDeal = $this->Deal->findMatchDeals($params);
@@ -321,7 +325,7 @@ class Cron extends CI_Controller {
                             $params['is_active'] = 1;
                             //$this->Deal->set_deal($params);
                             $insertStack[] = $params;
-                            if(count($insertStack) == 500){
+                            if(count($insertStack) == 500 && count($insertStack)){
                                 $this->Deal->set_deal($insertStack);
                                 $insertStack = array();
                                 
@@ -401,7 +405,15 @@ class Cron extends CI_Controller {
             foreach ($xml->dealcouponlistreportrecord as $product) {
                 //var_dump($product);
                 $image = ($product->bigimage=='http://')?'':$product->bigimage;
-                        $params = array(
+                $hash = md5($product->title.$product->trackingurl.$image);
+                $params = array(
+                    'hash_md5'=> "$hash"
+                );
+            
+                        
+                        $matchDeal = $this->Deal->findMatchDeals($params);
+                        if (empty($matchDeal)) {
+                            $params = array(
                             'title' => "$product->title",
                             'description' => "$product->description",
                             'deal_url' => "$product->trackingurl",
@@ -410,10 +422,9 @@ class Cron extends CI_Controller {
                             'deal_end_date' => substr($product->enddate,0,strlen($product->enddate)-2),
                             'meta_keywords' => "$product->keywords",
                             'keywords' => "$product->keywords",
-                            'coupon_code'=>"$product->couponcode"
-                        );
-                        $matchDeal = $this->Deal->findMatchDeals($params);
-                        if (empty($matchDeal)) {
+                            'coupon_code'=>"$product->couponcode",
+                            'hash_md5'=> "$hash"
+                             );
                             $SourceId = $this->Source->get_dealSourceIdByStr("$product->merchant");
                             if (empty($SourceId)) {
                                 $SourceId = $this->Source->set_newSource("$product->merchant", $product->merchantid);
