@@ -43,6 +43,7 @@ class Deal extends CI_Model {
     {
         $this->db->where('mainMenuOrder >', '0');
         $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
         $this->db->limit($qty);
         $query = $this->db->get('deals');
         
@@ -65,6 +66,7 @@ class Deal extends CI_Model {
         $this->db->limit($qty,$from);
         $this->db->like('specialPages',','.$idPages.',');
         $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
         $query = $this->db->get('deals');
         
         return $query->result();
@@ -85,6 +87,7 @@ class Deal extends CI_Model {
     function get_totalDeals_page($idPages=0){
         $this->db->where('specialPages',','.$idPages.',');
         $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
         $this->db->get('deals');
         return $this->db->count_all_results();
     }
@@ -122,6 +125,7 @@ class Deal extends CI_Model {
         }
         
         $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
         $query = $this->db->get('deals');
        // var_dump($this->db->last_query());
         return $query->result();
@@ -157,6 +161,7 @@ class Deal extends CI_Model {
             $this->db->where('deal_sources_id',$store);
         }
         $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
         $this->db->where('hotSubCategoty', '1');
         $query = $this->db->get('deals');
         
@@ -193,6 +198,7 @@ class Deal extends CI_Model {
             $this->db->where('deal_sources_id',$store);
         }
         $this->db->where('hotCategory', '1');
+        $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
         $query = $this->db->get('deals');
         
@@ -230,6 +236,7 @@ class Deal extends CI_Model {
         }
         $this->db->where('is_active', '1');
         $this->db->where('hotDeals', '1');
+        $this->db->where('cat_id >', '0');
         $query = $this->db->get('deals');
         
         return $query->result();
@@ -266,6 +273,7 @@ class Deal extends CI_Model {
             $this->db->where('deal_sources_id',$store);
         }
         $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
