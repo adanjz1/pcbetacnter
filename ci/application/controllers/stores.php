@@ -50,6 +50,11 @@ class Stores extends CI_Controller {
                 }else{
                     $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
                 }
+                if(empty($st->url)){
+                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').'deals/index/0/_/null/null/'.$st->deal_source_id;
+                }else{
+                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').$st->url;
+                }
                 
             }
             $data['stores'] = $stor;
@@ -60,7 +65,12 @@ class Stores extends CI_Controller {
                 }else{
                     $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
                 }
-                
+                if(empty($st->url)){
+                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').'deals/index/0/_/null/null/'.$st->deal_source_id;
+                }else{
+                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').$st->url;
+                }
+
             }
             $data['stores2'] = $stor;
             $data['noStores'] =  ((count($data['stores2'])==0)?'<div class="pro_box">
@@ -151,12 +161,12 @@ class Stores extends CI_Controller {
                                         ),
                                     );
                 $this->load->library('pagination');
-                $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/stores/index/';
+                $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'all-stores';
                 $config['total_rows'] = $this->Source->get_totalStores($initial);
                 $config['per_page'] = 21; 
                 $this->pagination->initialize($config); 
                 $data['paginator'] = $this->pagination->create_links();
-                $data['dealsStore'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/_/null/null/';
+                $data['dealsStore'] = $this->config->item('base_url').$this->config->item('index_page').'all-stores';
             /**
             * Footer
             */

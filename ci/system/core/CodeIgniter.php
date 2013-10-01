@@ -169,8 +169,9 @@
  *  Instantiate the routing class and set the routing
  * ------------------------------------------------------
  */
+
 	$RTR =& load_class('Router', 'core');
-	$RTR->_set_routing();
+        $RTR->_set_routing();
 
 	// Set any routing overrides that may exist in the main index file
 	if (isset($routing))
@@ -190,6 +191,7 @@
  *	Is there a valid cache file?  If so, we're done...
  * ------------------------------------------------------
  */
+        
 	if ($EXT->_call_hook('cache_override') === FALSE)
 	{
 		if ($OUT->_display_cache($CFG, $URI) == TRUE)
@@ -226,14 +228,15 @@
  *
  */
 	// Load the base controller class
-	require BASEPATH.'core/Controller.php';
+
+        require BASEPATH.'core/Controller.php';
 
 	function &get_instance()
 	{
 		return CI_Controller::get_instance();
 	}
-
-
+        
+        
 	if (file_exists(APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller.php'))
 	{
 		require APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller.php';
@@ -246,10 +249,9 @@
 	{
 		show_error('Unable to load your default controller. Please make sure the controller specified in your Routes.php file is valid.');
 	}
-
+        
 	include(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php');
-
-	// Set a mark point for benchmarking
+        // Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');
 
 /*
@@ -263,7 +265,7 @@
  */
 	$class  = $RTR->fetch_class();
 	$method = $RTR->fetch_method();
-
+        
 	if ( ! class_exists($class)
 		OR strncmp($method, '_', 1) == 0
 		OR in_array(strtolower($method), array_map('strtolower', get_class_methods('CI_Controller')))
@@ -319,6 +321,7 @@
  *  Call the requested method
  * ------------------------------------------------------
  */
+
 	// Is there a "remap" function? If so, we call it instead
 	if (method_exists($CI, '_remap'))
 	{

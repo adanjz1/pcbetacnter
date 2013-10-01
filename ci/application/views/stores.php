@@ -14,7 +14,7 @@
                     <ul id='carousel_ul'>
                        {stores}
                             <li style="background-color:transparent;">
-                                <a href="{dealsStore}{deal_source_id}" style="display: table-cell;vertical-align: middle;height: 60px;">
+                                <a href="{dealsStore}" style="display: table-cell;vertical-align: middle;height: 60px;">
                                     <img src="{image}" style="max-width:80px;max-height:60px;" border="0" />    
                                 </a>
                             </li>
@@ -41,7 +41,7 @@
                 <ul>
                     <li>
                         {initials}
-                            <a href="{storesUrlBrandSearch}{id}">{id}</a>  |  
+                            <a href="{storesUrlBrandSearch}">{id}</a>  |  
                         {/initials}
                        
                     </li>
@@ -61,13 +61,13 @@
                                     <li>
                                         
                             
-                                            <a href="{dealsStore}{deal_source_id}"><img src="{image}" alt="" style="max-width: 102px;max-height: 42px;" border="0"/></a>
+                                            <a href="{dealsStore}"><img src="{image}" alt="" style="max-width: 102px;max-height: 42px;" border="0"/></a>
                                
                                     </li>
                                 </ul>
                                 <ul class="store_box_right">
                                     <li>
-                                        <a href="{dealsStore}{deal_source_id}">{name}</a>
+                                        <a href="{dealsStore}">{name}</a>
                                     </li>
                                 </ul>
                             </div>

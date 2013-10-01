@@ -2,13 +2,24 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+require BASEPATH.'/../media/S3/aws-autoloader.php';
 
+        use Aws\S3\S3Client;
+        use Aws\Common\Aws;
+        use Aws\S3\Exception\S3Exception;
 class Cron extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
     }
-    
+    public function optimizeImages(){
+        $this->load->model('Deal');
+        $deals = $this->Deal->getUnoptimizedImages(200);
+        foreach($deals as $deal){
+            $newImage = uploadImage($deal->image_url);
+            $this->Deal->saveImage($deal->id,$newImage);
+        }
+    }
     public function index(){
        ini_set('memory_limit', '256M');
        error_reporting(E_ALL);  
@@ -21,8 +32,9 @@ class Cron extends CI_Controller {
         $this->load->model('Deal');
         $this->load->model('Source');
         $this->load->model('Category');
-        
-        $this->Deal->set_activation(); //deactivate all deals
+        if(!empty($_GET['setInactive'])){
+            $this->Deal->set_activation(); //deactivate all deals
+        }
         
     if(empty($_GET['debug']) || $_GET['debug'] == 'linkshare'){
         
@@ -168,6 +180,7 @@ class Cron extends CI_Controller {
         sleep(2);
         set_time_limit(0);
         $insertStack = array();
+        $batch = array();
         $CJ_ID = '009d3d49b3a21ad21e29bc4e88997388512c6f3bc7a2396d33ddab99df3297f12a42f56699f46a92d4696ed1a32323ba08325dab5d62fcefd5f65dac9c68261445/2c605fac92d37ef9844de0dc2c72aec63a042a9aecedc8241b2b9301ab05b6ca040b826ae03916508a7b3beb226719a0cd9a5b05005f9fbb91bc976318972301';
         switch($_GET['key']){
                 case 1:
@@ -274,12 +287,14 @@ class Cron extends CI_Controller {
 //                        'deal_url' => "$bu",
 //                        'sku' => "$product->sku"
                     );
+                    
                     $matchDeal = $this->Deal->findMatchDeals($params);
                     if (empty($matchDeal)) {
                         $SourceId = $this->Source->get_dealSourceIdByStr("$an");
                         if (empty($SourceId)) {
                             $SourceId = $this->Source->set_newSource("$an", $ai);
                         }
+                        
                         $params['hash_md5']="$hash";
                         $params['description'] = "$desc";
                         $params['title'] = "$pname";
@@ -309,6 +324,7 @@ class Cron extends CI_Controller {
                             if(count($insertStack) == 500){
                                 $this->Deal->set_deal($insertStack);
                                 $insertStack = array();
+                                
                             }
                         }
                         
@@ -886,6 +902,35 @@ function detectPosibleCat($strings,$cron){
            }
            return $catMaxCount;
     }
+    function uploadImage($image){
+        $ext = substr($image, -3,3);
+        $actual_image_name = md5(time()).".".$ext;
+        $ch = curl_init($image);
+        $fp = fopen(BASEPATH.'/../media/uploads/'.$actual_image_name, 'wb');
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        curl_close($ch);
+        fclose($fp);
+        
+        $imageurl = s3upload(BASEPATH.'/../media/uploads/'.$actual_image_name,$actual_image_name);
+        return $imageurl;/*
+        
+        //Rename image name. 
+        $actual_image_name = time().".".$ext;
+        
+        if($s3->create_object('pccounter', $actual_image_name.'.jpg', array('body' => file_get_contents($image), 'acl' => AmazonS3::ACL_PUBLIC, 'contentType' => 'image/jpeg'))){
+            $msg = "S3 Upload Successful.";	
+            $s3file='http://pccounter.s3.amazonaws.com/'.$actual_image_name;
+            echo "<img src='$s3file' style='max-width:400px'/><br/>";
+            echo '<b>S3 File URL:</b>'.$s3file;
+            
+        }else{
+            $msg = "S3 Upload Fail.";
+
+        }
+        die();*/
+    }
      function detectPosibleSubCat($strings, $cat,$cron){
          $subcats = $cron->Category->get_Subcategories(50,null,$cat);
          $contCat = array();
@@ -914,4 +959,30 @@ function detectPosibleCat($strings,$cron){
            }
            return $catMaxCount;
     }
+//      $aws_key = 'AKIAJGCWM3IREFTDZUKA';
+//$aws_secret = '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';
+    function s3upload($source_file,$aws_object,$batch){
+       // Include the SDK using the Composer autoloader
+        
+        // Instantiate the S3 client with your AWS credentials and desired AWS region
+        $client = S3Client::factory(array(
+            'key'    => 'AKIAJGCWM3IREFTDZUKA',
+            'secret' => 'i43uwR5e15ixc5gbyuNprBYlfdUYQMgTUx9Jxn+C',
+        ));
+       
+        try {
+            $client->putObject(array(
+                'Bucket' => 'pccounter',
+                'Key'    => $aws_object,
+                'Body'   => fopen($source_file, 'r'),
+                'ACL'    => 'public-read',
+            ));
+        } catch (S3Exception $e) {
+            echo "There was an error uploading the file.\n";
+        }
+      
+        return 'https://pccounter.s3.amazonaws.com/'.$aws_object;
+    }
+
+
 ?>

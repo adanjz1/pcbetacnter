@@ -78,8 +78,7 @@ imagefill($im, 0, 0, $white);
 # do whatever you want with transparent image
 $lime = imagecolorallocate($im, 204, 255, 51);
 imagecopy($im, $jpg, 0, 0, $removeLeft, $removeTop, imagesx($im), imagesy($im));
-header("Content-type: image/jpg");
 imagejpeg($im);
-imagedestroy($im);
+
 
 ?>

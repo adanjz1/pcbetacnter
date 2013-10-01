@@ -33,12 +33,12 @@
 
             //$data['siteUrlMedia']  = 'http://ec2-54-213-191-45.us-west-2.compute.amazonaws.com/';
             $data['siteUrlMedia']  = 'http://pccounter/ci/';
-            $data['dealsUrl']  = $data['base_url'].$t->config->item('index_page').'/deals';
-            $data['couponsUrl']  = $data['base_url'].$t->config->item('index_page').'/coupons/index';
-            $data['categoriesUrl']  = $data['base_url'].$t->config->item('index_page').'/categories/index';
-            $data['storesUrl']  = $data['base_url'].$t->config->item('index_page').'/stores/index';
-            $data['contactUrl']  = $data['base_url'].$t->config->item('index_page').'/contact/index';
-            $data['registerUrl']  = $data['base_url'].$t->config->item('index_page').'/register/index';
+            $data['dealsUrl']  = $data['base_url'].$t->config->item('index_page').'deals';
+            $data['couponsUrl']  = $data['base_url'].$t->config->item('index_page').'coupon-codes';
+            $data['categoriesUrl']  = $data['base_url'].$t->config->item('index_page').'categories';
+            $data['storesUrl']  = $data['base_url'].$t->config->item('index_page').'all-stores';
+            $data['contactUrl']  = $data['base_url'].$t->config->item('index_page').'contact';
+            $data['registerUrl']  = $data['base_url'].$t->config->item('index_page').'register';
             $data['offerUrlPop'] = $data['base_url'].$t->config->item('index_page').'/deals/pop';
 
              /***********************************/
@@ -90,7 +90,11 @@
                 $t->load->model('Pages');
                 $specialPages = $t->Pages->getAllSpecialPages();
                 foreach($specialPages as $key=>$val){
-                    $specialPages[$key]->specialPageUrl = $data['siteUrlMedia'].'specialPage/index/0/'.$val->id;
+                    if(empty($val->url)){
+                        $specialPages[$key]->specialPageUrl = $data['siteUrlMedia'].'specialPage/index/0/'.$val->id;
+                    }else{
+                        $specialPages[$key]->specialPageUrl = $data['siteUrlMedia'].$val->url;
+                    }
                 }
                 $cantSpecialPages = ceil(count($specialPages)/2);
                 for($i=0;$i<$cantSpecialPages;$i++){
@@ -104,7 +108,12 @@
                 $staticPages = $t->Pages->getAllStaticPages();
                 
                 foreach( $staticPages as $key=>$val){
-                    $staticPages[$key]->url = $data['siteUrlMedia'].'staticPage/index/'.$val->id;
+                    if(empty($val->url)){
+                        $staticPages[$key]->url = $data['siteUrlMedia'].'staticPage/index/'.$val->id;
+                    }else{
+                        $staticPages[$key]->url = $data['siteUrlMedia'].$val->url;
+                    }
+                    
                 }
                 $data['mapUrl'] = $data['siteUrlMedia'].'siteMap/';
                 $data['staticPages'] = $staticPages;

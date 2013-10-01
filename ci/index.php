@@ -153,7 +153,7 @@ if (defined('ENVIRONMENT'))
 	{
 		exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".pathinfo(__FILE__, PATHINFO_BASENAME));
 	}
-
+        
 /*
  * -------------------------------------------------------------------
  *  Now that we know the path, set the main path constants
@@ -175,7 +175,7 @@ if (defined('ENVIRONMENT'))
 	// Name of the "system folder"
 	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
 
-
+        
 	// The path to the "application" folder
 	if (is_dir($application_folder))
 	{

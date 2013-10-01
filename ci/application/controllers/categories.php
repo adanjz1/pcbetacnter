@@ -49,8 +49,13 @@ class Categories extends CI_Controller {
                 $this->load->model('Category');
                 $categ_list = $this->Category->get_categories(12,$limit);
                 foreach ($categ_list as $categ){
-                    $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
-                    $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$categ->id;
+                    if(empty($categ->url)){
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
+                        $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
+                    }else{
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                        $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                    }
                     if(empty($categ->image)){
                         $categ->image = 'http://pccounter.net/media/images/noImage.jpg';
                     }
@@ -58,9 +63,10 @@ class Categories extends CI_Controller {
                 $data['categories'] = $categ_list;
                 
                 $this->load->library('pagination');
-                $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/categories/index/';
+                $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'categories';
                 $config['total_rows'] = $this->Category->get_totalCategories();
                 $config['per_page'] = 12; 
+                $config['uri_segment'] = 2;
                 $this->pagination->initialize($config); 
                 $data['paginator'] = $this->pagination->create_links();
             /*****************/
@@ -109,8 +115,13 @@ class Categories extends CI_Controller {
                 $this->load->model('Category');
                 $categ_list = $this->Category->get_Subcategories(12,$limit,$cat);
                 foreach ($categ_list as $categ){
-                    $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$cat.'/'.$categ->id;
-                    $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$cat.'/'.$categ->id;
+                    if(empty($categ->url)){
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$cat.'/'.$categ->id;
+                        $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$cat.'/'.$categ->id;
+                    }else{
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                        $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                    }
                     if(empty($categ->image)){
                         $categ->image = 'http://pccounter.net/media/images/noImage.jpg';
                     }
@@ -118,7 +129,7 @@ class Categories extends CI_Controller {
                 $data['categories'] = $categ_list;
                 
                 $this->load->library('pagination');
-                $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/categories/index/';
+                $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/categories/';
                 $config['total_rows'] = $this->Category->get_totalSubCategories($cat);
                 $config['per_page'] = 12; 
                 $this->pagination->initialize($config); 

@@ -92,7 +92,7 @@ class CI_URI {
 				$this->_set_uri_string($this->_parse_cli_args());
 				return;
 			}
-
+                        
 			// Let's try the REQUEST_URI first, this will work in most situations
 			if ($uri = $this->_detect_uri())
 			{
@@ -181,8 +181,9 @@ class CI_URI {
 		{
 			return '';
 		}
-
+                
 		$uri = $_SERVER['REQUEST_URI'];
+                
 		if (strpos($uri, $_SERVER['SCRIPT_NAME']) === 0)
 		{
 			$uri = substr($uri, strlen($_SERVER['SCRIPT_NAME']));
@@ -219,7 +220,11 @@ class CI_URI {
 		$uri = parse_url($uri, PHP_URL_PATH);
 
 		// Do some final cleaning of the URI and return it
-		return str_replace(array('//', '../'), '/', trim($uri, '/'));
+                $finalUri=str_replace(array('//', '../'), '/', trim($uri, '/'));
+                
+                
+                
+		return $finalUri;
 	}
 
 	// --------------------------------------------------------------------

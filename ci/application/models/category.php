@@ -48,6 +48,17 @@ class Category extends CI_Model {
             return false;
         }
     }
+    function get_CatUrl($category)
+    {
+        $this->db->where('id',$category);
+        $query = $this->db->get('categories');
+        $result = $query->result();
+        if(!empty($result[0])){
+            return $result[0]->url;
+        }else{
+            return '';
+        }
+    }
     function get_subCategoryByStr($catName){
         $this->db->like('name',$catName);
         $query = $this->db->get('subCategories');

@@ -75,12 +75,14 @@ public function index()
                     $deal->hot = '';
                 }
                 $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
+                
                 if(!empty($this->session->all_userdata()[$deal->id])){
                      $deal->thumbsClass = 'thumbActive';
                 }else{
                     $deal->thumbsClass = 'thumbs';
                 }
                 $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
+                $deal->catUrl = $this->Category->get_CatUrl($deal->cat_id);
                 $deal->categoryCount = $this->Category->get_catCant($deal->cat_id);
                 
             }
@@ -111,8 +113,10 @@ public function index()
                     $deal->savingsPercentage  = 0;
                 }
                 $deal->couponCode = $deal->coupon_code;
-                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/pop/'.$deal->id;
+                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
                 $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
+                var_dump($deal->categoryStr );
+                $deal->catUrl = $this->Category->get_CatUrl($deal->cat_id);
             }
             $data['newestCoupons'] = $coupons;
             /********************************************************/

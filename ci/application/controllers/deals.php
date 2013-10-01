@@ -114,15 +114,18 @@ class Deals extends CI_Controller {
                     $deal->thumbsClass = 'thumbs';
                 }
                 $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
+                
                 $deal->categoryCount = $this->Category->get_catCant($deal->cat_id);
+                $deal->catUrl = $this->Category->get_CatUrl($deal->cat_id);
                 
             }
             $data['deals'] = $merge;
             $data['totalDeals'] = $this->Deal->get_totalDeals($q,$category,$subcat,$store);
             $this->load->library('pagination');
-            
-            $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/paginator/'.$qSearch.'/'.$category;
+            //$config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/paginator/'.$qSearch.'/'.$category;
+            $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').$this->uri->segments[1];
             $config['total_rows'] = $data['totalDeals'];
+            $config['uri_segment'] = 2;
             $config['per_page'] = 52; 
             $this->pagination->initialize($config); 
             $data['paginator'] = $this->pagination->create_links();
@@ -131,7 +134,11 @@ class Deals extends CI_Controller {
                 $this->load->model('Category');
                 $categ_list = $this->Category->get_Subcategories(null,null,$category);
                 foreach ($categ_list as $categ){
-                    $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$category.'/'.$categ->id;
+                    if(empty($categ->url)){
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$category.'/'.$categ->id;
+                    }else{
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                    }
                 }
                 $data['subCategories'] = $categ_list;
             }
@@ -312,6 +319,7 @@ class Deals extends CI_Controller {
                 
                 $deal->category='';
                 $catName = $this->Category->get_CatName($deal->cat_id);
+                $deal->catUrl = $this->Categoty->get_CatUrl($deal->cat_id);
                 if(!empty($catName)){
                     $deal->category = $catName[0]->name;
                 }

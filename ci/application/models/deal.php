@@ -69,6 +69,19 @@ class Deal extends CI_Model {
         
         return $query->result();
     }
+    function getUnoptimizedImages($qty){
+         $this->db->not_like('image_url','https://pccounter.s3.amazonaws.com');
+         $this->db->limit($qty);
+         $query = $this->db->get('deals');
+         return $query->result();
+    }
+    function saveImage($idDeal='',$image){
+        $this->db->where('id',$idDeal);
+        $data = array(
+               'image_url' => $image,
+            );
+        $this->db->update('deals',$data);
+    }
     function get_totalDeals_page($idPages=0){
         $this->db->where('specialPages',','.$idPages.',');
         $this->db->where('is_active', '1');
@@ -110,7 +123,7 @@ class Deal extends CI_Model {
         
         $this->db->where('is_active', '1');
         $query = $this->db->get('deals');
-        
+       // var_dump($this->db->last_query());
         return $query->result();
     }
     function get_lastStarredSubcatDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')

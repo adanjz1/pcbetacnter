@@ -647,11 +647,14 @@ div#content{
 	text-transform: uppercase;	
 }
 .left_mid{
-	width: 807px;
+	width: 796px;
 	height: auto;
 	background: url(http://www.pccounter.net/media/images/mid_heading.gif) left top repeat-y;
 	overflow: hidden;
 	padding-left: 11px;
+}
+.left_mid p{
+    padding-right: 10px;
 }
 .pro_box{
 	width: 185px;

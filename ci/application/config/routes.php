@@ -37,10 +37,17 @@
 | in the URL cannot be matched to a valid route.
 |
 */
+include APPPATH."cache/routes.php"; 
 
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
+
+$route['coupon-codes'] = 'coupons';
+$route['all-stores'] = 'stores';
+$route["categories/(:num)"] = "categories/index/$1";
+$route["web-hosting-deals"] = "deals/index/0/20/20";
+$route["web-hosting-deals/(:num)"] ="deals/index/$1/20/20";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
