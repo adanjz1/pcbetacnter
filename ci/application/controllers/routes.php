@@ -50,7 +50,7 @@ class Routes extends CI_Controller {
                                     'vars'=>'/0/'.$s->id);
             }
             
-            foreach($sources as $s){
+            foreach($stPages as $s){
                 $allRoutes[] = array('route' => $s->url,
                                      'controller'=> 'staticPage/index/',
                                     'vars'=>'/0/'.$s->id);
