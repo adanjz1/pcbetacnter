@@ -918,6 +918,8 @@ function detectPosibleCat($strings,$cron){
         $actual_image_name = md5(time()).".".$ext;
         $ch = curl_init($image);
         $fp = fopen(BASEPATH.'/../media/uploads/'.$actual_image_name, 'wb');
+        $imageurl = '';
+        if (!empty($fp)){
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_exec($ch);
@@ -925,6 +927,7 @@ function detectPosibleCat($strings,$cron){
         fclose($fp);
         
         $imageurl = s3upload(BASEPATH.'/../media/uploads/'.$actual_image_name,$actual_image_name);
+        }
         return $imageurl;/*
         
         //Rename image name. 
