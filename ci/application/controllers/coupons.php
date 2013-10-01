@@ -66,7 +66,12 @@ class Coupons extends CI_Controller {
                 }
                 $source = $this->Source->get_source($deal->deal_sources_id);
                 if(empty($deal->image_url)){
-                    $deal->image = $source->deal_source_logo_url;
+                    if(strpos($source->deal_source_logo_url,"ttp://") || strpos($source->deal_source_logo_url,'ttps://')){
+                        $deal->image = $source->deal_source_logo_url;
+                    }else{
+                        $deal->image = 'http://pccounter.net/media/images/'.$source->deal_source_logo_url;
+                    }
+                    
                 }else{
                     $deal->image =$deal->image_url;
                 }
