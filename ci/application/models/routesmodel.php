@@ -15,6 +15,16 @@ function getSourcesRoutes(){
      $query = $this->db->get('deal_sources');
      return $query->result();
 }
+function getStaticRoutes(){
+     $this->db->select('id,url');
+     $query = $this->db->get('staticPages');
+     return $query->result();
+}
+function getSpecialRoutes(){
+     $this->db->select('id,url');
+     $query = $this->db->get('specialPages');
+     return $query->result();
+}
 /**
  * Writes contents of database table to a cache file.
  *
