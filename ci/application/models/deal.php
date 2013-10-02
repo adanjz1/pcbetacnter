@@ -74,6 +74,7 @@ class Deal extends CI_Model {
     function getUnoptimizedImages($qty){
          $this->db->not_like('image_url','https://pccounter.s3.amazonaws.com');
          $this->db->limit($qty);
+         $this->db->order_by("title", "random"); 
          $query = $this->db->get('deals');
          return $query->result();
     }

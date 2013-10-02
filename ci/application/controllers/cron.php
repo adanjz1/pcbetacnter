@@ -13,6 +13,11 @@ class Cron extends CI_Controller {
         parent::__construct();
     }
     public function optimizeImages(){
+        $message = "The cron job is running\r\n";
+
+        // In case any of our lines are larger than 70 characters, we should use wordwrap()
+        // Send
+        mail('adanzweig@gmail.com', 'Pccounter cron', $message);
         $this->load->model('Deal');
         $deals = $this->Deal->getUnoptimizedImages(200);
         foreach($deals as $deal){
