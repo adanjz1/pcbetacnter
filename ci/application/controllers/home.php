@@ -47,14 +47,15 @@ public function index()
             $this->load->model('Deal');
             $this->load->model('Category');
             $this->load->model('Source');
-            $dealsList = $this->Deal->get_mainMenuDeals(52); //Get the main menu deal list
-            $others = 52-count($deals);
-            $dealSources = $this->Source->get_stores(99);
-            $dealsList2 = array();
-            foreach($dealSources as $source){
-                $auxDeals = $this->Deal->get_homeDeals(3,$source->deal_source_id); //Get the other deals
-                $dealsList2 = array_merge($dealsList2, $auxDeals);
-            }
+            $dealsList = $this->Deal->get_mainMenuDeals(24); //Get the main menu deal list
+            $others = 24-count($deals);
+            
+//            $dealSources = $this->Source->get_stores(99);
+            $dealsList2 = $this->Deal->get_lastDeals($others); //Get the other deals
+//            foreach($dealSources as $source){
+//                $auxDeals = $this->Deal->get_homeDeals(3,$source->deal_source_id); //Get the other deals
+//                $dealsList2 = array_merge($dealsList2, $auxDeals);
+//            }
             
             $merge = array_merge($dealsList, $dealsList2);
             foreach($merge as $deal){

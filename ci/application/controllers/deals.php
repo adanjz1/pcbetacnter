@@ -80,14 +80,14 @@ class Deals extends CI_Controller {
             }
             $starred = array();
             if(!empty($subcat)){
-                $starred = $this->Deal->get_lastStarredSubcatDeals(52,$limit,$q,$category,$subcat,$store); //Get the other deals
+                $starred = $this->Deal->get_lastStarredSubcatDeals(24,$limit,$q,$category,$subcat,$store); //Get the other deals
             }elseif(!empty($category)){
-                $starred = $this->Deal->get_lastStarredCatDeals(52,$limit,$q,$category,$subcat,$store); //Get the other deals
+                $starred = $this->Deal->get_lastStarredCatDeals(24,$limit,$q,$category,$subcat,$store); //Get the other deals
             }else{
-                $starred = $this->Deal->get_lastStarredDeals(52,$limit,$q,$category,$subcat,$store); //Get the other deals
+                $starred = $this->Deal->get_lastStarredDeals(24,$limit,$q,$category,$subcat,$store); //Get the other deals
             }
             
-            $merge = $this->Deal->get_lastDeals(52-count($starred),$limit,$q,$category,$subcat,$store); //Get the other deals
+            $merge = $this->Deal->get_lastDeals(24-count($starred),$limit,$q,$category,$subcat,$store); //Get the other deals
             $merge = array_merge($starred,$merge);
             $this->load->library('session');
             foreach($merge as $deal){
