@@ -13,19 +13,26 @@ class Cron extends CI_Controller {
         parent::__construct();
     }
     public function optimizeImages(){
-        $message = "The cron job is running\r\n";
-
-        // In case any of our lines are larger than 70 characters, we should use wordwrap()
-        // Send
-        mail('adanzweig@gmail.com', 'Pccounter cron', $message);
+        $arr = array();
         $this->load->model('Deal');
         $deals = $this->Deal->getUnoptimizedImages(200);
         foreach($deals as $deal){
             $newImage = uploadImage($deal->image_url);
             $this->Deal->saveImage($deal->id,$newImage);
+            $arr['ID'.$deal->id] = $newImage;
         }
+        foreach($arr as $k=>$v){
+            $msg = "Key= ".$k.' ==> '.$newImage.'\r\n';
+        }
+         $message = "The cron job is running \r\n Images:".$msg."\r\n";
+
+        mail('adanzweig@gmail.com', 'Pccounter cron', $message);
     }
     public function index(){
+        $message = "The cron job is running GET=". $_GET['debug']."\r\n";
+
+        mail('adanzweig@gmail.com', 'Pccounter cron', $message);
+
        ini_set('memory_limit', '256M');
        error_reporting(E_ALL);  
        ini_set('display_errors','On');
