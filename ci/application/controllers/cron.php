@@ -21,17 +21,22 @@ class Cron extends CI_Controller {
             $this->Deal->saveImage($deal->id,$newImage);
             $arr['ID'.$deal->id] = $newImage;
         }
+        $msg='';
         foreach($arr as $k=>$v){
-            $msg = "Key= ".$k.' ==> '.$newImage.'\r\n';
+            $msg .= "Key= ".$k.' ==> '.$newImage.'\r\n';
         }
          $message = "The cron job is running \r\n Images:".$msg."\r\n";
 
-        mail('adanzweig@gmail.com', 'Pccounter cron', $message);
+        mail('adanzweig@gmail.com', 'Pccounter Optimize-Image cron', $message);
     }
     public function index(){
-        $message = "The cron job is running GET=". $_GET['debug']."\r\n";
+        $msg = '';
+         foreach($_GET as $k=>$v){
+            $msg .= "Key= ".$k.' ==> '.$newImage.'\r\n';
+        }
+        $message = "The cron job is running GET=".$msg."\r\n";
 
-        mail('adanzweig@gmail.com', 'Pccounter cron', $message);
+        mail('adanzweig@gmail.com', 'Pccounter cron Crawler', $message);
 
        ini_set('memory_limit', '256M');
        error_reporting(E_ALL);  
