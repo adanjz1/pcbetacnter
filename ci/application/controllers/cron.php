@@ -31,12 +31,7 @@ class Cron extends CI_Controller {
     }
     public function index(){
         $msg = '';
-         foreach($_GET as $k=>$v){
-            $msg .= "Key= ".$k.' ==> '.$newImage.'\r\n';
-        }
-        $message = "The cron job is running GET=".$msg."\r\n";
-
-        mail('adanzweig@gmail.com', 'Pccounter cron Crawler', $message);
+       
 
        ini_set('memory_limit', '256M');
        error_reporting(E_ALL);  
@@ -114,6 +109,7 @@ class Cron extends CI_Controller {
                             $insertStack[] = $params;
                                 if(count($insertStack) == 500){
                                     $this->Deal->set_deal($insertStack);
+                                    $deals = $insertStack;
                                     $insertStack = array();
                                 }
                             }
@@ -136,6 +132,7 @@ class Cron extends CI_Controller {
             }
         }
         $this->Deal->set_deal($insertStack);
+        $deals = $insertStack;
     }
     
    // }
@@ -180,6 +177,7 @@ class Cron extends CI_Controller {
                 $insertStack[] = $params;
                 if(count($insertStack) == 500 && count($insertStack)>0){
                     $this->Deal->set_deal($insertStack);
+                    $deals = $insertStack;
                     $insertStack = array();
                 }
             }else{
@@ -192,6 +190,7 @@ class Cron extends CI_Controller {
         }
         if(count($insertStack) >0){
             $this->Deal->set_deal($insertStack);
+            $deals = $insertStack;
         }
     }
     
@@ -380,7 +379,9 @@ class Cron extends CI_Controller {
         }
         if(count($insertStack) >0){
             $this->Deal->set_deal($insertStack);
+            $deals = $insertStack;
             $insertStack = array();
+            
         }
     }
 //    }
@@ -453,8 +454,10 @@ class Cron extends CI_Controller {
                                 $params['sub_cat_id'] = detectPosibleSubCat(array($product->title,$product->description,$product->keywords),$params['cat_id'],$this);
                                 $params['is_active'] = 1;
                                 $insertStack[] = $params;
+                                
                                 if(count($insertStack) == 500){
                                     $this->Deal->set_deal($insertStack);
+                                    $deals = $insertStack;
                                     $insertStack = array();
                                 }
                             }
@@ -470,6 +473,14 @@ class Cron extends CI_Controller {
         $this->Deal->set_deal($insertStack);
         curl_close($ch);
         }
+        foreach($deals as $v){
+            $msg .= $v.'
+                ';
+        }
+        $message = "The cron job is running = 
+            ".$msg."\r\n";
+
+        mail('adanzweig@gmail.com', 'Pccounter cron Crawler', $message);
     }
     
 }
