@@ -946,7 +946,7 @@ function detectPosibleCat($strings,$cron){
     }
     function uploadImage($image){
         $ext = substr($image, -3,3);
-        $actual_image_name = md5(time()).".".$ext;
+        $actual_image_name = md5(time().rand(0,999999)).".".$ext;
         $ch = curl_init($image);
         $fp = fopen(BASEPATH.'/../media/uploads/'.$actual_image_name, 'wb');
         $imageurl = '';
