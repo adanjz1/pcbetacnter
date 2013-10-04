@@ -474,7 +474,10 @@ class Cron extends CI_Controller {
         curl_close($ch);
         }
         foreach($deals as $v){
-            $msg .= $v.'
+            $msg='DEAL:
+                ';
+            foreach($v as $l=> $j)
+            $msg .= $l.' => '.$j.'
                 ';
         }
         $message = "The cron job is running = 
