@@ -957,7 +957,7 @@ function detectPosibleCat($strings,$cron){
         curl_close($ch);
         fclose($fp);
         
-        $imageurl = s3upload(BASEPATH.'/../media/uploads/'.$actual_image_name,$actual_image_name);
+        //$imageurl = s3upload(BASEPATH.'/../media/uploads/'.$actual_image_name,$actual_image_name);
         }
         return $imageurl;/*
         
