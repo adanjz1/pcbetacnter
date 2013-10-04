@@ -17,7 +17,7 @@ class Cron extends CI_Controller {
         $this->load->model('Deal');
         $deals = $this->Deal->getUnoptimizedImages(200);
         foreach($deals as $deal){
-            $newImage = uploadImage($deal->image_url);
+            $newImage = uploadImage($deal->image_url,$deal->id);
             $this->Deal->saveImage($deal->id,$newImage);
             $arr['ID'.$deal->id] = $newImage;
         }
@@ -944,9 +944,9 @@ function detectPosibleCat($strings,$cron){
            }
            return $catMaxCount;
     }
-    function uploadImage($image){
+    function uploadImage($image,$id='0001000'){
         $ext = substr($image, -3,3);
-        $actual_image_name = md5(time().rand(0,999999)).".".$ext;
+        $actual_image_name = md5(time().rand(0,999999).$id).".".$ext;
         $ch = curl_init($image);
         $fp = fopen(BASEPATH.'/../media/uploads/'.$actual_image_name, 'wb');
         $imageurl = '';
