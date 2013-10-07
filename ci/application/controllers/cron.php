@@ -23,7 +23,7 @@ class Cron extends CI_Controller {
         }
         $msg='';
         foreach($arr as $k=>$v){
-            $msg .= "Key= ".$k.' ==> '.$newImage.'\r\n';
+            $msg .= "Key= ".$k.' ==> '.$v.'\r\n';
         }
         var_dump($msg);
          $message = "The cron job is running \r\n Images:".$msg."\r\n";
