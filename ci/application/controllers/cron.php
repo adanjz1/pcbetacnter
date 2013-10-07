@@ -951,18 +951,12 @@ function detectPosibleCat($strings,$cron){
         
        // $ch = curl_init($image);        
         $optimizedImage = imageCropperAndOptimizer($image,base_url('/media/uploads/'.$actual_image_name),BASEPATH.'/../media/uploads/'.$actual_image_name);
-        $fp = fopen(BASEPATH.'/../media/uploads/'.$actual_image_name, 'c+');
+        
         
         
         $imageurl = $actual_image_name;
         if (!empty($fp)){
-        curl_setopt($optimizedImage, CURLOPT_FILE, $fp);
-        curl_setopt($optimizedImage, CURLOPT_HEADER, 0);
-        curl_exec($optimizedImage);
-        curl_close($optimizedImage);
-        fclose($fp);
-        
-        $imageurl = s3upload(BASEPATH.'/../media/uploads/'.$actual_image_name,$actual_image_name);
+            $imageurl = s3upload(BASEPATH.'/../media/uploads/'.$actual_image_name,$actual_image_name);
         }
 //        die('http://dr30wky7ya0nu.cloudfront.net/'.$actual_image_name);
         return 'http://dr30wky7ya0nu.cloudfront.net/'.$actual_image_name;/*
