@@ -948,9 +948,7 @@ function detectPosibleCat($strings,$cron){
         $ext = substr($image, -3,3);
         $actual_image_name = md5(time().rand().$id).".".$ext;
         
-       // $ch = curl_init($image);
-        $image = 'https://dr30wky7ya0nu.cloudfront.net/498643e4678725b2fe7988bb489bddd3.jpg';
-        
+       // $ch = curl_init($image);        
         $optimizedImage = imageCropperAndOptimizer($image,base_url('/media/uploads/'.$actual_image_name),BASEPATH.'/../media/uploads/'.$actual_image_name);
         $fp = fopen(BASEPATH.'/../media/uploads/'.$actual_image_name, 'c+');
         
