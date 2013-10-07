@@ -15,7 +15,7 @@ class Cron extends CI_Controller {
     public function optimizeImages(){
         $arr = array();
         $this->load->model('Deal');
-        $deals = $this->Deal->getUnoptimizedImages(500);
+        $deals = $this->Deal->getUnoptimizedImages(200);
         foreach($deals as $deal){
             $newImage = uploadImage($deal->image_url,$deal->id);
             $this->Deal->saveImage($deal->id,$newImage);
