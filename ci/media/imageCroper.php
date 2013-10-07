@@ -1,18 +1,19 @@
 <?php
-$img = get_headers($_GET['url'], 1);
+function imageCropperAndOptimizer($url='',$destImage='',$serverImage=''){
+$img = get_headers($url, 1);
 $size = $img["Content-Length"]/1024/1024;
 if($size > 1.5){
     die();
 }
 //header("Content-Type: image/jpeg");
-if(substr($_GET['url'],-3) == 'png' ||  substr($_GET['url'],-3) == 'PNG'){
-    $jpg = imagecreatefrompng($_GET['url']);
-}elseif(substr($_GET['url'],-3) == 'jpg' ||  substr($_GET['url'],-3) == 'JPG'){
-    $jpg = imagecreatefromjpeg($_GET['url']);
-}elseif(substr($_GET['url'],-3) == 'gif' ||  substr($_GET['url'],-3) == 'GIF'){
-    $jpg = imagecreatefromgif($_GET['url']);
+if(substr($url,-3) == 'png' ||  substr($url,-3) == 'PNG'){
+    $jpg = imagecreatefrompng($url);
+}elseif(substr($url,-3) == 'jpg' ||  substr($url,-3) == 'JPG'){
+    $jpg = imagecreatefromjpeg($url);
+}elseif(substr($url,-3) == 'gif' ||  substr($url,-3) == 'GIF'){
+    $jpg = imagecreatefromgif($url);
 }else{
-    echo $_GET['url'];
+    echo $url;
     die();
 }
 
@@ -78,7 +79,9 @@ imagefill($im, 0, 0, $white);
 # do whatever you want with transparent image
 $lime = imagecolorallocate($im, 204, 255, 51);
 imagecopy($im, $jpg, 0, 0, $removeLeft, $removeTop, imagesx($im), imagesy($im));
-imagejpeg($im);
+clearstatcache();
 
-
+imagejpeg($im,$serverImage,75);
+return $destImage;
+}
 ?>

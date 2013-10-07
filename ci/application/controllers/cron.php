@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 require BASEPATH.'/../media/S3/aws-autoloader.php';
-
+require BASEPATH.'../media/imageCroper.php';
         use Aws\S3\S3Client;
         use Aws\Common\Aws;
         use Aws\S3\Exception\S3Exception;
@@ -948,18 +948,24 @@ function detectPosibleCat($strings,$cron){
         $ext = substr($image, -3,3);
         $actual_image_name = md5(time().rand().$id).".".$ext;
         
-        $ch = curl_init($image);
-        $fp = fopen(BASEPATH.'/../media/uploads/'.$actual_image_name, 'wb');
+       // $ch = curl_init($image);
+        $image = 'https://dr30wky7ya0nu.cloudfront.net/498643e4678725b2fe7988bb489bddd3.jpg';
+        
+        $optimizedImage = imageCropperAndOptimizer($image,base_url('/media/uploads/'.$actual_image_name),BASEPATH.'/../media/uploads/'.$actual_image_name);
+        $fp = fopen(BASEPATH.'/../media/uploads/'.$actual_image_name, 'c+');
+        
+        
         $imageurl = $actual_image_name;
         if (!empty($fp)){
-        curl_setopt($ch, CURLOPT_FILE, $fp);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_exec($ch);
-        curl_close($ch);
+        curl_setopt($optimizedImage, CURLOPT_FILE, $fp);
+        curl_setopt($optimizedImage, CURLOPT_HEADER, 0);
+        curl_exec($optimizedImage);
+        curl_close($optimizedImage);
         fclose($fp);
         
         $imageurl = s3upload(BASEPATH.'/../media/uploads/'.$actual_image_name,$actual_image_name);
         }
+//        die('http://dr30wky7ya0nu.cloudfront.net/'.$actual_image_name);
         return 'http://dr30wky7ya0nu.cloudfront.net/'.$actual_image_name;/*
         
         //Rename image name. 
