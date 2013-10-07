@@ -15,7 +15,7 @@ class Cron extends CI_Controller {
     public function optimizeImages(){
         $arr = array();
         $this->load->model('Deal');
-        $deals = $this->Deal->getUnoptimizedImages(200);
+        $deals = $this->Deal->getUnoptimizedImages(300);
         foreach($deals as $deal){
             $newImage = uploadImage($deal->image_url,$deal->id);
             $this->Deal->saveImage($deal->id,$newImage);
@@ -946,10 +946,11 @@ function detectPosibleCat($strings,$cron){
     }
     function uploadImage($image,$id='0001000'){
         $ext = substr($image, -3,3);
-        $actual_image_name = md5(time().rand(0,999999).$id).".".$ext;
+        $actual_image_name = md5(time().rand().$id).".".$ext;
+        
         $ch = curl_init($image);
         $fp = fopen(BASEPATH.'/../media/uploads/'.$actual_image_name, 'wb');
-        $imageurl = '';
+        $imageurl = $actual_image_name;
         if (!empty($fp)){
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -957,9 +958,9 @@ function detectPosibleCat($strings,$cron){
         curl_close($ch);
         fclose($fp);
         
-        //$imageurl = s3upload(BASEPATH.'/../media/uploads/'.$actual_image_name,$actual_image_name);
+        $imageurl = s3upload(BASEPATH.'/../media/uploads/'.$actual_image_name,$actual_image_name);
         }
-        return $imageurl;/*
+        return 'http://dr30wky7ya0nu.cloudfront.net/'.$actual_image_name;/*
         
         //Rename image name. 
         $actual_image_name = time().".".$ext;
