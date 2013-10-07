@@ -1,10 +1,5 @@
 <?php
 function imageCropperAndOptimizer($url='',$destImage='',$serverImage=''){
-$img = get_headers($url, 1);
-if(empty($img)){
-    return $url;
-}
-@$size = $img["Content-Length"]/1024/1024;
 //header("Content-Type: image/jpeg");
 if(substr($url,-3) == 'png' ||  substr($url,-3) == 'PNG'){
     @$jpg = imagecreatefrompng($url);
