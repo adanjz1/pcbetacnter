@@ -1,28 +1,29 @@
 <?php
 function imageCropperAndOptimizer($url='',$destImage='',$serverImage=''){
 $img = get_headers($url, 1);
-$size = $img["Content-Length"]/1024/1024;
-if($size > 1.5){
-    die();
+if(empty($img)){
+    return $url;
 }
+@$size = $img["Content-Length"]/1024/1024;
 //header("Content-Type: image/jpeg");
 if(substr($url,-3) == 'png' ||  substr($url,-3) == 'PNG'){
-    $jpg = imagecreatefrompng($url);
+    @$jpg = imagecreatefrompng($url);
 }elseif(substr($url,-3) == 'jpg' ||  substr($url,-3) == 'JPG'){
-    $jpg = imagecreatefromjpeg($url);
+    @$jpg = imagecreatefromjpeg($url);
 }elseif(substr($url,-3) == 'gif' ||  substr($url,-3) == 'GIF'){
-    $jpg = imagecreatefromgif($url);
+    @$jpg = imagecreatefromgif($url);
 }else{
-    echo $url;
-    die();
+    return $url;
 }
-
+if(empty($jpg)){
+    return $url;
+}
 //$img = imagecreatefromjpeg($image_path);
 $black = array("red" => 255, "green" => 255, "blue" => 255, "alpha" => 127);
 
 $removeLeft = 0;
-for($x = 0; $x < imagesx($jpg); $x++) {
-    for($y = 0; $y < imagesy($jpg); $y++) {
+for($x = 0; $x < @imagesx($jpg); $x++) {
+    for($y = 0; $y < @imagesy($jpg); $y++) {
         if(imagecolorsforindex($jpg, imagecolorat($jpg, $x, $y)) != $black){
             break 2;
         }
