@@ -25,6 +25,7 @@ class Cron extends CI_Controller {
         foreach($arr as $k=>$v){
             $msg .= "Key= ".$k.' ==> '.$newImage.'\r\n';
         }
+        var_dump($msg);
          $message = "The cron job is running \r\n Images:".$msg."\r\n";
 
         mail('adanzweig@gmail.com', 'Pccounter Optimize-Image cron', $message);
