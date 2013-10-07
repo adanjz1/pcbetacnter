@@ -72,7 +72,7 @@ class Deal extends CI_Model {
         return $query->result();
     }
     function getUnoptimizedImages($qty){
-         $this->db->not_like('image_url','https://pccounter.s3.amazonaws.com');
+         $this->db->not_like('image_url','https://dr30wky7ya0nu.cloudfront.net/');
          $this->db->limit($qty);
          $this->db->order_by("title", "random"); 
          $query = $this->db->get('deals');
