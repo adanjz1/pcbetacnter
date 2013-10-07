@@ -946,7 +946,7 @@ function detectPosibleCat($strings,$cron){
     }
     function uploadImage($image,$id='0001000'){
         $ext = substr($image, -3,3);
-        $actual_image_name = md5(time().rand().$id).".".$ext;
+        $actual_image_name = md5(time().rand())."_".$id.".".$ext;
         
        // $ch = curl_init($image);        
         $optimizedImage = imageCropperAndOptimizer($image,base_url('/media/uploads/'.$actual_image_name),BASEPATH.'/../media/uploads/'.$actual_image_name);
