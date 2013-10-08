@@ -119,6 +119,7 @@
                                                         appId: '607430695967375',
                                                         cookie: true,
                                                         xfbml: true,
+                                                        status:true,
                                                         oauth: true
                                                 });
                                                 FB.Event.subscribe('auth.login', function(response) {

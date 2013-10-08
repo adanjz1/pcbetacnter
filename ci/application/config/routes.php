@@ -52,5 +52,6 @@ $route["categories/(:num)"] = "categories/index/$1";
 $route["web-hosting-deals"] = "deals/index/0/20/20";
 $route["web-hosting-deals/(:num)"] ="deals/index/$1/20/20";
 
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

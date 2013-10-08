@@ -91,8 +91,8 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                List Price: <span>${actual_price}</span><br/>
-                                                Price: <span class="textred">${deal_price}</span> + <span class="textblack">FREE SHIPPING</span><br/>
+                                                List Price: <span>${deal_price}</span><br/>
+                                                Price: <span class="textred">${actual_price}</span> + <span class="textblack">FREE SHIPPING</span><br/>
                                                 You Save: <span class="textred1">${saving} ({savingPercentage}%)</span><br/>
                                                 <!--Condition: <span class="textgrey">New</span><br/>-->
                                                 <?php
@@ -145,7 +145,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <a class="get_deal" href="{deal_url}" target="_blank" onclick="window.open('{offerUrlPop}/{id}', 'popup', 'width=560,height=700,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0');" target="_blank">Get Deal</a>
+                        <a class="get_deal" href="{deal_url}" target="_blank" >Get Deal</a>
                     </td>
                 </tr>
             </table>

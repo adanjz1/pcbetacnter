@@ -1,6 +1,6 @@
 <script>
     function chkCatCoupan(){
-        document.location = '{couponsPaginatorUrl}'+'/'+$('#cat_id').val();
+        document.location = '{siteUrl}'+$('#cat_id').val();
     }
 </script>
 <div class="leftcol">
@@ -9,9 +9,9 @@
             <h1>Online Coupons<div style="float:right; margin-top:12px;">
 
                     <select name="cat_id" id="cat_id" onchange="chkCatCoupan();">
-                        <option value="___0">-- Select Category --</option>
+                        <option value="coupon-codes">-- Select Category --</option>
                         {categories}
-                        <option value="___{id}" {selected}>{name}</option>
+                        <option value="{couponCatUrl}" {selected}>{name}</option>
                         {/categories}
                     </select>
                 </div></h1>
@@ -23,28 +23,10 @@
                 <div class = "coupon" style = "margin: 10px auto 0 6px;">
                     <img src="{image}"  alt="{display_name}" border="0" style="max-width:162px; max-height:77px;"  class="border"/>
                 </div>
-                <div class="coupon" style="width: 184px; padding: 0 0 0 19px;">
+                <div class="coupon" style="width: 414px; padding: 0 0 0 19px;">
                     <ul>
                         <li><h1>{display_name}</h1></li>
                         <li><span>From: {provider}</span></li>
-                    </ul>
-                </div>
-                <div class="coupon" style="width: 230px;">
-                    <ul>
-                        <?php if('{actual_price}' != '0.00') { ?>
-                        <li style="display:none">List Price: <strong>${actual_price}</strong></li>
-                        <?php } ?>
-
-                        <li class="price">
-                            Price: 
-                            <span class="redtext">
-                                ${deal_price}
-                            </span> 
-                            <strong>
-                                + FREE SHIPPING
-                            </strong>
-                        </li>
-                        <li>You Save: <span class="redtext">({savingsPercentage}%)</span></li>
                     </ul>
                 </div>
                 <div class="coupon" style="border:0; width: 160px;">

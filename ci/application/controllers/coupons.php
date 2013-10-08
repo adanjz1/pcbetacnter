@@ -96,7 +96,8 @@ class Coupons extends CI_Controller {
             $data['deals'] = $merge;
             $data['totalDeals'] = $this->Deal->get_totalCoupons($cat);
             $this->load->library('pagination');
-            $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/coupons/paginator/'.$category;
+            $config['uri_segment'] = 2;
+            $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').$this->uri->segments[1];
             $config['total_rows'] = $data['totalDeals'];
             $config['per_page'] = 30; 
             $this->pagination->initialize($config); 

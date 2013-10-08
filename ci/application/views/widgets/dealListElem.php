@@ -18,10 +18,10 @@
 
                         <li class="price dealPriceList">
                             <span class="actualPriceList">
-                                ${deal_price}
+                                ${actual_price}
                             </span> 
                             <span class="redtext">
-                                ${actual_price}
+                                ${deal_price}
                             </span> 
                         </li>
                         <li class="dealShareList">

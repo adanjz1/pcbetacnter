@@ -22,6 +22,7 @@ class Routes extends CI_Controller {
 	public function index() {
             $this->load->model('RoutesModel');
             $category = $this->RoutesModel->getCategoryRoutes();
+            $category2 = $this->RoutesModel->getCategoryCouponRoutes();
             $subcategory = $this->RoutesModel->getSubCategoryRoutes();
             $sources = $this->RoutesModel->getSourcesRoutes();
             $spPages = $this->RoutesModel->getStaticRoutes();
@@ -32,6 +33,11 @@ class Routes extends CI_Controller {
                 $allRoutes[] = array('route' => $cat->url,
                                      'controller'=> 'categories/subcategories/',
                                      'vars'=>'/'.$cat->id);
+            }
+            foreach($category2 as $cat){
+                $allRoutes[] = array('route' => $cat->couponCatUrl,
+                                     'controller'=> 'coupons/index/',
+                                     'vars'=>'/___'.$cat->id);
             }
             foreach($subcategory as $scat){
                 $allRoutes[] = array('route' => $scat->url,

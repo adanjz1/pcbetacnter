@@ -5,6 +5,11 @@ function getCategoryRoutes(){
      $query = $this->db->get('categories');
      return $query->result();
 }
+function getCategoryCouponRoutes(){
+     $this->db->select('id,couponCatUrl');
+     $query = $this->db->get('categories');
+     return $query->result();
+}
 function getSubCategoryRoutes(){
      $this->db->select('id,idCategory,url');
      $query = $this->db->get('subCategories');
