@@ -62,7 +62,7 @@ class Deal extends CI_Model {
         return $query->result();
     }
     function get_pageDeals($qty,$from='',$idPages=0){
-        $this->db->order_by("title", "random");  
+         
         $this->db->limit($qty,$from);
         $this->db->like('specialPages',','.$idPages.',');
         $this->db->where('is_active', '1');
@@ -95,7 +95,7 @@ class Deal extends CI_Model {
     
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-        $this->db->order_by("title", "random");  
+        
         $this->db->limit($qty,$from);
         
         if($subcat != '' && $subcat != 'null'){
@@ -133,7 +133,7 @@ class Deal extends CI_Model {
     }
     function get_lastStarredSubcatDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-        $this->db->order_by("title", "random");  
+        
         $this->db->limit($qty,$from);
         if($q != ''){
             $str = explode('%20',$q);
@@ -170,7 +170,7 @@ class Deal extends CI_Model {
     }
     function get_lastStarredCatDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-        $this->db->order_by("title", "random");  
+         
         $this->db->limit($qty,$from);
        if($q != ''){
             $str = explode('%20',$q);
@@ -207,7 +207,7 @@ class Deal extends CI_Model {
     }
     function get_lastStarredDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-        $this->db->order_by("title", "random");  
+         
         $this->db->limit($qty,$from);
         if($q != ''){
             $str = explode('%20',$q);
