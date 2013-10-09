@@ -46,7 +46,7 @@
                 <div class="coupon" style="margin: 10px auto 0 6px;">
                     <img src="{image}" alt="" style="max-width: 162px;max-height:77px;" border="0" class="border"/>
                 </div>
-                <div class="coupon" style="width: 184px; padding: 0 0 0 19px;">
+                <div class="coupon" style="width: 414px; padding: 0 0 0 19px;">
                     <ul>
                         <li>
                             <h1>
@@ -58,28 +58,6 @@
                                 From: {provider}
                             </span>
                         </li>
-                    </ul>
-                </div>
-                <div class="coupon" style="width: 230px;">
-                    <ul>
-                        <?php if('{actual_price}' != '0.00') { ?>
-                        <li>
-                            List Price: 
-                            <strong>
-                                ${actual_price}
-                            </strong>
-                        </li>
-                        <?php } ?>
-                        <li>
-                            Price: 
-                            <span class="redtext">
-                                ${deal_price}
-                            </span> 
-                            <strong>
-                                + FREE SHIPPING
-                            </strong>
-                        </li>
-                        <li>You Save: <span class="redtext">{savingsPercentage}%</span></li>
                     </ul>
                 </div>
                 <div class="coupon" style="border:0; width: 160px;">
