@@ -17,9 +17,7 @@
                         <?php } ?>
 
                         <li class="price dealPriceList">
-                            <span class="actualPriceList">
-                                ${actual_price}
-                            </span> 
+                            {showActualPrice}
                             <span class="redtext">
                                 ${deal_price}
                             </span> 

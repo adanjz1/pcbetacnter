@@ -91,9 +91,9 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                List Price: <span>${actual_price}</span><br/>
+                                                {showActualPrice}
                                                 Price: <span class="textred">${deal_price}</span> + <span class="textblack">FREE SHIPPING</span><br/>
-                                                You Save: <span class="textred1">${saving} ({savingPercentage}%)</span><br/>
+                                                {showSavings}
                                                 <!--Condition: <span class="textgrey">New</span><br/>-->
                                                 <?php
                                                 if (!('{deal_end_date}' < strtotime(date('Y-m-d H:i:s')))) {

@@ -164,6 +164,7 @@ class Stores extends CI_Controller {
                 $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'all-stores';
                 $config['total_rows'] = $this->Source->get_totalStores($initial);
                 $config['per_page'] = 21; 
+                $config['uri_segment'] = 2;
                 $this->pagination->initialize($config); 
                 $data['paginator'] = $this->pagination->create_links();
                 $data['dealsStore'] = $this->config->item('base_url').$this->config->item('index_page').'all-stores';

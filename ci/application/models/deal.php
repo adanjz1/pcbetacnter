@@ -51,7 +51,7 @@ class Deal extends CI_Model {
     }
     function get_homeDeals($qty,$dealSourceId){
         
-        $this->db->order_by("title", "random");  
+        //$this->db->order_by("title", "random");  
         $this->db->limit($qty);
         $this->db->where('(mainMenuOrder is NULL or mainMenuOrder = 0)');
         $this->db->where('deal_sources_id', $dealSourceId);
@@ -131,6 +131,7 @@ class Deal extends CI_Model {
        // var_dump($this->db->last_query());
         return $query->result();
     }
+       
     function get_lastStarredSubcatDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
         

@@ -42,12 +42,12 @@ include APPPATH."cache/routes.php";
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
-
-$route['coupon-codes/(:num)'] = 'coupons/index/$1';
-$route['deals-list/(:num)'] = 'deals/index/$1';
 $route['coupon-codes'] = 'coupons';
+$route['coupon-codes/(:num)'] = 'coupons/index/$1';
 $route['deals-list'] = 'deals';
+$route['deals-list/(:num)'] = 'deals/index/$1';
 $route['all-stores'] = 'stores';
+$route['all-stores/(:num)'] = 'stores';
 $route["categories/(:num)"] = "categories/index/$1";
 $route["web-hosting-deals"] = "deals/index/0/20/20";
 $route["web-hosting-deals/(:num)"] ="deals/index/$1/20/20";

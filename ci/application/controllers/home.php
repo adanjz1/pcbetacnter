@@ -59,6 +59,13 @@ public function index()
             
             $merge = array_merge($dealsList, $dealsList2);
             foreach($merge as $deal){
+                if($deal->actual_price > 0){
+                    $deal->showActualPrice = '<span class="actualPriceList">
+                                $'.$deal->actual_price.'
+                            </span> ';
+                }else{
+                    $deal->showActualPrice = '';
+                }
                 if(empty($deal->display_name)){
                     $deal->display_name = $deal->title;
                 }

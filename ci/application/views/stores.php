@@ -10,7 +10,7 @@
                         <img src='http://pccounter.net/media/images/left.png' width="26" height="60" border="0" />
                     </a>
                 </div>
-                <div id='carousel_inner' style="width:715px; float:left; z-index:0; overflow:hidden; padding-left:2px;">
+                <div id='carousel_inner' style="width:700px; float:left; z-index:0; overflow:hidden; padding-left:2px;">
                     <ul id='carousel_ul'>
                        {stores}
                             <li style="background-color:transparent;">

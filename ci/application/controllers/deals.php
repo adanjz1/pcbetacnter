@@ -91,6 +91,13 @@ class Deals extends CI_Controller {
             $merge = array_merge($starred,$merge);
             $this->load->library('session');
             foreach($merge as $deal){
+                 if($deal->actual_price > 0){
+                    $deal->showActualPrice = '<span class="actualPriceList">
+                                $'.$deal->actual_price.'
+                            </span> ';
+                }else{
+                    $deal->showActualPrice = '';
+                }
                 if(empty($deal->display_name)){
                     $deal->display_name = $deal->title;
                 }
@@ -197,6 +204,15 @@ class Deals extends CI_Controller {
             $this->load->model('Category');
             $deals = $this->Deal->get_dealById($id);
             foreach($deals as $deal){
+                 
+                 
+                 if($deal->actual_price > 0){
+                    $deal->showActualPrice = 'List Price: <span>$'.$deal->actual_price.'</span><br/>';
+                    $deal->showSavings = ' You Save: <span class="textred1">$'. ($deal->actual_price - $deal->deal_price).' ('.round(($deal->saving * 100) / $deal->actual_price,2).'%)</span><br/>';
+                }else{
+                    $deal->showActualPrice = '';
+                    $deal->showSavings= '';
+                }
                 if(empty($deal->display_name)){
                     $deal->display_name = $deal->title;
                 }
@@ -220,13 +236,7 @@ class Deals extends CI_Controller {
                 }
                 $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
                 
-                if($deal->actual_price >0){
-                    $deal->saving = ($deal->actual_price - $deal->deal_price);
-                    $deal->savingPercentage  = round(($deal->saving * 100) / $deal->actual_price,2);
-                }else{
-                    $deal->savingPercentage  = 0;
-                    $deal->saving = 0;
-                }
+               
                 $this->load->model('Review');
                 $reviews = $this->Review->get_reviews($deal->id);
                 $deal->qtyComments = $this->Review->get_qtyComments($deal->id);
