@@ -23,7 +23,7 @@ class Cron extends CI_Controller {
     }
     public function deleteInexistentImages(){
         $this->load->model('Deal');
-        $deals = $this->Deal->getImages(1000);
+        $deals = $this->Deal->getImages(500);
         foreach($deals as $deal){
             if(!$this->Imageexists($deal->image_url)){
                 $this->Deal->delete($deal->id);
