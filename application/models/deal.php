@@ -78,8 +78,7 @@ class Deal extends CI_Model {
          $query = $this->db->get('deals');
          return $query->result();
     }
-    function getOptimizedImages($qty){
-         $this->db->like('image_url','dr30wky7ya0nu.cloudfront.net/');
+    function getImages($qty){
          $this->db->limit($qty);
          $this->db->order_by("title", "random"); 
          $query = $this->db->get('deals');

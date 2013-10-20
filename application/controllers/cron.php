@@ -21,17 +21,19 @@ class Cron extends CI_Controller {
 
         return $code == 200;
     }
-    public function optimizeImages(){
-        
-        die("aasd");
-           $this->load->model('Deal');
-        
-        $deals = $this->Deal->getOptimizedImages(200);
+    public function deleteInexistentImages(){
+        $this->load->model('Deal');
+        $deals = $this->Deal->getImages(1000);
         foreach($deals as $deal){
             if(!$this->Imageexists($deal->image_url)){
                 $this->Deal->delete($deal->id);
+                
             }
         }
+    }
+    public function optimizeImages(){
+        
+         
         $arr = array();
         $deals = $this->Deal->getUnoptimizedImages(200);
         foreach($deals as $deal){
