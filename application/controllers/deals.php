@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+rev<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Deals extends CI_Controller {
 
@@ -209,7 +209,7 @@ class Deals extends CI_Controller {
                  
                  if($deal->actual_price > 0){
                     $deal->showActualPrice = 'List Price: <span>$'.$deal->actual_price.'</span><br/>';
-                    $deal->showSavings = ' You Save: <span class="textred1">$'. ($deal->actual_price - $deal->deal_price).' ('.round(($deal->saving * 100) / $deal->actual_price,2).'%)</span><br/>';
+                    $deal->showSavings = ' You Save: <span class="textred1">$'. ($deal->actual_price - $deal->deal_price).' ('.round((($deal->actual_price - $deal->deal_price) * 100) / $deal->actual_price,2).'%)</span><br/>';
                 }else{
                     $deal->showActualPrice = '';
                     $deal->showSavings= '';
