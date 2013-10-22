@@ -28,7 +28,7 @@ class Cron extends CI_Controller {
         foreach($deals as $deal){
             if(!$this->Imageexists($deal->image_url)){
                 
-                $this->Deal->saveImage($deal->id,$this->Source->get_dealSourceImg());
+                $this->Deal->saveImage($deal->id,$this->Source->get_dealSourceImg($deal->deal_sources_id));
             }
         }
     }
