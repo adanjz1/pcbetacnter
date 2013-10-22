@@ -138,7 +138,7 @@ class Deal extends CI_Model {
         
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
-        $this->db->where('coupon_code','');
+        $this->db->where('coupon_code',null);
         $query = $this->db->get('deals');
        // var_dump($this->db->last_query());
         return $query->result();
