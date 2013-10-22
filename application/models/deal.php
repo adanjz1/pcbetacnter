@@ -99,6 +99,7 @@ class Deal extends CI_Model {
         $this->db->where('specialPages',','.$idPages.',');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
         $this->db->get('deals');
         return $this->db->count_all_results();
     }
@@ -137,6 +138,7 @@ class Deal extends CI_Model {
         
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
+        $this->db->where('coupon_code','');
         $query = $this->db->get('deals');
        // var_dump($this->db->last_query());
         return $query->result();
@@ -286,6 +288,7 @@ class Deal extends CI_Model {
         }
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
@@ -294,6 +297,7 @@ class Deal extends CI_Model {
          if($cat != ''){
             $this->db->where('cat_id',$cat);
         }
+        
         $this->db->where('is_active', '1');
         $this->db->from('deals');
         return $this->db->count_all_results();
