@@ -40,7 +40,8 @@
 include APPPATH."cache/routes.php"; 
 
 $route['default_controller'] = "home";
-$route['404_override'] = '';
+$route['404_override'] = 'errors/wrongPlace';
+$route['sitemap'] = 'siteMap';
 
 $route['coupon-codes'] = 'coupons';
 $route['coupon-codes/(:num)'] = 'coupons/index/$1';
