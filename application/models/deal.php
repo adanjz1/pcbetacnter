@@ -289,6 +289,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code',null);
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
