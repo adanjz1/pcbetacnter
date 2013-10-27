@@ -1,5 +1,5 @@
 <?php
- public function Imageexists($uri)
+  function Imageexists($uri)
     {
         $ch = curl_init($uri);
         curl_setopt($ch, CURLOPT_NOBODY, true);
