@@ -95,7 +95,7 @@ class Cron extends CI_Controller {
                 $xml = simpleXML_load_file($xmlLink, "SimpleXMLElement", LIBXML_NOCDATA);
                 
                 foreach ($xml->item as $product) {
-                    if (intVal($product->price) > 0) {
+                    if (intVal($product->price) > 0 && intVal ($product->saleprice)  >0) {
                         $longDesc = htmlentities($product->description->long);
                         $shortDesc = htmlentities($product->description->short);
                         $hash = md5($product->productname.$product->linkurl.$product->sku);
@@ -127,12 +127,19 @@ class Cron extends CI_Controller {
                             }
                             $params['deal_sources_id'] = $SourceId;
                             
-                            if($product->price > 0 && !strpos($product->linkurl,'language%3Dfr-CA')){
-                                
-                            $params['cat_id'] = detectPosibleCat(array($product->productname,$longDesc,$product->keywords),$this);
-                            $params['sub_cat_id'] = detectPosibleSubCat(array($product->productname,$longDesc),$params['cat_id'],$this);
-                            $params['is_active'] = 1;
-                            $insertStack[] = $params;
+                            if(!strpos($product->linkurl,'language%3Dfr-CA')){
+                                 if($product->saleprice < $product->price){
+                                        $params['deal_price'] = "$product->saleprice";
+                                        $params['actual_price'] = "$product->price";
+
+                                    }else{
+                                        $params['actual_price'] = "$product->saleprice";
+                                        $params['deal_price'] = "$product->price";
+                                    }
+                                $params['cat_id'] = detectPosibleCat(array($product->productname,$longDesc,$product->keywords),$this);
+                                $params['sub_cat_id'] = detectPosibleSubCat(array($product->productname,$longDesc),$params['cat_id'],$this);
+                                $params['is_active'] = 1;
+                                $insertStack[] = $params;
                                 if(count($insertStack) == 500){
                                     $this->Deal->set_deal($insertStack);
                                     $deals = $insertStack;
@@ -354,11 +361,17 @@ class Cron extends CI_Controller {
                         $pcat = htmlentities(utf8_decode(substr($fullCat, 0, strpos($fullCat, '>'))));
                         $pcat = trim($pcat);
                         $catStr = str_replace(';',' ',$pcat);
-                        if($product->price >0 && !strpos($bu,'language%3Dfr-CA')){
+                        if($product->price >0  && $sp>0 && !strpos($bu,'language%3Dfr-CA')){
                             $params['deal_url'] = "$bu";
                             $params['image_url'] = "$iu";
-                            $params['actual_price'] = "$sp";
-                            $params['deal_price'] = "$product->price";
+                            if($sp > 0 && $sp < $product->price){
+                                $params['deal_price'] = "$sp";
+                                $params['actual_price'] = "$product->price";
+                            
+                            }else{
+                                $params['actual_price'] = "$sp";
+                                $params['deal_price'] = "$product->price";
+                            }
                             $params['savings_amount'] = "$sp - $product->price";
                             $params['manufacturer'] = "$mn";
                             $params['manufacturerid'] = "$ms";

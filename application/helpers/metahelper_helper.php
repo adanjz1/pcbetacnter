@@ -1,5 +1,14 @@
 <?php
+ public function Imageexists($uri)
+    {
+        $ch = curl_init($uri);
+        curl_setopt($ch, CURLOPT_NOBODY, true);
+        curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
 
+        return $code == 200;
+    }
 
        function getConstData ($t){
           //$t->output->cache(10);

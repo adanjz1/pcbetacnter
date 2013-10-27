@@ -106,6 +106,9 @@ class Deals extends CI_Controller {
                 }else{
                     $deal->image = str_replace("pccounter.s3.amazonaws.com","dr30wky7ya0nu.cloudfront.net",$deal->image_url);
                 }
+                if(Imageexists($deal->image)){
+                    $deal->image = $this->Source->get_dealSourceImg($deal->deal_sources_id);
+                }
                 if(!empty($deal->deal_sources_id)){
                     $deal->provider = $this->Source->get_dealSourceStr($deal->deal_sources_id);
                 }
