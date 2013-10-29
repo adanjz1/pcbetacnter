@@ -56,6 +56,7 @@ class Deal extends CI_Model {
         
         return $query->result();
     }
+    
     function get_homeDeals($qty,$dealSourceId){
         
         //$this->db->order_by("title", "random");  
@@ -97,6 +98,11 @@ class Deal extends CI_Model {
                'image_url' => $image,
             );
         $this->db->update('deals',$data);
+    }
+    function setInactive($idCsv){
+        $this->db->where('id',$idCsv);
+        $data = array("status"=>"1");
+        $this->db->update("csvDeals",$data);
     }
     function delete($idDeal=''){
         $this->db->where('id',$idDeal);

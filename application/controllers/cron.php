@@ -36,6 +36,7 @@ class Cron extends CI_Controller {
         $this->load->model('Deal');
         $csvs = $this->Deal->getActiveCSV();
         foreach($csvs as $csv){
+            $this->Deal->setInactive($csv->id);
             if(!empty($csv->text)){
                 $arr = str_getcsv($csv->text,";");
             }else if(!empty($csv->file)){
