@@ -20,7 +20,7 @@ $CI =& get_instance();
 define('__MEDIA_PATH__', $CI->config->base_url('') .'/media/');
 
 $config['imageExtensions'] = array(".png", ".jpg", ".gif");
-$config['fileExtensions'] = array(".png", ".jpg", ".gif",".doc",".docx",".xls",".xlsx",".zip",".rar",".7z");
+$config['fileExtensions'] = array(".png", ".jpg", ".gif",".doc",".csv",".docx",".xls",".xlsx",".zip",".rar",".7z");
 
 define('__HTML_CHARSET__','utf-8');
 

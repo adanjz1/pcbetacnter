@@ -32,6 +32,52 @@ class Cron extends CI_Controller {
             }
         }
     }
+    public function checkCSV(){
+        $this->load->model('Deal');
+        $csvs = $this->Deal->getActiveCSV();
+        foreach($csvs as $csv){
+            if(!empty($csv->text)){
+                $arr = str_getcsv($csv->text,";");
+            }else if(!empty($csv->file)){
+                $data = file_get_contents(FCPATH.'media/files/'.$csv->file);
+                $arr = str_getcsv($data,";");
+            }
+                $manage = array_chunk($arr,22);
+                $params = array();
+                foreach($manage as $deal){
+                    //var_dump($deal);
+                    if(count($deal)==22){
+                    $params = array(
+                        'deal_sources_id' => $deal[0],
+                        'cat_id' => $deal[1],
+                        'sub_cat_id'=> $deal[2],
+                        'mainMenuOrder'=>$deal[3],
+                        'hotCategory'=>$deal[4],
+                        'hotSubCategoty'=>$deal[5],
+                        'hotDeals'=> $deal[6],
+                        'title'=> $deal[7],
+                        'description'=> $deal[8],
+                        'deal_url'=> $deal[9],
+                        'image_url'=> $deal[10],
+                        'deal_end_date'=> $deal[11],
+                        'deal_start_date'=> $deal[12],
+                        'deal_price'=> $deal[13],
+                        'actual_price'=> $deal[14],
+                        'meta_description'=> $deal[15],
+                        'meta_keywords'=> $deal[16],
+                        'meta_title'=> $deal[17],
+                        'sku'=> $deal[18],
+                        'manufacturer'=> $deal[19],
+                        'manufacturerid'=> $deal[20],
+                        'coupon_code'=> $deal[21]  
+                    );
+                    $this->Deal->set_deal(array($params));
+                    }
+                    
+                    
+                }
+        }
+    }
     public function optimizeImages(){
         
          

@@ -49,6 +49,13 @@ class Deal extends CI_Model {
         
         return $query->result();
     }
+    function getActiveCSV()
+    {
+        $this->db->where('status', '0');
+        $query = $this->db->get('csvDeals');
+        
+        return $query->result();
+    }
     function get_homeDeals($qty,$dealSourceId){
         
         //$this->db->order_by("title", "random");  
@@ -325,7 +332,7 @@ class Deal extends CI_Model {
         if(count($params) > 1){
             $this->db->insert_batch('deals', $params); 
         }else{
-            $this->db->insert('deals', $params); 
+            $this->db->insert('deals', $params[0]); 
         }
         
     }

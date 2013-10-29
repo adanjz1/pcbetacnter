@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"ids":["file","text"],"table":{"crudTitle":"csvDeals manager","crudRowsPerPage":"20"},"filter":{"list":["id","text","file","status"],"atrr":{"file":{"alias":"File"},"text":{"alias":"Text"},"id":{"alias":"id"}}},"column":{"list":["id","text","file","status"],"atrr":{"file":{"alias":"File"},"text":{"alias":"Text"},"id":{"alias":"id"}}},"frm_type":"2"}
