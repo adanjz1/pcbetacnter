@@ -23,7 +23,7 @@ body{
 
 .topHeader .search{
     float:right;
-    background: url(../images/new/searchbox.png) left top no-repeat;
+    background: url(../images/new/searchBox.png) left top no-repeat;
     width: 345px;
     margin-top: 5px;
 }
@@ -331,6 +331,7 @@ margin-top: 16px;
 }
 .dealImage{
     text-align:center;
+    height: 165px;
 }
 .dealContent{
     width: 195px;
@@ -356,7 +357,7 @@ margin-top: 16px;
 }
 .dealProvider{
     color:#8e8071;
-    font-size:12px;
+    font-size:9px;
     margin-top: 10px;
 }
 .bold{
@@ -392,6 +393,9 @@ margin-top: 16px;
 }
 .thumbActive{
     background: url(../images/new/likeSelectedIcon.png) no-repeat;
+     width: 58px;
+    height: 27px;
+    float: left;
     cursor:pointer;
 }
 .thumbsValue{
@@ -459,6 +463,7 @@ margin-top: 34px;
     text-align:center;
     width: 195px;
     margin-left: 15px;
+    height: 183px;
 }
 .couponContent{
     width: 195px;
@@ -494,6 +499,12 @@ margin-top: 34px;
 }
 .couponActions .share{
     margin-left: 30px;
+}
+.dealBtn div{
+    cursor:pointer;
+}
+.couponItem .shareBox{
+    margin-left: 243px;
 }
 .footer{
     background-color: #2a2929;
@@ -611,8 +622,9 @@ margin-top: 34px;
     background:url(../images/new/likeIco.png) no-repeat;
     width: 158px;
 }
-.carousel1 .dealActions .thumbsActive{
+.carousel1 .dealActions .thumbActive{
     background:url(../images/new/likeIcoActive.png) no-repeat;
+    width: 158px;
 }
 .carousel1 .dealActions .thumbsValue, .carousel1 .dealActions .shareValue, .carousel1 .dealActions .commentQty
 {
@@ -623,6 +635,10 @@ margin-top: 34px;
     width:133px;
     margin-top: 6px;
 
+}
+.carousel1 .shareBox{
+    margin-top:-50px;
+    margin-left:423px;
 }
 .carousel1 .dealActions .commentQty{
     margin-top: 0px;

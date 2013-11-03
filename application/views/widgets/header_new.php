@@ -50,7 +50,7 @@
             var thistw = $(this);
                 $.ajax({
                 type: "POST",
-                url: '{siteUrl}/ajax/twlogin/',
+                url: '{siteUrl}ajax/twlogin/',
                 data: { null:0}
               }).done(function( msg ) {
                  

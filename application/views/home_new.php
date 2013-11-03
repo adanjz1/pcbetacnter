@@ -26,7 +26,12 @@ $(function(){
                 url: '{siteUrl}/ajax/like/'+$(this).attr('rel'),
                 data: { null:0}
               }).done(function( msg ) {
-                 thisThumb.find('.thumbsValue').html(msg);
+                 
+                 if(thisThumb.parent().parent().hasClass('item')){
+                     thisThumb.find('.thumbsValue').html(msg+'| APPRECIATE THIS');
+                 }else{
+                     thisThumb.find('.thumbsValue').html(msg);
+                 }
                  if(thisThumb.attr('class') == 'thumbs'){
                      thisThumb.addClass('thumbActive');
                      thisThumb.removeClass('thumbs');
@@ -183,19 +188,6 @@ $(function(){
      </div>
  </div>
  
- <div class="topCoupons">
-     <div class="catTitle">TOP COUPONS</div>
-     <div class="plusLessButton plus"></div>
-     <div class="clear"></div>
-     <div class="list">
-         <ul>
-             {topCoupons}
-             <?php include('widgets/couponListElem_new.php')?>
-            {/topCoupons}
-            <div class="clear"></div>
-         </ul>
-     </div>
- </div>
  <div class="lastestCoupons">
      <div class="catTitle">LASTEST COUPONS</div>
      <div class="plusLessButton plus"></div>
@@ -210,4 +202,17 @@ $(function(){
      </div>
  </div>
  
+ <div class="topCoupons">
+     <div class="catTitle">TOP COUPONS</div>
+     <div class="plusLessButton plus"></div>
+     <div class="clear"></div>
+     <div class="list">
+         <ul>
+             {topCoupons}
+             <?php include('widgets/couponListElem_new.php')?>
+            {/topCoupons}
+            <div class="clear"></div>
+         </ul>
+     </div>
+ </div>
 </div>

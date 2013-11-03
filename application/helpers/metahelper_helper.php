@@ -321,7 +321,9 @@
                 }else{
                     $deal->short_display_name = $deal->display_name;
                 }
+                
                 $deal->offerUrl = $t->config->item('base_url').$t->config->item('index_page').'/deals/review/'.$deal->id;
+                $deal->encodedUrl = urlencode($deal->offerUrl);
                 $sess = $t->session->all_userdata();
                 if(!empty($sess[$deal->id])){
                      $deal->thumbsClass = 'thumbActive';
@@ -347,6 +349,7 @@
                 }else{
                     $deal->activeDeal = '';
                 }
+                
                 $deal->count = $dealcount-1;
                 $deal->qtyComments = $t->Review->get_qtyComments($deal->id);
                 $lastRowDealCount++;
