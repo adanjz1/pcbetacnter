@@ -215,20 +215,143 @@
                   if(empty($email)) {
 			// show the form
 			$data['newsletterMessage']='<ul>
-								<li>Get one daily email featuring our very best offers</li>
 								<li><input type="text" class="search_bg1" name="email" placeholder="Enter Your Email address here"/>
 								<br /><span style="color:#FF0000;" id="err_email"></span>
 								</li>
-								<li><input type="submit" name="Submit2" class="search_btn1" value=""/></li>
+								<li><input type="submit" name="Submit2" class="search_btn1" value="SUBSCRIBE"/></li>
 							</ul>';
                   }else{
                         $t->load->model('Client');
                         $t->Client->insertEmail($email);
-                        $data['newsletterMessage']='<div style="padding-left: 15px;">Your email has been inserted in our database</div>';
+                        $data['newsletterMessage']='<div class="newsletterAdded"></div>';
                   }
                 
+                  
+              $t->load->model('Category');
+                $categ_list_menu = $t->Category->get_categories(21);
+                foreach ($categ_list_menu as $categ){
+                    if(empty($categ->url)){
+                        $categ->subCategoryUrl = $t->config->item('base_url').$t->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
+                        $categ->dealCategoryUrl = $t->config->item('base_url').$t->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
+                    }else{
+                        $categ->subCategoryUrl = $t->config->item('base_url').$t->config->item('index_page').$categ->url;
+                        $categ->dealCategoryUrl = $t->config->item('base_url').$t->config->item('index_page').$categ->url;
+                    }
+                    if(empty($categ->image)){
+                        $categ->image = 'http://pccounter.net/media/images/noImage.jpg';
+                    }
+                    if($categ->id > 6){
+                        $categ->extraClass = 'hiddenCat';
+                    }elsE{
+                        $categ->extraClass = '';
+                    }
+                }
+                $data['categoriesMenu'] = $categ_list_menu;
+
+                
+                $t->load->model('Source');
+            $stor = $t->Source->get_stores(23);
+            $storcount =1;
+            foreach($stor as $st){
+                if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
+                    $st->image = $st->deal_source_logo_url;
+                }else{
+                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
+                }
+                if(empty($st->url)){
+                    $st->dealsStore = $t->config->item('base_url').$t->config->item('index_page').'deals/index/0/_/null/null/'.$st->deal_source_id;
+                }else{
+                    $st->dealsStore = $t->config->item('base_url').$t->config->item('index_page').$st->url;
+                }
+                if($storcount > 8){
+                    $st->extraClass = 'hiddenCat';
+                }else{
+                    $st->extraClass = '';
+                }
+                if(strlen($st->name) > 22){
+                    $st->short_name  = substr($st->name,0,22).'...';
+                }else{
+                    $st->short_name  = $st->name;
+                }
+                $storcount++;
+            }
+            $data['storesMenu'] = $stor;
+            $data['qtyStores'] = $t->Source->get_totalStores();     
+                $data['activeHome'] = '';
+                $data['activeDeals'] = '';
+                $data['activeCoupons'] = '';
+                $data['activeCategory'] = '';
+                $data['activeStores'] = '';
                 
             return $data;
     }
-
+    function encapsuleDeals($deals,$t){
+        
+            $dealcount=1;
+            $lastRowDealCount=1;
+            foreach($deals as $deal){
+                if($deal->actual_price > 0){
+                    $deal->showActualPrice = '<span class="actualPriceList">
+                                $'.$deal->actual_price.'
+                            </span> ';
+                }else{
+                    $deal->showActualPrice = '';
+                }
+                if(empty($deal->display_name)){
+                    $deal->display_name = $deal->title;
+                }
+                if(empty($deal->image_url)){
+                    $deal->image = 'media/images/noImage.jpg';
+                }else{
+                    $deal->image = str_replace("https://pccounter.s3.amazonaws.com/","http://dr30wky7ya0nu.cloudfront.net/",$deal->image_url);
+                }
+                if(!Imageexists($deal->image)){
+                    $deal->image = $t->Source->get_dealSourceImg($deal->deal_sources_id);
+                }
+                if(!empty($deal->deal_sources_id)){
+                    $deal->provider = $t->Source->get_dealSourceStr($deal->deal_sources_id);
+                }
+                if($deal->hot){
+                    $deal->hot = '<div class="hot_deal"></div>';
+                }else{
+                    $deal->hot = '';
+                }
+                if(strlen($deal->display_name)> 60){
+                    $deal->short_display_name = substr($deal->display_name,0,60).'...';
+                }else{
+                    $deal->short_display_name = $deal->display_name;
+                }
+                $deal->offerUrl = $t->config->item('base_url').$t->config->item('index_page').'/deals/review/'.$deal->id;
+                $sess = $t->session->all_userdata();
+                if(!empty($sess[$deal->id])){
+                     $deal->thumbsClass = 'thumbActive';
+                }else{
+                    $deal->thumbsClass = 'thumbs';
+                }
+                 if($dealcount > 4){
+                    $deal->extraClass = 'hiddenCat';
+                }else{
+                    $deal->extraClass = '';
+                }
+                if($lastRowDealCount==4){
+                    $deal->lastInRow= 'lastInRow';
+                    $lastRowDealCount = 0;
+                }else{
+                    $deal->lastInRow= '';
+                }
+                $deal->categoryStr = $t->Category->get_CatName($deal->cat_id);
+                $deal->catUrl = $t->Category->get_CatUrl($deal->cat_id);
+                $deal->categoryCount = $t->Category->get_catCant($deal->cat_id);
+                if($dealcount == 1 ){
+                    $deal->activeDeal = 'active';
+                }else{
+                    $deal->activeDeal = '';
+                }
+                $deal->count = $dealcount-1;
+                $deal->qtyComments = $t->Review->get_qtyComments($deal->id);
+                $lastRowDealCount++;
+                $dealcount++;
+            }
+            return $deals;
+    }
 ?>
