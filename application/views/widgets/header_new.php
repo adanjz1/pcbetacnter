@@ -194,6 +194,7 @@
     
     <div class='loginAccount'>
         <div class="title">Sign into your PCCOUNTER account</div>
+        <div id="fb-root"></div>
         <div class="fbloginButton">Sign in with FACEBOOK</div>
         <?php
            if (array_key_exists("login", $_GET)) {
