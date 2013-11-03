@@ -119,7 +119,7 @@ class Deal extends CI_Model {
     
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-        
+        $this->db->order_by('id', 'RANDOM');
         $this->db->limit($qty,$from);
         
         if($subcat != '' && $subcat != 'null'){
