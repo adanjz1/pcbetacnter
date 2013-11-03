@@ -44,9 +44,9 @@ class Deal extends CI_Model {
         $this->db->where('mainMenuOrder >', '0');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
         $this->db->limit($qty);
         $query = $this->db->get('deals');
-        
         return $query->result();
     }
     function getActiveCSV()
@@ -109,6 +109,8 @@ class Deal extends CI_Model {
         $this->db->delete('deals');
     }
     function get_totalDeals_page($idPages=0){
+        
+        
         $this->db->where('specialPages',','.$idPages.',');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
@@ -116,7 +118,49 @@ class Deal extends CI_Model {
         $this->db->get('deals');
         return $this->db->count_all_results();
     }
-    
+    function get_lastDealsHome($qty=0,$usedDeals=array()){
+        $this->db->limit($qty);
+        $this->db->order_by('id','desc');
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('coupon_code',null);
+        $this->db->where_not_in('id',$usedDeals);
+        $query = $this->db->get('deals');
+       
+        return $query->result();
+    }
+    function get_lastCouponsHome($qty=0){
+        $this->db->limit($qty);
+        $this->db->order_by('id','desc');
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('coupon_code !=','');
+        $query = $this->db->get('deals');
+       
+        return $query->result();
+    }
+    function get_topDeals($qty=0,$usedDeals=array()){
+        $this->db->order_by('thumbs','desc');
+        $this->db->limit($qty);
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('coupon_code',null);
+        $this->db->where_not_in('id',$usedDeals);
+        $query = $this->db->get('deals');
+       
+        return $query->result();
+    }
+    function get_topCoupons($qty=0,$usedDeals=array()){
+        $this->db->order_by('thumbs','desc');
+        $this->db->limit($qty);
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('coupon_code !=','');
+        $this->db->where_not_in('id',$usedDeals);
+        $query = $this->db->get('deals');
+       
+        return $query->result();
+    }
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
         

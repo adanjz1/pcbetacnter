@@ -47,112 +47,88 @@ public function index()
             $this->load->model('Deal');
             $this->load->model('Category');
             $this->load->model('Source');
-            $dealsList = $this->Deal->get_mainMenuDeals(24); //Get the main menu deal list
-            $others = 24-count($deals);
-            
-//            $dealSources = $this->Source->get_stores(99);
-            $dealsList2 = $this->Deal->get_lastDeals($others); //Get the other deals
-//            foreach($dealSources as $source){
-//                $auxDeals = $this->Deal->get_homeDeals(3,$source->deal_source_id); //Get the other deals
-//                $dealsList2 = array_merge($dealsList2, $auxDeals);
-//            }
-            
-            $merge = array_merge($dealsList, $dealsList2);
-            foreach($merge as $deal){
-                if($deal->actual_price > 0){
-                    $deal->showActualPrice = '<span class="actualPriceList">
-                                $'.$deal->actual_price.'
-                            </span> ';
-                }else{
-                    $deal->showActualPrice = '';
-                }
-                if(empty($deal->display_name)){
-                    $deal->display_name = $deal->title;
-                }
-                if(empty($deal->image_url)){
-                    $deal->image = 'media/images/noImage.jpg';
-                }else{
-                    $deal->image = str_replace("https://pccounter.s3.amazonaws.com/","http://dr30wky7ya0nu.cloudfront.net/",$deal->image_url);
-                }
-                if(!Imageexists($deal->image)){
-                    $deal->image = $this->Source->get_dealSourceImg($deal->deal_sources_id);
-                }
-                if(!empty($deal->deal_sources_id)){
-                    $deal->provider = $this->Source->get_dealSourceStr($deal->deal_sources_id);
-                }
-                if($deal->hot){
-                    $deal->hot = '<div class="hot_deal"></div>';
-                }else{
-                    $deal->hot = '';
-                }
-                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
-                $sess = $this->session->all_userdata();
-                if(!empty($sess[$deal->id])){
-                     $deal->thumbsClass = 'thumbActive';
-                }else{
-                    $deal->thumbsClass = 'thumbs';
-                }
-                $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
-                $deal->catUrl = $this->Category->get_CatUrl($deal->cat_id);
-                $deal->categoryCount = $this->Category->get_catCant($deal->cat_id);
-                
+            $bannerDeals = $this->Deal->get_mainMenuDeals(5); //Get the main menu deal list
+            $arrExclude=array();
+            foreach($bannerDeals as $deal){
+                $arrExclude[] = $deal->id;
             }
-            $data['deals'] = $merge;
+            $lastestDeals = $this->Deal->get_lastDeals(8,$arrExclude); //Get the other deals
+            foreach($lastestDeals as $deal){
+                $arrExclude[] = $deal->id;
+            }
+            $topDeals = $this->Deal->get_topDeals(8,$arrExclude); //Get the other deals
+            $this->load->model('Review');
+            $data['bannerDealsIndicator'] = encapsuleDeals($bannerDeals,$this);
+            $data['bannerDeals'] = encapsuleDeals($bannerDeals,$this);
+            $data['lastestDeals'] = encapsuleDeals($lastestDeals,$this);
+            $data['topDeals'] = encapsuleDeals($topDeals,$this);
             /********************************************/
+            //COUPONS
+                $lastestCoupons = $this->Deal->get_lastCouponsHome(8); //Get the other deals
+                foreach($lastestCoupons as $deal){
+                    $arrExclude[] = $deal->id;
+                }
+                $topCoupons = $this->Deal->get_topCoupons(8,$arrExclude); //Get the other deals
+                $data['lastestCoupons'] = encapsuleDeals($lastestCoupons,$this);
+                $data['topCoupons'] = encapsuleDeals($topCoupons,$this);
+
             
-            /**
-             * NewestCoupons last 9 deals with coupon code
-             */
-            
-             $coupons= $this->Deal->get_dealsWithCode(9);
-             foreach($coupons as $deal){
-                if(empty($deal->display_name)){
-                    $deal->display_name = $deal->title;
-                }
-                $source = $this->Source->get_source($deal->deal_sources_id);
-                if(empty($deal->image_url)){
-                    if(strpos($source->deal_source_logo_url,"ttp://") || strpos($source->deal_source_logo_url,'ttps://')){
-                        $deal->image = $source->deal_source_logo_url;
-                    }else{
-                        $deal->image = 'http://pccounter.net/media/images/'.$source->deal_source_logo_url;
-                    }
-                }else{
-                    $deal->image =$deal->image_url;
-                }
-                if(!empty($deal->deal_sources_id)){
-                    $deal->provider = $source->deal_source_name;
-                }
-                if($deal->actual_price >0){
-                    $savings = ($deal->actual_price - $deal->deal_price);
-                    $deal->savingsPercentage  = round(($savings * 100) / $deal->actual_price,2);
-                }else{
-                    $deal->savingsPercentage  = 0;
-                }
-                $deal->couponCode = $deal->coupon_code;
-                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
-                $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
-                $deal->catUrl = $this->Category->get_CatUrl($deal->cat_id);
-            }
-            $data['newestCoupons'] = $coupons;
             /********************************************************/
             
-              $data['noDeals'] =  ((count($data['deals'])==0)?'<div class="pro_box">
-                                                        <span style="color:#FF0000;">NO DEALS ARE THERE.</span>
-                                                 </div>':'');
-              $data['noNewestCoupons'] = ((count($data['newestCoupons'])==0)?'<div class="pro_box">
-                                                        <span style="color:#FF0000;">NO DEALS ARE THERE.</span>
-                                                 </div>':'');
-              $data['topStores'] = array();
               /**
                * Footer
                */
               
+              $this->load->model('Category');
+                $categ_list = $this->Category->get_categories(90);
+                foreach ($categ_list as $categ){
+                    if(empty($categ->url)){
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
+                        $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
+                    }else{
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                        $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                    }
+                    if(empty($categ->image)){
+                        $categ->image = 'http://pccounter.net/media/images/noImage.jpg';
+                    }
+                    if($categ->id > 6){
+                        $categ->extraClass = 'hiddenCat';
+                    }elsE{
+                        $categ->extraClass = '';
+                    }
+                }
+                $data['categories'] = $categ_list;
+
+            $this->load->model('Source');
+            $stor = $this->Source->get_stores(64);
+            $storcount =1;
+            foreach($stor as $st){
+                if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
+                    $st->image = $st->deal_source_logo_url;
+                }else{
+                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
+                }
+                if(empty($st->url)){
+                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').'deals/index/0/_/null/null/'.$st->deal_source_id;
+                }else{
+                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').$st->url;
+                }
+                if($storcount > 8){
+                    $st->extraClass = 'hiddenCat';
+                }else{
+                    $st->extraClass = '';
+                }
+                $storcount++;
+            }
+            $data['stores'] = $stor;
+              $data['activeHome'] = 'active';
               /**********************************************/
                 $this->load->library('parser');
-                $this->parser->parse('widgets/header', $data);
-                $this->parser->parse('home', $data);
-                $this->parser->parse('widgets/rightBar', $data);
-                $this->parser->parse('widgets/footer', $data);
+                $this->parser->parse('widgets/header_new', $data);
+                $this->parser->parse('home_new', $data);
+                //$this->parser->parse('widgets/rightBar', $data);
+                $this->parser->parse('widgets/footer_new', $data);
 	}
         
 }

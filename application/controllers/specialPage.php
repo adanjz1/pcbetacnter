@@ -69,7 +69,8 @@ class SpecialPage extends CI_Controller {
                     $deal->hot = '';
                 }
                 $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
-                 if(!empty($this->session->all_userdata()[$deal->id])){
+                $ses = $this->session->all_userdata(); 
+                if(!empty($ses[$deal->id])){
                      $deal->thumbsClass = 'thumbActive';
                 }else{
                     $deal->thumbsClass = 'thumbs';
