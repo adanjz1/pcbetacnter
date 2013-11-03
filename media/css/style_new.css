@@ -791,6 +791,9 @@ a:hover{
     border-radius:5px;
     cursor:pointer;
 }
+.twloginButton a{
+    color:#fff;
+}
 .center{
     text-align: center;
 }

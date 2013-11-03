@@ -16,7 +16,7 @@
         <meta http-equiv="set-cookie" content="w3scookie=myContent;expires=Fri, 30 Dec 2020 12:00:00 GMT; path=http://www.w3schools.com">
         
     </head>
-    <body>
+    <body onload="loadFBConnect();">
  <script type='text/javascript'>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -45,17 +45,6 @@
         $('.createLogin').click(function(){
             $('.loginDiv').show();
             $('.overlay').show();
-        });
-        $('.twloginButton').click(function(){
-            var thistw = $(this);
-                $.ajax({
-                type: "POST",
-                url: '{siteUrl}ajax/twlogin/',
-                data: { null:0}
-              }).done(function( msg ) {
-                 
-                 
-              });
         });
         $('.fbloginButton').click(function(){
          FB.login(function(response) {
@@ -96,12 +85,6 @@
         });
 
       };
-    (function() {
-        var e = document.createElement('script');
-        e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-        e.async = true;
-        document.getElementById('fb-root').appendChild(e);
-    }());
 </script>
 <div class="topHeader">
 <div class="centerScreen">
@@ -212,7 +195,19 @@
     <div class='loginAccount'>
         <div class="title">Sign into your PCCOUNTER account</div>
         <div class="fbloginButton">Sign in with FACEBOOK</div>
-        <div class="twloginButton">Sign in with TWITTER</div>
+        <?php
+           if (array_key_exists("login", $_GET)) {
+               $oauth_provider = $_GET['oauth_provider'];
+               if ($oauth_provider == 'twitter') {
+                   header("location: login-twitter.php");
+               }
+           }
+           ?>
+
+           <?php foreach ($this->config->item('third_party_auth_providers') as $provider) : ?>
+               <div class="twloginButton">
+                   <a href="{siteUrl}account/connect_twitter">Sign in with TWITTER</a></div>
+           <?php endforeach; ?>
         <div class="center">or</div>
         <?php echo form_open("/{siteUrl}/register"); ?>
             	<input type="text" name="register_email" class="txtfieldbg" placeholder="E-mail"><br>
