@@ -308,6 +308,10 @@
                 if(!Imageexists($deal->image)){
                     $deal->image = $t->Source->get_dealSourceImg($deal->deal_sources_id);
                 }
+                if(!strpos($deal->image,"ttp://") && !strpos($deal->image,'ttps://')){
+                    $deal->image = 'http://beta.pccounter.net/media/images/'.$deal->image;
+                }
+
                 if(!empty($deal->deal_sources_id)){
                     $deal->provider = $t->Source->get_dealSourceStr($deal->deal_sources_id);
                 }
