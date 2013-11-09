@@ -57,7 +57,6 @@ public function index()
                 $arrExclude[] = $deal->id;
             }
             $topDeals = $this->Deal->get_topDeals(8,$arrExclude); //Get the other deals
-            $this->load->model('Review');
             $data['bannerDealsIndicator'] = encapsuleDeals($bannerDeals,$this);
             $data['bannerDeals'] = encapsuleDeals($bannerDeals,$this);
             $data['lastestDeals'] = encapsuleDeals($lastestDeals,$this);
