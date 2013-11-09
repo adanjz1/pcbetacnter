@@ -95,9 +95,9 @@ ZeroClipboard.Client.prototype = {
 		
 		// float just above object, or zIndex 99 if dom element isn't set
 		var zIndex = 99;
-		if (this.domElement.style.zIndex) {
-			zIndex = parseInt(this.domElement.style.zIndex) + 1;
-		}
+//		if (this.domElement.style.zIndex) {
+//			zIndex = parseInt(this.domElement.style.zIndex) + 1;
+//		}
 		
 		// find X/Y position of domElement
 		var box = ZeroClipboard.getDOMObjectPosition(this.domElement);

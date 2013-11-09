@@ -29,7 +29,6 @@ class Deals extends CI_Controller {
                 $q = '';
                 
             }
-            die('lala');
             if($q != ''){
                 $q = substr($qSearch, 3);
             }
