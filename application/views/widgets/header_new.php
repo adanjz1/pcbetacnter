@@ -227,3 +227,9 @@
     </div>
     <div class="closeLogin orange">Not now</div>
 </div>
+<div class="socialNetworks">
+    <div class="blog" onclick="document.location='http://blog.pccounter.com/'"></div>
+    <div class="facebook" onclick="document.location='http://www.facebook.com/PcCounterProducts'"></div>
+    <div class="twitter" onclick="document.location='http://www.facebook.com/pccounter'"></div>
+    <div class="googleplus" onclick="document.location='http://www.facebook.com/pccounter'"></div>
+</div>

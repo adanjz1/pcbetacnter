@@ -79,49 +79,8 @@ public function index()
                * Footer
                */
               
-              $this->load->model('Category');
-                $categ_list = $this->Category->get_categories(90);
-                foreach ($categ_list as $categ){
-                    if(empty($categ->url)){
-                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
-                        $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
-                    }else{
-                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
-                        $categ->dealCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
-                    }
-                    if(empty($categ->image)){
-                        $categ->image = 'http://pccounter.net/media/images/noImage.jpg';
-                    }
-                    if($categ->id > 6){
-                        $categ->extraClass = 'hiddenCat';
-                    }elsE{
-                        $categ->extraClass = '';
-                    }
-                }
-                $data['categories'] = $categ_list;
 
-            $this->load->model('Source');
-            $stor = $this->Source->get_stores(64);
-            $storcount =1;
-            foreach($stor as $st){
-                if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
-                    $st->image = $st->deal_source_logo_url;
-                }else{
-                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
-                }
-                if(empty($st->url)){
-                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').'deals/index/0/_/null/null/'.$st->deal_source_id;
-                }else{
-                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').$st->url;
-                }
-                if($storcount > 8){
-                    $st->extraClass = 'hiddenCat';
-                }else{
-                    $st->extraClass = '';
-                }
-                $storcount++;
-            }
-            $data['stores'] = $stor;
+            
               $data['activeHome'] = 'active';
               /**********************************************/
                 $this->load->library('parser');

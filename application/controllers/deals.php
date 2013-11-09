@@ -35,9 +35,6 @@ class Deals extends CI_Controller {
             $this->load->helper('metaHelper');
             $this->load->helper(array('form', 'url')); 
             $data = getConstData($this);
-            $this->load->model('pages');
-            $this->load->model('Source');
-            $this->load->model('Category');
             if(!empty($store)){
                 $seoPg = $this->Source->get_source($store);
                 $data['pageTitle'] = $seoPg->title_tag;//Title tag
@@ -71,7 +68,9 @@ class Deals extends CI_Controller {
             /**
              * Selected Menu deals and lastest deals
              */
+            
             $deals = array();
+            $merge = array();
             $this->load->model('Deal');
             
             
@@ -90,47 +89,7 @@ class Deals extends CI_Controller {
             $merge = $this->Deal->get_lastDeals(24-count($starred),$limit,$q,$category,$subcat,$store); //Get the other deals
             $merge = array_merge($starred,$merge);
             $this->load->library('session');
-            foreach($merge as $deal){
-                 if($deal->actual_price > 0){
-                    $deal->showActualPrice = '<span class="actualPriceList">
-                                $'.$deal->actual_price.'
-                            </span> ';
-                }else{
-                    $deal->showActualPrice = '';
-                }
-                if(empty($deal->display_name)){
-                    $deal->display_name = $deal->title;
-                }
-                if(empty($deal->image_url)){
-                    $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
-                }else{
-                    $deal->image = str_replace("pccounter.s3.amazonaws.com","dr30wky7ya0nu.cloudfront.net",$deal->image_url);
-                }
-                if(!Imageexists($deal->image)){
-                    $deal->image = $this->Source->get_dealSourceImg($deal->deal_sources_id);
-                }
-                if(!empty($deal->deal_sources_id)){
-                    $deal->provider = $this->Source->get_dealSourceStr($deal->deal_sources_id);
-                }
-                if($deal->hot){
-                    $deal->hot = '<div class="hot_deal"></div>';
-                }else{
-                    $deal->hot = '';
-                }
-                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
-                $sess = $this->session->all_userdata();
-                if(!empty($sess[$deal->id])){
-                     $deal->thumbsClass = 'thumbActive';
-                }else{
-                    $deal->thumbsClass = 'thumbs';
-                }
-                $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
-                
-                $deal->categoryCount = $this->Category->get_catCant($deal->cat_id);
-                $deal->catUrl = $this->Category->get_CatUrl($deal->cat_id);
-                
-            }
-            $data['deals'] = $merge;
+            $data['deals'] = encapsuleDeals($merge,$this);
             $data['totalDeals'] = $this->Deal->get_totalDeals($q,$category,$subcat,$store);
             $this->load->library('pagination');
             //$config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/paginator/'.$qSearch.'/'.$category;
@@ -164,11 +123,9 @@ class Deals extends CI_Controller {
                */
               /**********************************************/
                 $this->load->library('parser');
-                $this->parser->parse('widgets/header', $data);
-                $this->parser->parse('deals', $data);
-                
-                $this->parser->parse('widgets/rightBar', $data);
-                $this->parser->parse('widgets/footer', $data);
+                $this->parser->parse('widgets/header_new', $data);
+                $this->parser->parse('deals_new', $data);
+                $this->parser->parse('widgets/footer_new', $data);
         }
         /* HACKS TO CENTRALIZE SEARCH AND PAGINATOR*/
         public function search(){
@@ -302,119 +259,9 @@ class Deals extends CI_Controller {
               
               /**********************************************/
                 $this->load->library('parser');
-                $this->parser->parse('widgets/header', $data);
-                $this->parser->parse('review', $data);
-                
-                $this->parser->parse('widgets/rightBar', $data);
-                $this->parser->parse('widgets/footer', $data);
-        }
-        public function pop($id=''){
-            $this->load->helper('metaHelper');
-            $this->load->helper(array('form', 'url')); 
-            $data = getConstData($this);
-           
-            $data['pageTitle'] = 'Dell Coupons, HP Coupons, Cheap Laptops, Computer Sales';//Title tag
-            $data['page_title'] = '';//H1 tag
-            $data['page_desc'] = '';
-           
-            $this->load->model('Deal');
-            $this->load->model('Category');
-            $deals = $this->Deal->get_dealById($id);
-            foreach($deals as $deal){
-                if(empty($deal->display_name)){
-                    $deal->display_name = $deal->title;
-                }
-                if(empty($deal->image_url)){
-                    $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
-                }else{
-                    $deal->image =$deal->image_url;
-                }
-                if(!empty($deal->deal_sources_id)){
-                    $deal->provider = $this->Source->get_dealSourceStr($deal->deal_sources_id);
-                    $deal->deal_source_logo_url = $this->Source->get_dealSourceImg($deal->deal_sources_id);
-                }
-                
-                $deal->category='';
-                $catName = $this->Category->get_CatName($deal->cat_id);
-                $deal->catUrl = $this->Categoty->get_CatUrl($deal->cat_id);
-                if(!empty($catName)){
-                    $deal->category = $catName[0]->name;
-                }
-                if($deal->hot){
-                    $deal->hot = '<div class="hot_deal"></div>';
-                }else{
-                    $deal->hot = '';
-                }
-                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
-                
-                if($deal->actual_price >0){
-                    $deal->saving = ($deal->actual_price - $deal->deal_price);
-                    $deal->savingPercentage  = round(($deal->saving * 100) / $deal->actual_price,2);
-                }else{
-                    $deal->savingPercentage  = 0;
-                    $deal->saving = 0;
-                }
-                $this->load->model('Review');
-                $reviews = $this->Review->get_reviews($deal->id);
-                $deal->qtyComments = $this->Review->get_qtyComments($deal->id);
-                $deal->qtyReviews = $this->Review->get_qtyReviews($deal->id);
-                $deal->rate_item = 1;
-                $deal->counter = 10;
-                $deal->itemsDescribed = $deal->qtyReviews;
-                $sumStars = $this->Review->get_sumStars($deal->id);
-                if($deal->qtyReviews > 0){
-                    $deal->starPerc = intval((intval($sumStars[0]->stars) / intval($deal->qtyReviews)));
-                }else{
-                    $deal->starPerc = intval(0);
-                }
-                $deal->avgStars='';
-                for ($i = 1; $i <= 10; $i++) {
-                    if (intval($i) <= intval($deal->starPerc)) {
-                        $deal->avgStars.='<img class="star" src="http://pccounter.net/media/images/star2.gif">';
-                    } else {
-                        $deal->avgStars.='<img class="star" src="http://pccounter.net/media/images/star1.gif">';
-                    }
-                }
-
-                
-                $deal->feedback = $reviews;
-                $deal->noReviewes='';
-                if(count($deal->feedback) == 0){
-                    $deal->noReviewes = '<td colspan="5" style="text-align:center;">No Reviews Yet.</td>';
-                }
-                $deal->comments = $reviews;
-                $deal->noComments='';
-                if(count($deal->comments) == 0){
-                    $deal->noComments = '<td colspan="5" style="text-align:center;">No Reviews Yet.</td>';
-                }
-                foreach($deal->comments as $comment){
-                    $comment->comId = $comment->id;
-                }
-                
-                if(empty($deal->coupon_code)){
-                  $deal->couponCode = '<div class="code">
-				No Coupon Code Needed.
-			</div>';
-                }else{
-			$deal->couponCode ='<div class="code">
-				<div class="code_top">Use this code <span><img src="http://pccounter.net/media/images/click_to_copy.png" border="0" alt="click to copy" /></span></div>
-				<div class="main_code">'.$deal->coupon_code.'</div>
-			</div> ';
-                }
-            }
-             $data['formSubmitted'] = '';
-            if(!empty($saved)){
-                $data['formSubmitted'] = '<font color="#FF0000">Your rating successfully submitted.</font> ';
-            }
-            $data['deal'] = $deals;
-              /**
-               * Footer
-               */
-              $data['dealReviewForm'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/reviewForm/';
-              
-              /**********************************************/
-                $this->load->library('parser');
-                $this->parser->parse('pop', $data);
+                $this->parser->parse('widgets/header_new', $data);
+                $this->parser->parse('review_new', $data);
+                $this->parser->parse('widgets/footer_new', $data);
         }
         public function reviewForm(){
             $this->load->model('Review');

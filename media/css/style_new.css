@@ -842,3 +842,35 @@ a:hover{
 font-size: 8px;
 cursor: pointer;
 }
+.socialNetworks div{
+    background: url(../images/new/rightBarSocial.png) no-repeat;
+    width:37px;
+    height: 37px;
+    cursor:pointer;
+}
+.socialNetworks{
+    position: fixed;
+    right: 0px;
+    top: 135px;
+}
+.socialNetworks .blog{
+    background-position: 0px 0px;
+}
+.socialNetworks .facebook{
+    background-position: 0px -37px;
+}
+.socialNetworks .twitter{
+    background-position: 0px -74px;
+}
+.socialNetworks .googleplus{
+    background-position: 0px -112px;
+}
+.goUpArrow{
+    background:url(../images/new/goUpBtn.png) no-repeat;
+    width: 34px;
+    height: 28px;
+    right: 0px;
+    margin-top: -10px;
+    position: absolute;
+    cursor:pointer;
+}

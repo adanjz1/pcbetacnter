@@ -78,20 +78,20 @@
             $data['blogUrl'] = (count($data['blogPosts'])>0)?'<li>
                                                 <span style="padding: 0 0 0 120px;"><a href="'.'">Read More</a></span>
                                             </li>':'';
-            $t->load->model('Banner');
-            $ban = $t->Banner->get_banners();
-            foreach($ban as $st){
-                if(strpos($st->image,'ttp://') || strpos($st->image,'ttps://')){
-                    $st->image = $st->image;
-                }else{
-                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->image;
-                }
-                
-            }
-            $data['banners_type1'] = $ban;
-            $t->load->model('Rightbox');
-            $data['rightBox'] = $t->Rightbox->get_boxes();
-            /*********************************/
+//            $t->load->model('Banner');
+//            $ban = $t->Banner->get_banners();
+//            foreach($ban as $st){
+//                if(strpos($st->image,'ttp://') || strpos($st->image,'ttps://')){
+//                    $st->image = $st->image;
+//                }else{
+//                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->image;
+//                }
+//                
+//            }
+//            $data['banners_type1'] = $ban;
+//            $t->load->model('Rightbox');
+//            $data['rightBox'] = $t->Rightbox->get_boxes();
+//            /*********************************/
             
             
             
@@ -227,9 +227,10 @@
                   }
                 
                   
+
               $t->load->model('Category');
-                $categ_list_menu = $t->Category->get_categories(21);
-                foreach ($categ_list_menu as $categ){
+                $categ_list = $t->Category->get_categories(90);
+                foreach ($categ_list as $categ){
                     if(empty($categ->url)){
                         $categ->subCategoryUrl = $t->config->item('base_url').$t->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
                         $categ->dealCategoryUrl = $t->config->item('base_url').$t->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
@@ -246,11 +247,11 @@
                         $categ->extraClass = '';
                     }
                 }
-                $data['categoriesMenu'] = $categ_list_menu;
-
+                $data['categories'] = $categ_list;
+                $data['categoriesMenu'] = $categ_list;
                 
                 $t->load->model('Source');
-            $stor = $t->Source->get_stores(23);
+            $stor = $t->Source->get_stores(64);
             $storcount =1;
             foreach($stor as $st){
                 if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
@@ -275,7 +276,9 @@
                 }
                 $storcount++;
             }
-            $data['storesMenu'] = $stor;
+            $data['stores'] = $stor;
+            $data['storesMenu'] = array_slice($stor,0,23);
+            
             $data['qtyStores'] = $t->Source->get_totalStores();     
                 $data['activeHome'] = '';
                 $data['activeDeals'] = '';

@@ -1,5 +1,6 @@
 <div class="footer">
-    <div class="centerScreen">
+    <div class="centerScreen" style="position: relative;">
+        <div class="goUpArrow" onclick="document.location='#'"></div>
         <div class="sector">
             <div class="title">COMPANY</div>
             <div class="list">
