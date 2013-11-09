@@ -28,6 +28,7 @@
 
 </script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="/media/js/new/zclip.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('.unchecked').click(function(){
@@ -74,7 +75,17 @@
             scope: 'publish_stream,email'
         });
         });
+        $(".copy_to_clip").each(function() {
+            var clip = new ZeroClipboard.Client();
+            clip.glue($(this));
+            clip.setText($(this).attr("data-clipboard-text"));
+            clip.addEventListener('complete', function(client, text) {
+                alert("Copied text to clipboard:\n" + text);
+            });
+        });
+
     });
+    
     window.fbAsyncInit = function() {
         FB.init({
             appId: '607430695967375',

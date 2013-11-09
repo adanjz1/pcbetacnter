@@ -13,7 +13,7 @@
                         <span>From {provider}</span>
                     </div>
                 </div>
-                <a class="couponBtn" href="{deal_url}" target="_blank">
+                <a class="couponBtn copy_to_clip" href="javascript:void(0)" target="_blank" rel="{deal_url}" data-clipboard-text="{coupon_code}" >
                     <div class="getDealStr">{coupon_code}</div>
                 </a>
                  <div class="couponActions">

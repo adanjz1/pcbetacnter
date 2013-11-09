@@ -289,7 +289,7 @@
             return $data;
     }
     function encapsuleDeals($deals,$t){
-            $this->load->model('Review');
+            $t->load->model('Review');
             $dealcount=1;
             $lastRowDealCount=1;
             foreach($deals as $deal){
