@@ -33,6 +33,7 @@ class Deals extends CI_Controller {
                 $q = substr($qSearch, 3);
             }
             $this->load->helper('metaHelper');
+            $this->load->model('pages');
             $this->load->helper(array('form', 'url')); 
             $data = getConstData($this);
             if(!empty($store)){
