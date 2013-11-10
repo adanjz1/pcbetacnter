@@ -243,14 +243,16 @@
                     }
                     if($categ->id > 6){
                         $categ->extraClass = 'hiddenCat';
-                    }elsE{
+                    }else{
                         $categ->extraClass = '';
                     }
+                    
                 }
                 $data['categories'] = $categ_list;
                 $data['categoriesMenu'] = $categ_list;
                 
-                $t->load->model('Source');
+                
+            $t->load->model('Deal');
             $stor = $t->Source->get_stores(64);
             $storcount =1;
             foreach($stor as $st){
@@ -274,6 +276,7 @@
                 }else{
                     $st->short_name  = $st->name;
                 }
+                $st->dealsQty = $t->Deals->getCountDealsByStore($st->deal_source_id);
                 $storcount++;
             }
             $data['stores'] = $stor;
@@ -288,7 +291,7 @@
                 
             return $data;
     }
-    function encapsuleDeals($deals,$t){
+    function encapsuleDeals($deals,$t,$hiddenCat=true,$dealsperRow=4){
             $t->load->model('Review');
             $dealcount=1;
             $lastRowDealCount=1;
@@ -337,12 +340,12 @@
                 }else{
                     $deal->thumbsClass = 'thumbs';
                 }
-                 if($dealcount > 4){
+                 if($dealcount > $dealsperRow && $hiddenCat){
                     $deal->extraClass = 'hiddenCat';
                 }else{
                     $deal->extraClass = '';
                 }
-                if($lastRowDealCount==4){
+                if($lastRowDealCount==$dealsperRow){
                     $deal->lastInRow= 'lastInRow';
                     $lastRowDealCount = 0;
                 }else{

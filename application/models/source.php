@@ -88,7 +88,7 @@ class Source extends CI_Model {
         $this->db->from('deal_sources');
         return $this->db->count_all_results();
     }
-    function get_stores($qty,$limit='',$initial=''){
+    function get_stores($qty='',$limit='',$initial=''){
         if($initial != ''){
             $this->db->like('deal_source_name',$initial,'after');
         }

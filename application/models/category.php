@@ -18,12 +18,7 @@ class Category extends CI_Model {
     }
     function get_categories($qty='',$limit='')
     {
-        if($qty != ''){
-            $this->db->limit($qty,$limit);
-        }
-        $this->db->order_by("id", "asc"); 
-        $query = $this->db->get('categories');
-        
+        $query = $this->db->query('select *,(select count(*) from deals where cat_id = c.id and sub_cat_id >0) as qtyDeals from categories as c order by id asc limit '.intVal($limit).','.intVal($qty).' ');
         return $query->result();
     }
     function get_categoryById($cat){
@@ -104,14 +99,9 @@ class Category extends CI_Model {
          $this->db->from('categories');
         return $this->db->count_all_results();
     }
-    function get_Subcategories($qty='',$limit='',$category)
+    function get_Subcategories($qty='99',$limit='0',$category)
     {
-        if(!empty($qty)){
-            $this->db->limit($qty,$limit);
-        }
-        $this->db->where('idCategory',$category);
-        $this->db->order_by("id", "asc"); 
-        $query = $this->db->get('subCategories');
+        $query = $this->db->query('select *,(select count(*) from deals where cat_id = c.id and sub_cat_id >0) as qtyDeals from categories as c where idCategory='.intVal($category).' order by id asc limit '.intVal($limit).','.intVal($qty).' ');
         return $query->result();
     }
     function get_totalSubCategories($category){

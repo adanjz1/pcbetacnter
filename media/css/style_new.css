@@ -3,6 +3,9 @@ body{
     margin: 0px;
     font-family: 'Open Sans', sans-serif !important;
 }
+a{
+    text-decoration: none;
+}
 .topHeader .centerScreen{
     margin-top: 15px;
 }
@@ -370,7 +373,7 @@ margin-top: 16px;
 .dealPriceList .bold{
     font-size: 18px;
 }
-.lastestDeals ul,.topDeals ul{
+.lastestDeals ul,.topDeals ul,.listDeals ul{
     padding:0px;
 }
 .dealBtn div{
@@ -383,6 +386,9 @@ margin-top: 16px;
     color: #fff;
     margin-left: 13px;
     margin-top: 0px;
+}
+.deals .dealBtn div{
+    width: 115px;
 }
 .thumbs{
     background: url(../images/new/likeIconGrey.png) no-repeat;
@@ -686,7 +692,7 @@ a:hover{
     width: 19px;
     height: 17px;
     margin-top: -20px;
-    margin-left: 140px;
+    margin-left: 150px;
 }
 .categoryMenuList{
     background-color: #383838;
@@ -872,5 +878,95 @@ cursor: pointer;
     right: 0px;
     margin-top: -10px;
     position: absolute;
+    cursor:pointer;
+}
+.filters{
+    float: left;
+    margin-right: 30px;
+    width: 210px;
+    height: 200px;
+}
+.listDeals{
+    float:left;
+    width: 700px;
+}
+.topBarDeals .countDeals{
+    float:left;
+    color:#a5a5a5;
+}
+.topBarDeals .orderByDeals{
+    float:right;
+    color:#a5a5a5;
+}
+.selectedFilters{
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0px 10px 40px 2px #c0c0c0;
+    padding:5px;
+}
+.selectedFilters .title{
+    border-bottom:1px solid #fafafa;
+    color:#999;
+    font-weight: bold;
+    padding-left: 10px;
+}
+.filtersToSelect{
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0px 10px 40px 2px #c0c0c0;
+    padding:5px;
+    margin-top: 20px;
+}
+.filtersToSelect .title{
+    border-bottom:1px solid #fafafa;
+    color:#999;
+    font-weight: bold;
+    padding-left: 10px;
+}
+.listDeals .paginator{
+    background-color:#fff;
+    box-shadow: 0px 10px 40px 2px #c0c0c0;
+    padding:5px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+.paginData a{
+    color:#999;    
+    width:200px;
+    margin:auto;
+}
+.paginData strong{
+    color: #f49200;
+}
+.paginator .nextPage,.paginator .lastPage{
+    float:right;
+}
+.paginator .prevPage,.paginator .firstPage{
+    float:left;
+}
+.paginator .firstPage{
+    width: 20px;
+}
+.paginator .prevPage{
+    width: 30px;
+}
+.paginator .lastPage{
+    width: 20px;
+}
+.paginator .nextPage{
+    width: 30px;
+}
+.filterList .title{
+    font-weight: bold;
+}
+.hidden{
+    display:none;
+}
+.filterList{
+    font-size:10px;
+}
+.subTitle{
+    font-weight: bold;
     cursor:pointer;
 }

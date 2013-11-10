@@ -329,7 +329,16 @@ class Deal extends CI_Model {
         $query = $this->db->get('deals');
         return $query->result();
     }
-    function get_totalDeals($q='',$category,$subcat='',$store=''){
+    function getCountDealsByStore($store=''){
+        $this->db->where('deal_sources_id',$store);
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code',null);
+        $this->db->from('deals');
+        return $this->db->count_all_results();
+    }
+    function get_totalDeals($q='',$category='',$subcat='',$store=''){
          if($q != ''){
             $this->db->like('title',$q);
             $this->db->or_like('description',$q);

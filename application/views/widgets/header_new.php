@@ -14,9 +14,10 @@
         <meta http-equiv="content-language" content="en-US"></meta>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"></meta>
         <meta http-equiv="set-cookie" content="w3scookie=myContent;expires=Fri, 30 Dec 2020 12:00:00 GMT; path=http://www.w3schools.com">
-        
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>        
     </head>
-    <body onload="loadFBConnect();">
+    <!--<body onload="loadFBConnect();">-->
+    <body>
  <script type='text/javascript'>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -27,7 +28,7 @@
   ga('send', 'pageview');
 
 </script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
 <script type="text/javascript" src="/media/js/new/zclip.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -157,7 +158,7 @@
             </li>
             <li class="{activeStores}">
                 <a href="javascript:$('.storeMenuList').toggle();">
-                    Browse by stores<div class="downArrow" style="margin-left: 120px;"></div>
+                    Browse by stores<div class="downArrow" style="margin-left: 130px;"></div>
                 </a>
                 <div class="storeMenuList">
                     {storesMenu}

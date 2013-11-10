@@ -80,27 +80,28 @@ class Deals extends CI_Controller {
             }
             $starred = array();
             if(!empty($subcat)){
-                $starred = $this->Deal->get_lastStarredSubcatDeals(24,$limit,$q,$category,$subcat,$store); //Get the other deals
+                $starred = $this->Deal->get_lastStarredSubcatDeals(9,$limit,$q,$category,$subcat,$store); //Get the other deals
             }elseif(!empty($category)){
-                $starred = $this->Deal->get_lastStarredCatDeals(24,$limit,$q,$category,$subcat,$store); //Get the other deals
+                $starred = $this->Deal->get_lastStarredCatDeals(9,$limit,$q,$category,$subcat,$store); //Get the other deals
             }else{
-                $starred = $this->Deal->get_lastStarredDeals(24,$limit,$q,$category,$subcat,$store); //Get the other deals
+                $starred = $this->Deal->get_lastStarredDeals(9,$limit,$q,$category,$subcat,$store); //Get the other deals
             }
             
-            $merge = $this->Deal->get_lastDeals(24-count($starred),$limit,$q,$category,$subcat,$store); //Get the other deals
+            $merge = $this->Deal->get_lastDeals(9-count($starred),$limit,$q,$category,$subcat,$store); //Get the other deals
             $merge = array_merge($starred,$merge);
             $this->load->library('session');
-            $data['deals'] = encapsuleDeals($merge,$this);
+            $data['deals'] = encapsuleDeals($merge,$this,false,3);
             $data['totalDeals'] = $this->Deal->get_totalDeals($q,$category,$subcat,$store);
             $this->load->library('pagination');
             //$config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/paginator/'.$qSearch.'/'.$category;
             $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').$this->uri->segments[1];
             $config['total_rows'] = $data['totalDeals'];
             $config['uri_segment'] = 2;
-            $config['per_page'] = 52; 
+            $config['per_page'] = 9; 
+            $config['num_links'] = 3; 
             $this->pagination->initialize($config); 
             $data['paginator'] = $this->pagination->create_links();
-            
+            $data['subCategories'] = array();
             if($category != ''){
                 $this->load->model('Category');
                 $categ_list = $this->Category->get_Subcategories(null,null,$category);
