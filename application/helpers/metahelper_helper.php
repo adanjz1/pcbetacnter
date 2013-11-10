@@ -276,7 +276,7 @@
                 }else{
                     $st->short_name  = $st->name;
                 }
-                $st->dealsQty = $t->Deals->getCountDealsByStore($st->deal_source_id);
+                $st->dealsQty = $t->Deal->getCountDealsByStore($st->deal_source_id);
                 $storcount++;
             }
             $data['stores'] = $stor;
