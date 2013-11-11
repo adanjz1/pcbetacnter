@@ -14,7 +14,9 @@
         <meta http-equiv="content-language" content="en-US"></meta>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"></meta>
         <meta http-equiv="set-cookie" content="w3scookie=myContent;expires=Fri, 30 Dec 2020 12:00:00 GMT; path=http://www.w3schools.com">
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>        
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>        
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
     </head>
     <!--<body onload="loadFBConnect();">-->
     <body>

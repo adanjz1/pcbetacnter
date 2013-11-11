@@ -45,9 +45,9 @@ $(function(){
          <div class="content">
              <div class="categoryFilter">
                  <ul class="filterList">
-                    <li class="subTitle">CATEGORY</li>
+                   <li class="subTitle">CATEGORY</li>
                    {categories}
-                      <li rel="{id}" class="hidden">{name}({qtyDeals})</li>
+                   <li rel="{id}" class="hidden"><a href="{siteUrl}{url}">{name}({qtyDeals})</a></li>
                    {/categories}
                 </ul>
              </div>
@@ -55,7 +55,7 @@ $(function(){
                  <ul class="filterList">
                     <li class="subTitle">SUB-CATEGORY</li>
                    {subCategories}
-                      <li rel="{id}" class="hidden">{name}({qtyDeals})</li>
+                   <li rel="{id}" class="hidden"><a href="{siteUrl}{url}">{name}({qtyDeals})</a></li>
                    {/subCategories}
                 </ul>
              </div>
@@ -63,7 +63,7 @@ $(function(){
                  <ul class="filterList">
                     <li class="subTitle">STORES</li>
                    {stores}
-                      <li rel="{id}" class="hidden">{name}({qtyDeals})</li>
+                   <li rel="{deal_source_id}" class="hidden"><a href="{siteUrl}{url}">{name}({qtyDeals})</a></li>
                    {/stores}
                 </ul>
              </div>

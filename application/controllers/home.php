@@ -83,10 +83,10 @@ public function index()
               $data['activeHome'] = 'active';
               /**********************************************/
                 $this->load->library('parser');
-                $this->parser->parse('widgets/header_new', $data);
-                $this->parser->parse('home_new', $data);
-                //$this->parser->parse('widgets/rightBar', $data);
-                $this->parser->parse('widgets/footer_new', $data);
+//                $this->parser->parse('widgets/header_new', $data);
+//                $this->parser->parse('home_new', $data);
+                $this->parser->parse('widgets/empty', $data);
+//                $this->parser->parse('widgets/footer_new', $data);
 	}
         
 }

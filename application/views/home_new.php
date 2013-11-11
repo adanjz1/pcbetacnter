@@ -1,5 +1,3 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 <script type='text/javascript'>
 $(function(){
     $('.carousel1').carousel({
