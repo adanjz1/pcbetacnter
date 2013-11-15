@@ -28,51 +28,16 @@ $(function(){
               });
             });
             $('.subTitle').click(function(){
-                $(this).parent().find('.elemToFilter').toggle();
+                $(this).parent().find('.hidden').toggle();
             });
             $('.deleteFilter').click(function(){
-                $('#encapsuledDeals').html($('#encapsuledDeals').html()+'<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">');
                 $.ajax({
                 type: "POST",
-                url: '{siteUrl}ajax/removeFilter/'+$(this).parent().attr('rel')+'/'+$(this).parent().attr('val'),
+                url: '{siteUrl}ajax/removeFilter/'+$(this).parent().attr('rel')+'/'+$(this).parent().attr('value'),
                 data: { null:0}
               }).done(function( msg ) {
                  $('#encapsuledDeals').html(msg);
               });
-            });
-            $('.elemToFilter').click(function(){
-                $('#encapsuledDeals').html($('#encapsuledDeals').html()+'<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">');
-                $.ajax({
-                type: "POST",
-                url: '{siteUrl}ajax/addFilter/'+$(this).attr('rel')+'/'+$(this).attr('val'),
-                data: { null:0}
-              }).done(function( msg ) {
-                 $('#encapsuledDeals').html(msg);
-              });
-            });
-            $('.goArrow').click(function(){
-                $('#encapsuledDeals').html($('#encapsuledDeals').html()+'<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">');
-                $.ajax({
-                type: "POST",
-                url: '{siteUrl}ajax/addPrice/'+$(this).parent().find('#priceMin').val()+'/'+$(this).parent().find('#priceMax').val(),
-                data: { null:0}
-              }).done(function( msg ) {
-                 $('#encapsuledDeals').html(msg);
-              });
-            });
-            $('.displayable').click(function(){
-                $(this).parent().find('.orderHidden').toggle();
-            });
-            $('.orderHidden').click(function(){
-                 $('#encapsuledDeals').html($('#encapsuledDeals').html()+'<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">');
-                $.ajax({
-                type: "POST",
-                url: '{siteUrl}ajax/addOrder/'+$(this).attr('val')+'/'+$(this).attr('rel'),
-                data: { null:0}
-              }).done(function( msg ) {
-                 $('#encapsuledDeals').html(msg);
-              });
-                
             });
 });
  </script>
@@ -84,7 +49,7 @@ $(function(){
                  {filters}
                  <li val="{name}" rel="{typeText}" class="selectedFiltersLi"><div class="deleteFilter"></div><div class="Type">{type}</div>{value}<div class="clear"></div></li>
                  {/filters}
-                 {deleteAllFilter}
+                 <li id="deleteAllFilters">DELETE ALL</li>
              </ul>
          </div>
      </div>
@@ -95,7 +60,7 @@ $(function(){
                  <ul class="filterList">
                      <li class="subTitle">CATEGORY<div class="arrowFilter"></div></li>
                    {categories}
-                   <li val="{id}" rel="categories" class="elemToFilter">{name}({dealsQty})</li>
+                   <li rel="{id}" class="hidden"><a href="{siteUrl}{url}">{name}({qtyDeals})</a></li>
                    {/categories}
                 </ul>
              </div>
@@ -103,7 +68,7 @@ $(function(){
                  <ul class="filterList">
                     <li class="subTitle">SUB-CATEGORY<div class="arrowFilter"></div></li>
                    {subCategories}
-                   <li val="{id}" rel="subcategories" class="elemToFilter">{name}({dealsQty})</li>
+                   <li rel="{id}" class="hidden"><a href="{siteUrl}{url}">{name}({qtyDeals})</a></li>
                    {/subCategories}
                 </ul>
              </div>
@@ -111,16 +76,8 @@ $(function(){
                  <ul class="filterList">
                     <li class="subTitle">STORES<div class="arrowFilter"></div></li>
                    {stores}
-                   <li val="{deal_source_id}" rel="stores" class="elemToFilter">{name}({dealsQty})</li>
+                   <li rel="{deal_source_id}" class="hidden"><a href="{siteUrl}{url}">{name}({qtyDeals})</a></li>
                    {/stores}
-                </ul>
-             </div>
-             <div class="priceFilter">
-                 <ul class="filterList">
-                    <li class="subTitle">Price</li>
-                   
-                    <li rel="price">u$s <input type="text" id="priceMin" value="0"/> to u$s <input type="text" id="priceMax" value="0"/><div class="arrowFilter goArrow"></div></li>
-                   
                 </ul>
              </div>
              
@@ -131,7 +88,7 @@ $(function(){
      <div class="list">
          <div class="topBarDeals">
              <div class="countDeals">{totalDeals} Deals was found</div>
-             <div class="orderByDeals"><div class="text">Sort by: </div><div class="orderList">{orderDeals}</div></div>
+             <div class="orderByDeals">{orderDeals}</div>
              <div class="clear"></div>
          </div>
          <ul class="deals">

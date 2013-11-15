@@ -26,6 +26,8 @@ public function index()
             /**
              * HEADER
              */
+
+            
             $this->load->helper('metaHelper');
             $this->load->helper(array('form', 'url'));
             $this->load->library('session');
@@ -53,14 +55,17 @@ public function index()
                 $arrExclude[] = $deal->id;
             }
             $lastestDeals = $this->Deal->get_lastDeals(8,$arrExclude); //Get the other deals
+            
             foreach($lastestDeals as $deal){
                 $arrExclude[] = $deal->id;
             }
             $topDeals = $this->Deal->get_topDeals(8,$arrExclude); //Get the other deals
+ 
             $data['bannerDealsIndicator'] = encapsuleDeals($bannerDeals,$this);
             $data['bannerDeals'] = encapsuleDeals($bannerDeals,$this);
             $data['lastestDeals'] = encapsuleDeals($lastestDeals,$this);
             $data['topDeals'] = encapsuleDeals($topDeals,$this);
+            
             /********************************************/
             //COUPONS
                 $lastestCoupons = $this->Deal->get_lastCouponsHome(8); //Get the other deals
@@ -83,10 +88,10 @@ public function index()
               $data['activeHome'] = 'active';
               /**********************************************/
                 $this->load->library('parser');
-//                $this->parser->parse('widgets/header_new', $data);
-//                $this->parser->parse('home_new', $data);
-                $this->parser->parse('widgets/empty', $data);
-//                $this->parser->parse('widgets/footer_new', $data);
+                $this->parser->parse('widgets/header_new', $data);
+                $this->parser->parse('home_new', $data);
+                //$this->parser->parse('widgets/rightBar', $data);
+                $this->parser->parse('widgets/footer_new', $data);
 	}
         
 }

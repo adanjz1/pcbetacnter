@@ -89,14 +89,27 @@ class Source extends CI_Model {
         return $this->db->count_all_results();
     }
     function get_stores($qty='',$limit='',$initial=''){
+        $this->db->select('deal_sources.deal_source_id, deal_sources.deal_source_name, deal_sources.name, deal_sources.deal_source_url, deal_sources.deal_source_logo_url,deal_sources.url, count(deals.id) as dealsQty');
         if($initial != ''){
             $this->db->like('deal_source_name',$initial,'after');
         }
+        if(!empty($_SESSION['categories'])){
+            $this->db->where_in('cat_id',$_SESSION['categories']);
+        }
+        if(!empty($_SESSION['subCategories'])){
+            $this->db->where_in('sub_cat_id',$_SESSION['subCategories']);
+        }
+        $this->db->join('deals','deals.deal_sources_id = deal_sources.deal_source_id');
+        $this->db->group_by('deal_sources.deal_source_id');
         $this->db->limit($qty,$limit);
         $this->db->order_by("deal_source_id", "desc"); 
         $idStoresNonEmpty = (array)$this->getNonEmptyStores();
         $this->db->where_in('deal_source_id',$idStoresNonEmpty);
-       // var_dump($idStoresNonEmpty);
+        $this->db->where('deals.coupon_code',NULL);
+        $this->db->where('deals.is_active',1);
+        $this->db->where('deals.cat_id >',0);
+        $this->db->where('deals.sub_cat_id >',0);
+       //var_dump($idStoresNonEmpty);
         $query = $this->db->get('deal_sources');
         return $query->result();
     }

@@ -43,7 +43,8 @@ class Stores extends CI_Controller {
            
             
             $this->load->model('Source');
-            $stor = $this->Source->get_stores(15);
+            $stor = $this->Source->get_stores(24,$limit,$initial);
+            $lastInRow = 1;
             foreach($stor as $st){
                 if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
                     $st->image = $st->deal_source_logo_url;
@@ -55,115 +56,101 @@ class Stores extends CI_Controller {
                 }else{
                     $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').$st->url;
                 }
-                
+                if($lastInRow ==4){
+                    $lastInRow=0;
+                    $st->lastInRow = 'lastInRow';
+                }
+                $lastInRow++;
             }
             $data['stores'] = $stor;
-            $stor =$this->Source->get_stores(21,$limit,$initial);
-            foreach($stor as $st){
-                if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
-                    $st->image = $st->deal_source_logo_url;
-                }else{
-                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
-                }
-                if(empty($st->url)){
-                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').'deals/index/0/_/null/null/'.$st->deal_source_id;
-                }else{
-                    $st->dealsStore = $this->config->item('base_url').$this->config->item('index_page').$st->url;
-                }
-
-            }
-            $data['stores2'] = $stor;
-            $data['noStores'] =  ((count($data['stores2'])==0)?'<div class="pro_box">
-                                                        <span style="color:#FF0000;">NO STORES ARE THERE.</span>
-                                                 </div>':'');
             $data['storesUrlBrandSearch'] = $this->config->item('base_url').$this->config->item('index_page').'/stores/index/0/';
             $data['initials'] = array(
                                         array(
                                             'id'=>'0-9'
                                         ),
                                         array(
-                                           'id'=>'a'
+                                           'id'=>'A'
                                         ),
                                         array(
-                                           'id'=>'b'
+                                           'id'=>'B'
                                         ),
                                         array(
-                                           'id'=>'c'
+                                           'id'=>'C'
                                         ),
                                         array(
-                                           'id'=>'d'
+                                           'id'=>'D'
                                         ),
                                         array(
-                                           'id'=>'e'
+                                           'id'=>'E'
                                         ),
                                         array(
-                                           'id'=>'f'
+                                           'id'=>'F'
                                         ),
                                         array(
-                                           'id'=>'g'
+                                           'id'=>'G'
                                         ),
                                         array(
-                                           'id'=>'h'
+                                           'id'=>'H'
                                         ),
                                         array(
-                                           'id'=>'i'
+                                           'id'=>'I'
                                         ),
                                         array(
-                                           'id'=>'j'
+                                           'id'=>'J'
                                         ),
                                         array(
-                                           'id'=>'k'
+                                           'id'=>'K'
                                         ),
                                         array(
-                                           'id'=>'l'
+                                           'id'=>'L'
                                         ),
                                         array(
-                                           'id'=>'m'
+                                           'id'=>'M'
                                         ),
                                         array(
-                                           'id'=>'n'
+                                           'id'=>'N'
                                         ),
                                         array(
-                                           'id'=>'o'
+                                           'id'=>'O'
                                         ),
                                         array(
-                                           'id'=>'p'
+                                           'id'=>'P'
                                         ),
                                         array(
-                                           'id'=>'q'
+                                           'id'=>'Q'
                                         ),
                                         array(
-                                           'id'=>'r'
+                                           'id'=>'R'
                                         ),
                                         array(
-                                           'id'=>'s'
+                                           'id'=>'S'
                                         ),
                                         array(
-                                           'id'=>'t'
+                                           'id'=>'T'
                                         ),
                                         array(
-                                           'id'=>'u'
+                                           'id'=>'U'
                                         ),
                                         array(
-                                           'id'=>'v'
+                                           'id'=>'V'
                                         ),
                                         array(
-                                           'id'=>'w'
+                                           'id'=>'W'
                                         ),
                                         array(
-                                           'id'=>'x'
+                                           'id'=>'X'
                                         ),
                                         array(
-                                           'id'=>'y'
+                                           'id'=>'Y'
                                         ),
                                         array(
-                                           'id'=>'z'
+                                           'id'=>'Z'
                                         ),
                                     );
                 $this->load->library('pagination');
                 $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'all-stores';
                 $config['total_rows'] = $this->Source->get_totalStores($initial);
-                $config['per_page'] = 21; 
+                $config['per_page'] = 24; 
                 $config['uri_segment'] = 2;
                 $this->pagination->initialize($config); 
                 $data['paginator'] = $this->pagination->create_links();
@@ -174,10 +161,8 @@ class Stores extends CI_Controller {
            
            /**********************************************/
              $this->load->library('parser');
-             $this->parser->parse('widgets/header', $data);
-             $this->parser->parse('stores', $data);
-
-             $this->parser->parse('widgets/rightBar', $data);
-             $this->parser->parse('widgets/footer', $data);
+             $this->parser->parse('widgets/header_new', $data);
+             $this->parser->parse('stores_new', $data);
+             $this->parser->parse('widgets/footer_new', $data);
         }
 }

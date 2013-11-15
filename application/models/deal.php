@@ -120,7 +120,6 @@ class Deal extends CI_Model {
     }
     function get_lastDealsHome($qty=0,$usedDeals=array()){
         $this->db->limit($qty);
-        $this->db->order_by('id','desc');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('coupon_code',null);
@@ -131,7 +130,6 @@ class Deal extends CI_Model {
     }
     function get_lastCouponsHome($qty=0){
         $this->db->limit($qty);
-        $this->db->order_by('id','desc');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('coupon_code !=','');
@@ -161,21 +159,29 @@ class Deal extends CI_Model {
        
         return $query->result();
     }
-    function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
-    {
-        $this->db->order_by('id', 'RANDOM');
+    function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category=array(),$subcat=array(),$store=array(),$minPrice=0,$maxPrice=0,$orderBy=array('id','desc'))
+    {   
+        if(!empty($order_by)){
+            $this->db->order_by($orderBy[0], $orderBy[1]);
+        }
         $this->db->limit($qty,$from);
         
-        if($subcat != '' && $subcat != 'null'){
-            $this->db->where('sub_cat_id',$subcat);
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
         }
-        if($category != '' && $category != 'null'){
-            $this->db->where('cat_id',$category);
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
         }
-        if($store != '' && $store != 'null'){
-            $this->db->where('deal_sources_id',$store);
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
         }
-        if($q != ''){
+        if(!empty($minPrice)){
+            $this->db->where('deal_price > ',$minPrice);
+        }
+        if(!empty($maxPrice)){
+            $this->db->where('deal_price < ',$maxPrice);
+        }
+        if(!empty($q)){
             $str = explode('%20',$q);
             $sep = '';
             $like='((';
@@ -193,11 +199,56 @@ class Deal extends CI_Model {
             $this->db->where($like);
         }
         
+        
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
         $this->db->where('coupon_code',null);
         $query = $this->db->get('deals');
-       // var_dump($this->db->last_query());
+//        vd($this->db->last_query());
+        return $query->result();
+    }
+    function get_lastCoupons($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category=array(),$subcat=array(),$store=array(),$minPrice=0,$maxPrice=0,$orderBy=array('id','desc'))
+    {   
+        if(!empty($order_by)){
+            $this->db->order_by($orderBy[0], $orderBy[1]);
+        }
+        $this->db->limit($qty,$from);
+        
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
+        }
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
+        }
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
+        }
+        if(!empty($q)){
+            $str = explode('%20',$q);
+            $sep = '';
+            $like='((';
+            foreach($str as $qsearch){
+                $like .= $sep.' title like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $sep = '';
+            $like.=') or (';
+            foreach($str as $qsearch){
+                $like .= $sep.' description like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $like .= '))';
+            $this->db->where($like);
+        }
+        
+        
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code !=','');
+        $query = $this->db->get('deals');
+//        var_dump($this->db->last_query());
         return $query->result();
     }
        
@@ -205,7 +256,7 @@ class Deal extends CI_Model {
     {
         
         $this->db->limit($qty,$from);
-        if($q != ''){
+        if(!empty($q)){
             $str = explode('%20',$q);
             $sep = '';
             $like='((';
@@ -222,18 +273,57 @@ class Deal extends CI_Model {
             $like .= '))';
             $this->db->where($like);
         }
-        if($subcat != '' && $subcat != 'null'){
-            $this->db->where('sub_cat_id',$subcat);
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
         }
-        if($category != '' && $category != 'null'){
-            $this->db->where('cat_id',$category);
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
         }
-        if($store != '' && $store != 'null'){
-            $this->db->where('deal_sources_id',$store);
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
         }
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('hotSubCategoty', '1');
+        $this->db->where('coupon_code',NULL);
+        $query = $this->db->get('deals');
+        
+        return $query->result();
+    }
+    function get_lastStarredSubcatCoupons($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
+    {
+        
+        $this->db->limit($qty,$from);
+        if(!empty($q)){
+            $str = explode('%20',$q);
+            $sep = '';
+            $like='((';
+            foreach($str as $qsearch){
+                $like .= $sep.' title like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $sep = '';
+            $like.=') or (';
+            foreach($str as $qsearch){
+                $like .= $sep.' description like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $like .= '))';
+            $this->db->where($like);
+        }
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
+        }
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
+        }
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
+        }
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('hotSubCategoty', '1');
+        $this->db->where('coupon_code !=','');
         $query = $this->db->get('deals');
         
         return $query->result();
@@ -242,7 +332,7 @@ class Deal extends CI_Model {
     {
          
         $this->db->limit($qty,$from);
-       if($q != ''){
+       if(!empty($q)){
             $str = explode('%20',$q);
             $sep = '';
             $like='((';
@@ -259,18 +349,57 @@ class Deal extends CI_Model {
             $like .= '))';
             $this->db->where($like);
         }
-        if($subcat != '' && $subcat != 'null'){
-            $this->db->where('sub_cat_id',$subcat);
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
         }
-        if($category != '' && $category != 'null'){
-            $this->db->where('cat_id',$category);
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
         }
-        if($store != '' && $store != 'null'){
-            $this->db->where('deal_sources_id',$store);
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
         }
         $this->db->where('hotCategory', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
+        $this->db->where('coupon_code',NULL);
+        $query = $this->db->get('deals');
+        
+        return $query->result();
+    }
+    function get_lastStarredCatCoupons($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
+    {
+         
+        $this->db->limit($qty,$from);
+       if(!empty($q)){
+            $str = explode('%20',$q);
+            $sep = '';
+            $like='((';
+            foreach($str as $qsearch){
+                $like .= $sep.' title like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $sep = '';
+            $like.=') or (';
+            foreach($str as $qsearch){
+                $like .= $sep.' description like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $like .= '))';
+            $this->db->where($like);
+        }
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
+        }
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
+        }
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
+        }
+        $this->db->where('hotCategory', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('is_active', '1');
+        $this->db->where('coupon_code !=','');
         $query = $this->db->get('deals');
         
         return $query->result();
@@ -279,7 +408,7 @@ class Deal extends CI_Model {
     {
          
         $this->db->limit($qty,$from);
-        if($q != ''){
+        if(!empty($q)){
             $str = explode('%20',$q);
             $sep = '';
             $like='((';
@@ -296,18 +425,57 @@ class Deal extends CI_Model {
             $like .= '))';
             $this->db->where($like);
         }
-        if($subcat != '' && $subcat != 'null'){
-            $this->db->where('sub_cat_id',$subcat);
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
         }
-        if($category != '' && $category != 'null'){
-            $this->db->where('cat_id',$category);
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
         }
-        if($store != '' && $store != 'null'){
-            $this->db->where('deal_sources_id',$store);
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
         }
         $this->db->where('is_active', '1');
         $this->db->where('hotDeals', '1');
         $this->db->where('cat_id >', '0');
+        $this->db->where('coupon_code',NULL);
+        $query = $this->db->get('deals');
+        
+        return $query->result();
+    }
+    function get_lastStarredCoupons($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
+    {
+         
+        $this->db->limit($qty,$from);
+        if(!empty($q)){
+            $str = explode('%20',$q);
+            $sep = '';
+            $like='((';
+            foreach($str as $qsearch){
+                $like .= $sep.' title like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $sep = '';
+            $like.=') or (';
+            foreach($str as $qsearch){
+                $like .= $sep.' description like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $like .= '))';
+            $this->db->where($like);
+        }
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
+        }
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
+        }
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
+        }
+        $this->db->where('is_active', '1');
+        $this->db->where('hotDeals', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('coupon_code !=','');
         $query = $this->db->get('deals');
         
         return $query->result();
@@ -338,19 +506,13 @@ class Deal extends CI_Model {
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
-    function get_totalDeals($q='',$category='',$subcat='',$store=''){
-         if($q != ''){
-            $this->db->like('title',$q);
-            $this->db->or_like('description',$q);
+    function getCountDealsByStoreAndCategoryFilters($store='',$categories=array(),$subcategories=array()){
+        $this->db->where('deal_sources_id',$store);
+        if(!empty($categories)){
+            $this->db->where_in('cat_id',$categories);
         }
-        if($subcat != '' && $subcat != 'null'){
-            $this->db->where('sub_cat_id',$subcat);
-        }
-        if($category != '' && $category != 'null'){
-            $this->db->where('cat_id',$category);
-        }
-        if($store != '' && $store != 'null'){
-            $this->db->where('deal_sources_id',$store);
+        if(!empty($subcategories)){
+            $this->db->where_in('sub_cat_id',$subcategories);
         }
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
@@ -359,29 +521,101 @@ class Deal extends CI_Model {
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
-    function get_totalCoupons($cat=''){
-        $this->db->where('coupon_code !=','');
-         if($cat != ''){
-            $this->db->where('cat_id',$cat);
-        }
-        
+    function getCountDealsBySubCategory($subcat=''){
+        $this->db->where('sub_cat_id',$subcat);
         $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code',null);
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
-    function get_lastCoupons($qty,$from=''/*Paginator*/,$cat=''/*Category*/)
-    {
-        $this->db->where('coupon_code !=','');
-        $this->db->order_by("id", "desc");  
-        $this->db->limit($qty,$from);
-        if($cat != ''){
-            
-            $this->db->where('cat_id',$cat);
+    function getCountDealsByCategoryAndStoreFilters($subcat='',$stores = array()){
+        $this->db->where('cat_id',$subcat);
+        if(!empty($stores)){
+            $this->db->where_in('deal_sources_id',$stores);
         }
         $this->db->where('is_active', '1');
-        $query = $this->db->get('deals');
-        return $query->result();
+        $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code',null);
+        $this->db->from('deals');
+        return $this->db->count_all_results();
     }
+    function getCountDealsBySubCategoryAndStoreFilters($cat='',$stores=array()){
+        $this->db->where('sub_cat_id',$cat);
+        if(!empty($stores)){
+            $this->db->where_in('deal_sources_id',$stores);
+        }
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code',null);
+        $this->db->from('deals');
+        return $this->db->count_all_results();
+    }
+    function getCountDealsByCategory($cat=''){
+        $this->db->where('cat_id',$cat);
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code',null);
+        $this->db->from('deals');
+        return $this->db->count_all_results();
+    }
+    function get_totalDeals($q='',$category='',$subcat='',$store='',$minPrice=0,$maxPrice=0){
+       
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
+        }
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
+        }
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
+        }
+        if(!empty($minPrice)){
+            $this->db->where('deal_price > ',$minPrice);
+        }
+        if(!empty($maxPrice)){
+            $this->db->where('deal_price < ',$maxPrice);
+        }
+        if(!empty($q)){
+            $this->db->like('title',$q);
+            $this->db->or_like('description',$q);
+        }
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code',null);
+        $this->db->from('deals');
+        return $this->db->count_all_results();
+    }
+    function get_totalCoupons($q='',$category='',$subcat='',$store=''){
+       
+        if(!empty($subcat)){
+            $this->db->where_in('sub_cat_id',$subcat);
+        }
+        if(!empty($category)){
+            $this->db->where_in('cat_id',$category);
+        }
+        if(!empty($store)){
+            $this->db->where_in('deal_sources_id',$store);
+        }
+        if(!empty($q)){
+            $this->db->like('title',$q);
+            $this->db->or_like('description',$q);
+        }
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code !=','');
+        $this->db->from('deals');
+        $total  = $this->db->count_all_results();
+        //vd($this->db->last_query());
+        return $total;
+    }
+    
     function get_dealById($id){
         $this->db->where('id',$id);
         $query = $this->db->get('deals');

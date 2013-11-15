@@ -881,15 +881,22 @@ cursor: pointer;
     float: left;
     margin-right: 30px;
     width: 210px;
-    height: 200px;
+    margin-bottom: 20px;
 }
 .listDeals{
     float:left;
     width: 700px;
 }
+.topBarDeals{
+    margin-bottom: 20px;
+}
 .topBarDeals .countDeals{
     float:left;
     color:#a5a5a5;
+    margin-top: 5px;
+}
+.topBarDeals .orderByDeals .text{
+    margin-right: 170px;
 }
 .topBarDeals .orderByDeals{
     float:right;
@@ -920,7 +927,7 @@ cursor: pointer;
     font-weight: bold;
     padding-left: 10px;
 }
-.listDeals .paginator{
+.paginator{
     background-color:#fff;
     box-shadow: 0px 10px 40px 2px #c0c0c0;
     padding:5px;
@@ -959,6 +966,7 @@ cursor: pointer;
 }
 .hidden{
     display:none;
+    visibility: visible !important;
 }
 .filterList{
     font-size:10px;
@@ -966,4 +974,175 @@ cursor: pointer;
 .subTitle{
     font-weight: bold;
     cursor:pointer;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.arrowFilter{
+      background:url(../images/new/filterArrow.png) no-repeat;
+      width: 19px;
+        height: 21px;
+        float: left;
+        margin-top: -2px;
+        margin-left: -30px;
+}
+pre{
+    background-color:#ccc;
+    clear:both;
+}
+.deleteFilter{
+    background: url(../images/new/deleteFilter.png) no-repeat;
+    width: 25px;
+    height: 25px;
+    float: left;
+    margin-left: -10px;
+    margin-top: 6px;
+    margin-right: 5px;
+    cursor:pointer;
+}
+.selectedFiltersLi{
+    background-color:#fff;
+    border-radius:10px;
+    font-weight: normal;
+    font-size:12px;
+    color:#555;
+}
+.selectedFiltersLi .Type{
+    font-size:15px;
+    color:#000;
+}
+.selectedFilters ul{
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 10px;
+}
+.selectedFilters ul li{
+    margin-bottom: 10px;
+}
+#deleteAllFilters{
+   text-align:right;
+}
+.overlayLoading{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100%;
+    z-index:9998;
+    background-color: #000;
+    opacity:0.5;
+}
+.overOver{
+    z-index: 9999;
+    position: fixed;
+    left: 20%;
+    top: 0%;
+    width: 930px;
+}
+.elemToFilter{
+    cursor:pointer;
+}
+.priceFilter input{
+    width: 30px;
+    border-radius: 5px;
+}
+.goArrow{
+    float:right;
+    margin-right: 20px;
+    cursor:pointer;
+}
+.orderHidden{
+    display:none;
+}
+.elemOrder{
+    cursor:pointer;
+    background-color:#fff;
+    padding:5px;
+}
+.elemOrder:hover{
+    background-color:#385498;
+}
+.orderList{
+    border-radius:10px;
+    width:150px;
+    position: absolute;
+    height: 30px;
+    margin-top: -25px;
+    margin-left: 70px;
+}
+.orderList ul{
+    border:1px solid;
+    border-radius:10px;
+    overflow:hidden;
+}
+.displayable{
+    background: url(../images/new/dropdownArrow.png) no-repeat;
+    background-color:#fff;
+    background-position: 130px;
+}
+.coupons .displayable{
+    background-position:170px;
+}
+.listDeals.coupons{
+    width: 940px;
+}
+.coupons .orderList{
+    width:190px;
+    z-index: 9997;
+}
+.coupons .topBarDeals .orderByDeals .text{
+    margin-right:200px;
+}
+.storeFinderBar ul{
+    background-color: #fff;
+    border-radius: 5px;
+    padding:5px;
+    box-shadow: 0px 10px 40px 2px #c0c0c0;
+    margin-bottom: 20px;
+
+}
+.storeFinderBar a{
+    color: #555;
+}
+.store_box{
+    width:940px;
+}
+.storeFinderBar ul li a{
+    margin-right: 5px;
+    color:#a99b90;
+}
+.store_box .store .text a{
+    color:#333;
+    padding: 10px;
+}
+.store_box .store{
+    width:220px;
+    height: 130px;
+    float:left;
+    margin-right:20px;
+    margin-bottom: 15px;
+    background-color:#fff;
+    border-radius:5px;
+    box-shadow: 0px 10px 40px 2px #c0c0c0;
+}
+.store_box .store.lastInRow{
+    margin-right:0px;
+}
+.floatRight{
+    float:right;
+}
+.store_box .store .image img{
+    max-width: 200px;
+    max-height: 70px;
+ 
+}
+.store_box .store .image{
+    border:1px solid #ccc;
+    width: 200px;
+    margin: 10px;
+    height: 70px;
+    text-align: center;
+}
+
+.store_box{
+    padding:0px;
 }

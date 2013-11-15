@@ -11,6 +11,8 @@
     }
 
        function getConstData ($t){
+           
+            
           //$t->output->cache(10);
            $data['base_url'] = $t->config->item('base_url');
             $data['msg']='';
@@ -49,54 +51,12 @@
             $data['contactUrl']  = $data['base_url'].$t->config->item('index_page').'contact';
             $data['registerUrl']  = $data['base_url'].$t->config->item('index_page').'register';
             $data['offerUrlPop'] = $data['base_url'].$t->config->item('index_page').'/deals/pop';
-
-             /***********************************/
-            
-            /**
-             * Right Column
-             */
-            
-            $data['newsletterMsg'] = '';
-            $t->load->model('Source');
-            $stor =$t->Source->get_stores(9);
-            foreach($stor as $st){
-                if(strpos($st->deal_source_logo_url,'ttp://') || strpos($st->deal_source_logo_url,'ttps://')){
-                    $st->image = $st->deal_source_logo_url;
-                }else{
-                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->deal_source_logo_url;
-                }
-                
-            }
-            $data['dealSources'] = $stor;
-            $data['rightContentTitle'] = 'OUR PROMISE';
-            $data['rightContentDescription'] = 'At pccounter.net its all about saving money on your online purchases, we scout the internet 24/7 looking for deals & discount coupon codes. You will find hundereds of thousands of offers that works and let you save money instantly, whether it is an instant discount or free shipping';
-            
-            $data['blogPosts'] = array();
-            $data['noBlogPosts'] = (count($data['blogPosts']==0))?'<li style="padding: 13px 14px;">
-									<strong>No Latest Blog has been posted.</strong><br/>
-								</li>':'';
-            $data['blogUrl'] = (count($data['blogPosts'])>0)?'<li>
-                                                <span style="padding: 0 0 0 120px;"><a href="'.'">Read More</a></span>
-                                            </li>':'';
-//            $t->load->model('Banner');
-//            $ban = $t->Banner->get_banners();
-//            foreach($ban as $st){
-//                if(strpos($st->image,'ttp://') || strpos($st->image,'ttps://')){
-//                    $st->image = $st->image;
-//                }else{
-//                    $st->image = $data['siteUrlMedia'].'/media/images/'.$st->image;
-//                }
-//                
-//            }
-//            $data['banners_type1'] = $ban;
-//            $t->load->model('Rightbox');
-//            $data['rightBox'] = $t->Rightbox->get_boxes();
-//            /*********************************/
-            
             
             
             /****FOOTER****/
+                $t->load->model('Source');
                 $t->load->model('Pages');
+                $t->load->model('Deal');
                 $specialPages = $t->Pages->getAllSpecialPages();
                 foreach($specialPages as $key=>$val){
                     if(empty($val->url)){
@@ -246,13 +206,13 @@
                     }else{
                         $categ->extraClass = '';
                     }
-                    
+                    //$categ->dealsQty = $t->Deal->getCountDealsByCategory($categ->id);
                 }
                 $data['categories'] = $categ_list;
                 $data['categoriesMenu'] = $categ_list;
                 
                 
-            $t->load->model('Deal');
+            
             $stor = $t->Source->get_stores(64);
             $storcount =1;
             foreach($stor as $st){
@@ -276,13 +236,14 @@
                 }else{
                     $st->short_name  = $st->name;
                 }
-                $st->dealsQty = $t->Deal->getCountDealsByStore($st->deal_source_id);
+                //$st->dealsQty = $t->Deal->getCountDealsByStore($st->deal_source_id);
                 $storcount++;
             }
             $data['stores'] = $stor;
             $data['storesMenu'] = array_slice($stor,0,23);
             
-            $data['qtyStores'] = $t->Source->get_totalStores();     
+            $data['qtyStores'] = $t->Source->get_totalStores();  
+            
                 $data['activeHome'] = '';
                 $data['activeDeals'] = '';
                 $data['activeCoupons'] = '';
@@ -311,13 +272,13 @@
                 }else{
                     $deal->image = str_replace("https://pccounter.s3.amazonaws.com/","http://dr30wky7ya0nu.cloudfront.net/",$deal->image_url);
                 }
-                if(!Imageexists($deal->image)){
-                    $deal->image = $t->Source->get_dealSourceImg($deal->deal_sources_id);
-                }
+//                if(!Imageexists($deal->image)){
+//                    $deal->image = $t->Source->get_dealSourceImg($deal->deal_sources_id);
+//                }
                 if(!strpos($deal->image,"ttp://") && !strpos($deal->image,'ttps://')){
                     $deal->image = 'http://beta.pccounter.net/media/images/'.$deal->image;
                 }
-
+//
                 if(!empty($deal->deal_sources_id)){
                     $deal->provider = $t->Source->get_dealSourceStr($deal->deal_sources_id);
                 }
@@ -359,12 +320,44 @@
                 }else{
                     $deal->activeDeal = '';
                 }
-                
+                if(empty($deal->thumbs)){
+                    $deal->thumbs=0;
+                }
                 $deal->count = $dealcount-1;
                 $deal->qtyComments = $t->Review->get_qtyComments($deal->id);
                 $lastRowDealCount++;
                 $dealcount++;
             }
+            
             return $deals;
+    }
+    function vd($var){
+        echo'<pre>';
+        var_dump($var);
+        echo'</pre>';
+    }
+    function normalizeArray($array){
+        return (!empty($array->dealsQty));
+    }
+    function deleteUsed($array,$type,$value,$flag='',$t){
+        $k = 0;
+        foreach($array as $ar){
+            if(!empty($flag) && $flag =='stores'){
+//                $ar->dealsQty = $t->Deal->getCountDealsByStoreAndCategoryFilters($ar->deal_source_id,$_SESSION['categories'],$_SESSION['subcategories']);
+            }elseif(!empty($flag) && $flag =='categories'){
+                //$ar->dealsQty = $t->Deal->getCountDealsByCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
+            }elseif(!empty($flag) && $flag =='subcategories'){
+//                $ar->dealsQty = $t->Deal->getCountDealsBySubCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
+            }
+            foreach($value as $val){
+                if($ar->{$type} == $val){
+                    unset($array[$k]);
+                    break;
+                }
+            }
+            $k++;
+        }
+        //vd($array);
+        return $array;
     }
 ?>

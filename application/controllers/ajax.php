@@ -94,4 +94,176 @@ class Ajax extends CI_Controller {
             }
             echo $dealLikes;
         }
+        private function ajaxResultFilter(){
+            $q='';
+            
+            $this->load->model('pages');
+            $this->load->helper(array('form', 'url')); 
+            $limit = 0;
+            $data = getConstData($this);
+            $arrayOrder = array(
+                                array('val'=>'id','rel'=>'desc','text'=>'Newest'),
+                                array('val'=>'id','rel'=>'asc','text'=>'Oldest'),
+                                array('val'=>'deal_price','rel'=>'asc','text'=>'Price: lowest first'),
+                                array('val'=>'deal_price','rel'=>'desc','text'=>'Price: highest first'),
+                                array('val'=>'thumbs','rel'=>'desc','text'=>'Recommended')
+                );
+            $orderTx = '';
+            if(empty($_SESSION['orderBy'])){
+               $orderTx .= '<li val="id" rel="desc" class="elemOrder displayable">Newest</li>'; 
+               unset($arrayOrder[0]);
+            }else{
+                $k=0;
+                foreach($arrayOrder as $arr){
+                    if($_SESSION['orderBy'][0] == $arr['val'] && $_SESSION['orderBy'][1]==$arr['rel']){
+                        $orderTx .= '<li val="'.$arr['val'].'" rel="'.$arr['rel'].'" class="elemOrder displayable">'.$arr['text'].'</li>'; 
+                        unset($arrayOrder[$k]);
+                        break;
+                    }
+                    $k++;
+                }
+            }
+            foreach($arrayOrder as $arr){
+                $orderTx .= '<li val="'.$arr['val'].'" rel="'.$arr['rel'].'" class="elemOrder orderHidden">'.$arr['text'].'</li>'; 
+            }
+            $data['orderDeals'] = '<ul>'.$orderTx. '</ul>';
+            $data['filters'] = array();
+            if(count($_SESSION['categories']) > 0 && count($_SESSION['subcategories'])>0 && count($_SESSION['stores'])>0 && !empty($_SESSION['priceMax'])){
+                $data['deleteAllFilter']  = '<li id="deleteAllFilters">DELETE ALL</li>';
+            }else{
+                $data['filters'] = array();
+                $data['deleteAllFilter']  = '';
+            }
+            
+            foreach($_SESSION['categories'] as $filter){
+                $data['filters'][] = array('name'=>$filter,'typeText'=>'categories','type'=>'Category','value'=>$this->Category->getCategoryNameById($filter));
+            }
+            foreach($_SESSION['subcategories'] as $filter){
+                $data['filters'][] = array('name'=>$filter,'typeText'=>'subcategories','type'=>'Subcategory','value'=>$this->Category->getSubCategoryNameById($filter));
+            }
+            foreach($_SESSION['stores'] as $filter){
+                $data['filters'][] = array('name'=>$filter,'typeText'=>'stores','type'=>'Store','value'=>$this->Source->get_dealSourceStr($filter));
+            }
+            if(!empty($_SESSION['priceMax']) || !empty($_SESSION['priceMin'])){
+                $data['filters'][] = array('value'=>'u$s'.$_SESSION['priceMin'].' to u$s'.$_SESSION['priceMax'],'type'=>'Price','typeText'=>'priceMax','name'=>'Price');
+            }
+            
+            if(!empty($store)){
+                $seoPg = $this->pages->getSEOPage('deals');
+                $seoPg = $seoPg[0];
+                $data['pageTitle'] = $seoPg->Title;//Title tag
+                $data['headerText'] = $seoPg->Header;//H1 tag
+                $data['metaTitle'] = $seoPg->Meta_title;
+                $data['metaKeywords'] = $seoPg->Meta_keywords;
+                $data['metaDescription'] = $seoPg->Meta_Description;
+            }
+            /**
+             * Selected Menu deals and lastest deals
+             */
+            
+            $deals = array();
+            $merge = array();
+            $this->load->model('Deal');
+            
+            
+            if($limit == ''){
+                $limit = 0;
+            }
+            $starred = array();
+            $merge = $this->Deal->get_lastDeals(15-count($starred),$limit,$q,$_SESSION['categories'],$_SESSION['subcategories'],$_SESSION['stores'],$_SESSION['priceMin'],$_SESSION['priceMax'],$_SESSION['orderBy']); //Get the other deals
+            $merge = array_merge($starred,$merge);
+            $data['deals'] = encapsuleDeals($merge,$this,false,3);
+            $data['totalDeals'] = $this->Deal->get_totalDeals($q,$_SESSION['categories'],$_SESSION['subcategories'],$_SESSION['stores'],$_SESSION['priceMin'],$_SESSION['priceMax']);
+            $this->load->library('pagination');
+            //$config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/paginator/'.$qSearch.'/'.$category;
+            $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').$_SESSION['uriSegment'];
+            $config['total_rows'] = $data['totalDeals'];
+            $config['uri_segment'] = 2;
+            $config['per_page'] = 15; 
+            $config['num_links'] = 3; 
+            $this->pagination->initialize($config); 
+            $data['paginator'] = $this->pagination->create_links();
+            $data['subCategories'] = array();
+            if(count($_SESSION['subcategories']) > 0){
+                $data['categories'] = array();
+            }
+            if(count($_SESSION['categories']) == 1){
+                $_SESSION['categories'] = array_values($_SESSION['categories']);
+                $categ_list = $this->Category->get_Subcategories(null,null,$_SESSION['categories'][0]);
+                foreach ($categ_list as $categ){
+                    if(empty($categ->url)){
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$_SESSION['categories'][0].'/'.$categ->id;
+                    }else{
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                    }
+                    $categ->dealsQty = $this->Deal->getCountDealsBySubCategory($categ->id);
+                }
+                $data['subCategories'] = $categ_list;
+            }
+            /********************************************************/
+            if(!empty($data['categories'])){
+                $data['categories'] = deleteUsed($data['categories'],'id',$_SESSION['categories'],'categories',$this);
+                $data['categories'] = array_filter($data['categories'],'normalizeArray');
+                
+            }
+            if(!empty($data['subCategories'])){
+                $data['subCategories'] = deleteUsed($data['subCategories'],'id',$_SESSION['subcategories'],'subcategories',$this);
+                $data['subCategories'] = array_filter($data['subCategories'],'normalizeArray');
+                
+            }
+            
+            if(!empty($data['stores'])){
+                $data['stores'] = deleteUsed($data['stores'],'deal_source_id',$_SESSION['stores'],'stores',$this);
+                $data['stores'] = array_filter($data['stores'],'normalizeArray');
+             
+            }
+              $data['noDeals'] =  ((count($data['deals'])==0)?'<div class="pro_box">
+                                                        <span style="color:#FF0000;">NO DEALS ARE THERE.</span>
+                                                 </div>':'');
+                $data['topStores'] = array();
+              /**
+               * Footer
+               */
+              /**********************************************/
+                $this->load->library('parser');
+                $this->parser->parse('deals_new', $data);
+        }
+        public function removeFilter($rel='',$id=''){
+            $this->load->helper('metaHelper');
+            session_start();
+            if($rel == 'priceMax'){
+                $_SESSION['priceMax'] = 0;
+                $_SESSION['priceMin'] = 0;
+            }else{
+                if (($key = array_search($id, $_SESSION[$rel])) !== false) {
+                    unset($_SESSION[$rel][$key]);
+                }
+            }
+            $this->ajaxResultFilter();
+            
+        }
+        public function addFilter($rel='',$id=''){
+            $this->load->helper('metaHelper');
+            session_start();
+            $_SESSION[$rel][] = $id;
+            $this->ajaxResultFilter();
+        }
+        public function addPrice($priceMin=0,$priceMax=0){
+            $this->load->helper('metaHelper');
+            session_start();
+            if(!empty($priceMin) || !empty($priceMax)){
+                $_SESSION['priceMax'] = $priceMax;
+                $_SESSION['priceMin'] = $priceMin;
+            }
+            $this->ajaxResultFilter();
+        }
+        public function addOrder($elem,$order){
+            $this->load->helper('metaHelper');
+            session_start();
+            if(!empty($elem) && !empty($order)){
+                $_SESSION['orderBy'][0] = $elem;
+                $_SESSION['orderBy'][1] = $order;
+            }
+            $this->ajaxResultFilter();
+        }
 }

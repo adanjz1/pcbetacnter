@@ -21,7 +21,7 @@ $(function(){
                 var thisThumb = $(this);
                 $.ajax({
                 type: "POST",
-                url: '{siteUrl}/ajax/like/'+$(this).attr('rel'),
+                url: '{siteUrl}ajax/like/'+$(this).attr('rel'),
                 data: { null:0}
               }).done(function( msg ) {
                  

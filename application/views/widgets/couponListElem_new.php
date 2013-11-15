@@ -13,9 +13,9 @@
                         <span>From {provider}</span>
                     </div>
                 </div>
-                <a class="couponBtn copy_to_clip" href="javascript:void(0)" target="_blank" rel="{deal_url}" data-clipboard-text="{coupon_code}" >
+                <div class="couponBtn copyme" target="_blank" rel="{deal_url}" data-clipboard-text="{coupon_code}" >
                     <div class="getDealStr">{coupon_code}</div>
-                </a>
+                </div>
                  <div class="couponActions">
                     <div class="{thumbsClass}" rel="{id}"><div class="thumbsValue">{thumbs}</div></div>
                     <div class="comment" onclick="document.location='deals/review/{id}/0/true#TabbedPanels1'"><div class="commentQty">{qtyComments}</div></div>

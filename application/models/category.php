@@ -18,7 +18,24 @@ class Category extends CI_Model {
     }
     function get_categories($qty='',$limit='')
     {
-        $query = $this->db->query('select *,(select count(*) from deals where cat_id = c.id and sub_cat_id >0) as qtyDeals from categories as c order by id asc limit '.intVal($limit).','.intVal($qty).' ');
+        $this->db->select('categories.id,categories.url, categories.couponCatUrl,categories.name, count(deals.id) as dealsQty');
+        if($qty != ''){
+            $this->db->limit($qty,$limit);
+        }
+        $this->db->join('deals','deals.cat_id = categories.id');
+        if(!empty($_SESSION['stores'])){
+            $this->db->where_in('deal_sources_id',$_SESSION['stores']);
+        }
+        $this->db->where('deals.coupon_code',NULL);
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
+        $this->db->where('coupon_code',null);
+       
+        $this->db->group_by('categories.id');
+        $this->db->order_by("id", "asc"); 
+        $query = $this->db->get('categories');
+        
         return $query->result();
     }
     function get_categoryById($cat){
@@ -26,6 +43,19 @@ class Category extends CI_Model {
         $query = $this->db->get('categories');
         $row = $query->result();
         return $row[0];
+    }
+    function getCategoryNameById($cat){
+        
+        $this->db->where('id',$cat);
+        $query = $this->db->get('categories');
+        $row = $query->result();
+        return $row[0]->name;
+    }
+    function getSubCategoryNameById($cat){
+        $this->db->where('id',$cat);
+        $query = $this->db->get('subCategories');
+        $row = $query->result();
+        return $row[0]->name;
     }
     function get_subcategoryById($cat){
         $this->db->like('id',$cat);
@@ -99,9 +129,14 @@ class Category extends CI_Model {
          $this->db->from('categories');
         return $this->db->count_all_results();
     }
-    function get_Subcategories($qty='99',$limit='0',$category)
+    function get_Subcategories($qty='',$limit='',$category)
     {
-        $query = $this->db->query('select *,(select count(*) from deals where cat_id = c.id and sub_cat_id >0) as qtyDeals from categories as c where idCategory='.intVal($category).' order by id asc limit '.intVal($limit).','.intVal($qty).' ');
+        if(!empty($qty)){
+            $this->db->limit($qty,$limit);
+        }
+        $this->db->where('idCategory',$category);
+        $this->db->order_by("id", "asc"); 
+        $query = $this->db->get('subCategories');
         return $query->result();
     }
     function get_totalSubCategories($category){

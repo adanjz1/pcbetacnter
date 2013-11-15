@@ -78,13 +78,20 @@
             scope: 'publish_stream,email'
         });
         });
-        $(".copy_to_clip").each(function() {
-            var clip = new ZeroClipboard.Client();
-            clip.glue($(this));
-            clip.setText($(this).attr("data-clipboard-text"));
-            clip.addEventListener('complete', function(client, text) {
-                alert("Copied text to clipboard:\n" + text);
-            });
+        $('.copyme').zclip({
+            path: 'http://beardy.co/wp-content/uploads/2013/02/ZeroClipboard.swf',
+            copy: function(){
+            var copythis = $(this).attr('data-clipboard-text');
+            return copythis;
+        },
+            afterCopy: function(){
+                alert('Coupon code has been copied in clipboard');
+                var a = document.createElement('a');
+                a.href=$(this).attr('rel');
+                a.target = '_blank';
+                document.body.appendChild(a);
+                a.click();
+            }
         });
 
     });

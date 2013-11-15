@@ -31,13 +31,13 @@ class Routes extends CI_Controller {
             
             foreach($category as $cat){
                 $allRoutes[] = array('route' => $cat->url,
-                                     'controller'=> 'categories/subcategories/',
+                                     'controller'=> 'deals/index//',
                                      'vars'=>'/'.$cat->id);
             }
             foreach($category2 as $cat){
                 $allRoutes[] = array('route' => $cat->couponCatUrl,
-                                     'controller'=> 'coupons/index/',
-                                     'vars'=>'/___'.$cat->id);
+                                     'controller'=> 'coupons/index//',
+                                     'vars'=>'/'.$cat->id);
             }
             foreach($subcategory as $scat){
                 $allRoutes[] = array('route' => $scat->url,
@@ -47,7 +47,7 @@ class Routes extends CI_Controller {
             foreach($sources as $s){
                 $allRoutes[] = array('route' => $s->url,
                                      'controller'=> 'deals/index/',
-                                    'vars'=>'/_/null/null/'.$s->deal_source_id);
+                                    'vars'=>'//null/null/'.$s->deal_source_id);
             }
             
             foreach($spPages as $s){

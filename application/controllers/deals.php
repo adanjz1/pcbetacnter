@@ -22,20 +22,118 @@ class Deals extends CI_Controller {
         parent::__construct();
        }
 	
-        public function index( $limit='',$qSearch='',$category='',$subcat='',$store=''){
+        public function index( $limit='',$qSearch='',$category='',$subcat='',$store='',$priceMin=0,$priceMax=0,$orderBy='[json]'){
+            
+            $time = microtime();
+            $time = explode(' ', $time);
+            $time = $time[1] + $time[0];
+            $start = $time;
+
             $q = $qSearch;
+            $resetSession = false;
+            if(empty($limit)){
+                $resetSession = true;
+            }
             //IF is a category search
             if($q == 'category'){
                 $q = '';
-                
-            }
-            if($q != ''){
-                $q = substr($qSearch, 3);
             }
             $this->load->helper('metaHelper');
+            if(!empty($q)){
+                $q = substr($qSearch, 3);
+                if(!empty($q)){
+                    $resetSession  = true;
+                }
+            }
+            $this->load->library('session');
+            
             $this->load->model('pages');
             $this->load->helper(array('form', 'url')); 
+            session_start();
+            if(empty($_SESSION['orderBy']) || $resetSession){
+                $_SESSION['orderBy'] = array();
+            }
+            if(empty($_SESSION['categories']) || $resetSession){
+                $_SESSION['categories'] = array();
+            }
+            if(empty($_SESSION['subcategories']) || $resetSession){
+                $_SESSION['subcategories'] = array();
+            }
+            if(empty($_SESSION['stores']) || $resetSession){
+                $_SESSION['stores'] = array();
+            }   
+            if(empty($_SESSION['priceMin']) || $resetSession){
+                $_SESSION['priceMin'] = 0;
+            }
+            if(empty($_SESSION['priceMax']) || $resetSession){
+                $_SESSION['priceMax'] = 0;
+            }
+            
+            if(!empty($category) && !in_array($category, $_SESSION['categories']) &&  $category != 'null'){
+                $_SESSION['categories'][] = $category;
+            }
+            if(!empty($subcat) && !in_array($subcat, $_SESSION['subcategories']) &&  $subcat != 'null'){
+                $_SESSION['subcategories'][] = $subcat;
+            }
+            if(!empty($store) && !in_array($store, $_SESSION['stores'])){
+                $_SESSION['stores'][] = $store;
+            }
+            $_SESSION['priceMin'] = $priceMin;
+            $_SESSION['priceMax'] = $priceMin;
+            
+            
+            
+            
             $data = getConstData($this);
+            
+            $arrayOrder = array(
+                                array('val'=>'id','rel'=>'desc','text'=>'Newest'),
+                                array('val'=>'id','rel'=>'asc','text'=>'Oldest'),
+                                array('val'=>'deal_price','rel'=>'asc','text'=>'Price: lowest first'),
+                                array('val'=>'deal_price','rel'=>'desc','text'=>'Price: highest first'),
+                                array('val'=>'thumbs','rel'=>'desc','text'=>'Recommended')
+                );
+            $orderTx = '';
+            if(empty($_SESSION['orderBy'])){
+               $orderTx .= '<li val="id" rel="desc" class="elemOrder displayable">Newest</li>'; 
+               unset($arrayOrder[0]);
+            }else{
+                $k=0;
+                foreach($arrayOrder as $arr){
+                    if($_SESSION['orderBy'][0] == $arr['val'] && $_SESSION['orderBy'][1]==$arr['rel']){
+                        $orderTx .= '<li val="'.$arr['val'].'" rel="'.$arr['rel'].'" class="elemOrder displayable">'.$arr['text'].'</li>'; 
+                        unset($arrayOrder[$k]);
+                        break;
+                    }
+                    $k++;
+                }
+            }
+            foreach($arrayOrder as $arr){
+                $orderTx .= '<li val="'.$arr['val'].'" rel="'.$arr['rel'].'" class="elemOrder orderHidden">'.$arr['text'].'</li>'; 
+            }
+            $data['orderDeals'] = '<ul>'.$orderTx. '</ul>';
+            $data['filters'] = array();
+            if($resetSession){
+                $data['filters'] = array();
+                $data['deleteAllFilter']  = '';
+                
+            }else{
+                $data['deleteAllFilter']  = '<li id="deleteAllFilters">DELETE ALL</li>';
+            }
+            
+            foreach($_SESSION['categories'] as $filter){
+                $data['filters'][] = array('name'=>$filter,'typeText'=>'categories','type'=>'Category','value'=>$this->Category->getCategoryNameById($filter));
+            }
+            foreach($_SESSION['subcategories'] as $filter){
+                $data['filters'][] = array('name'=>$filter,'typeText'=>'subcategories','type'=>'Subcategory','value'=>$this->Category->getSubCategoryNameById($filter));
+            }
+            foreach($_SESSION['stores'] as $filter){
+                $data['filters'][] = array('name'=>$filter,'typeText'=>'stores','type'=>'Store','value'=>$this->Source->get_dealSourceStr($filter));
+            }
+            if(!empty($_SESSION['priceMax']) || !empty($_SESSION['priceMin'])){
+                $data['filters'][] = array('name'=>'Min price:'.$_SESSION['priceMin'].' - Max price:'.$_SESSION['priceMax'],'type'=>'Price','typeText'=>'priceMax');
+            }
+            
             if(!empty($store)){
                 $seoPg = $this->Source->get_source($store);
                 $data['pageTitle'] = $seoPg->title_tag;//Title tag
@@ -43,6 +141,7 @@ class Deals extends CI_Controller {
                 $data['metaTitle'] = $seoPg->meta_title;
                 $data['metaKeywords'] = $seoPg->meta_keywords;
                 $data['metaDescription'] = $seoPg->meta_description;
+                $data['activeStores'] = 'active';
             }elseif(!empty($subcat)){
                 $seoPg = $this->Category->get_subcategoryById($subcat);
                 $data['pageTitle'] = $seoPg->title;//Title tag
@@ -50,6 +149,7 @@ class Deals extends CI_Controller {
                 $data['metaTitle'] = $seoPg->meta_title;
                 $data['metaKeywords'] = $seoPg->meta_keywords;
                 $data['metaDescription'] = $seoPg->meta_description;
+                $data['activeCategory'] = 'active';
             }elseif(!empty($category)){
                 $seoPg = $this->Category->get_categoryById($category);
                 $data['pageTitle'] = $seoPg->title;//Title tag
@@ -57,6 +157,7 @@ class Deals extends CI_Controller {
                 $data['metaTitle'] = $seoPg->meta_title;
                 $data['metaKeywords'] = $seoPg->meta_keywords;
                 $data['metaDescription'] = $seoPg->meta_description;
+                $data['activeCategory'] = 'active';
             }else{
                 $seoPg = $this->pages->getSEOPage('deals');
                 $seoPg = $seoPg[0];
@@ -65,6 +166,7 @@ class Deals extends CI_Controller {
                 $data['metaTitle'] = $seoPg->Meta_title;
                 $data['metaKeywords'] = $seoPg->Meta_keywords;
                 $data['metaDescription'] = $seoPg->Meta_Description;
+                $data['activeDeals'] = 'active';
             }
             /**
              * Selected Menu deals and lastest deals
@@ -79,43 +181,75 @@ class Deals extends CI_Controller {
                 $limit = 0;
             }
             $starred = array();
-            if(!empty($subcat)){
-                $starred = $this->Deal->get_lastStarredSubcatDeals(9,$limit,$q,$category,$subcat,$store); //Get the other deals
-            }elseif(!empty($category)){
-                $starred = $this->Deal->get_lastStarredCatDeals(9,$limit,$q,$category,$subcat,$store); //Get the other deals
-            }else{
-                $starred = $this->Deal->get_lastStarredDeals(9,$limit,$q,$category,$subcat,$store); //Get the other deals
+            if($limit == 0){
+                if(!empty($subcat)){
+                    $starred = $this->Deal->get_lastStarredSubcatDeals(15,$limit,$q,$category,$subcat,$store); //Get the other deals
+                }elseif(!empty($category)){
+                    $starred = $this->Deal->get_lastStarredCatDeals(15,$limit,$q,$category,$subcat,$store); //Get the other deals
+                }else{
+                    $starred = $this->Deal->get_lastStarredDeals(15,$limit,$q,$category,$subcat,$store); //Get the other deals
+                }
             }
-            
-            $merge = $this->Deal->get_lastDeals(9-count($starred),$limit,$q,$category,$subcat,$store); //Get the other deals
+        
+            $merge = $this->Deal->get_lastDeals(15-count($starred),$limit,$q,$_SESSION['categories'],$_SESSION['subcategories'],$_SESSION['stores'],$_SESSION['priceMin'],$_SESSION['priceMax'],$_SESSION['orderBy']); //Get the other deals
             $merge = array_merge($starred,$merge);
-            $this->load->library('session');
+            
             $data['deals'] = encapsuleDeals($merge,$this,false,3);
-            $data['totalDeals'] = $this->Deal->get_totalDeals($q,$category,$subcat,$store);
+            
+            $data['totalDeals'] = $this->Deal->get_totalDeals($q,$_SESSION['categories'],$_SESSION['subcategories'],$_SESSION['stores'],$_SESSION['priceMin'],$_SESSION['priceMax']);
             $this->load->library('pagination');
             //$config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/paginator/'.$qSearch.'/'.$category;
+            $_SESSION['uriSegment'] = $this->uri->segments[1];
             $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').$this->uri->segments[1];
             $config['total_rows'] = $data['totalDeals'];
+            
             $config['uri_segment'] = 2;
-            $config['per_page'] = 9; 
+            $config['per_page'] = 15; 
             $config['num_links'] = 3; 
             $this->pagination->initialize($config); 
             $data['paginator'] = $this->pagination->create_links();
             $data['subCategories'] = array();
-            if($category != ''){
+           //arraymap, eliminar elementos con dealsQty == 0
+            if(count($_SESSION['subcategories']) > 0){
+                $data['categories'] = array();
+            }
+            $data['subCategories'] = array();
+            if(count($_SESSION['categories']) == 1){
+                $_SESSION['categories'] = array_values($_SESSION['categories']);
                 $this->load->model('Category');
-                $categ_list = $this->Category->get_Subcategories(null,null,$category);
+                $categ_list = $this->Category->get_Subcategories(null,null,$_SESSION['categories'][0]);
                 foreach ($categ_list as $categ){
-                    if(empty($categ->url)){
-                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$category.'/'.$categ->id;
+                    if(!in_array($categ,$_SESSION['subcategories'])){
+                        if(empty($categ->url)){
+                            $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$_SESSION['categories'][0].'/'.$categ->id;
+                        }else{
+                            $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                        }
+                        $categ->dealsQty = $this->Deal->getCountDealsBySubCategory($categ->id);
                     }else{
-                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
+                        unset($categ);
                     }
+                    
                 }
                 $data['subCategories'] = $categ_list;
             }
-            /********************************************************/
+                
+            /*************************FORMATING FILTERS*******************************/
+            if(!empty($data['categories'])){
+                $data['categories'] = deleteUsed($data['categories'],'id',$_SESSION['categories'],'categories',$this);
+                $data['categories'] = array_filter($data['categories'],'normalizeArray');
+            }
+        
+            if(!empty($data['subCategories'])){
+                $data['subCategories'] = deleteUsed($data['subCategories'],'id',$_SESSION['subcategories'],'subcategories',$this);
+                $data['subCategories'] = array_filter($data['subCategories'],'normalizeArray');
+            }
             
+            if(!empty($data['stores'])){
+                $data['stores'] = deleteUsed($data['stores'],'deal_source_id',$_SESSION['stores'],'stores',$this);
+                $data['stores'] = array_filter($data['stores'],'normalizeArray');
+             }
+//            die();
               $data['noDeals'] =  ((count($data['deals'])==0)?'<div class="pro_box">
                                                         <span style="color:#FF0000;">NO DEALS ARE THERE.</span>
                                                  </div>':'');
@@ -124,6 +258,7 @@ class Deals extends CI_Controller {
                * Footer
                */
               /**********************************************/
+                
                 $this->load->library('parser');
                 $this->parser->parse('widgets/header_new', $data);
                 $this->parser->parse('deals_new', $data);
