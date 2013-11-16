@@ -109,7 +109,7 @@
 </script>
 <div class="topHeader">
 <div class="centerScreen">
-    <div class="logo">
+    <div class="logo" onclick="document.location='/'">
         <img src="{siteUrlMedia}media/images/new/logo.png" alt="" border="0"/>
     </div>
     <div class="search">
@@ -194,6 +194,7 @@
 </div>
 <div class="body">
     <div class="centerScreen">
+        <div class="path">{pathLocation}</div>
 <div class="mainTitle">
     {msg}
     {headerText}
@@ -202,7 +203,7 @@
 <div class='loginDiv'>
     <div class='registerAccount'>
         <div class="title">Create a new account</div>
-        <?php echo form_open("/{siteUrl}/register"); ?>
+        <?php echo form_open("/register"); ?>
             	<input type="text" name="register_email" class="txtfieldbg" placeholder="E-mail"><br>
                 <span style="color:#FF0000;" id="err_register_email"></span><br/>
                 <input type="password" name="register_password" class="txtfieldbg" placeholder="Password"><br>
@@ -231,7 +232,7 @@
                    <a href="{siteUrl}account/connect_twitter">Sign in with TWITTER</a></div>
            <?php endforeach; ?>
         <div class="center">or</div>
-        <?php echo form_open("/{siteUrl}/register"); ?>
+        <?php echo form_open("register/login"); ?>
             	<input type="text" name="register_email" class="txtfieldbg" placeholder="E-mail"><br>
                 <span style="color:#FF0000;" id="err_register_email"></span><br/>
                 <input type="password" name="register_password" class="txtfieldbg" placeholder="Password"><br>
@@ -249,7 +250,7 @@
     <div class="closeLogin orange">Not now</div>
 </div>
 <div class="socialNetworks">
-    <div class="blog" onclick="document.location='http://blog.pccounter.com/'"></div>
+    <div class="blog" onclick="document.location='{blogUrl}'"></div>
     <div class="facebook" onclick="document.location='http://www.facebook.com/PcCounterProducts'"></div>
     <div class="twitter" onclick="document.location='http://www.facebook.com/pccounter'"></div>
     <div class="googleplus" onclick="document.location='http://www.facebook.com/pccounter'"></div>

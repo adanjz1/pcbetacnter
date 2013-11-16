@@ -23,9 +23,6 @@ class Category extends CI_Model {
             $this->db->limit($qty,$limit);
         }
         $this->db->join('deals','deals.cat_id = categories.id');
-        if(!empty($_SESSION['stores'])){
-            $this->db->where_in('deal_sources_id',$_SESSION['stores']);
-        }
         $this->db->where('deals.coupon_code',NULL);
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
@@ -39,7 +36,7 @@ class Category extends CI_Model {
         return $query->result();
     }
     function get_categoryById($cat){
-        $this->db->like('id',$cat);
+        $this->db->where('id',$cat);
         $query = $this->db->get('categories');
         $row = $query->result();
         return $row[0];

@@ -44,6 +44,7 @@ class Contact extends CI_Controller {
                $data['metaTitle'] = $seoPg->Meta_title;
                $data['metaKeywords'] = $seoPg->Meta_keywords;
                $data['metaDescription'] = $seoPg->Meta_Description;
+               $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="#" class="activePath">CONTACT US</a>';
 		$this->load->helper('url');
 		$this->subjectLine = "Contact form response from " . $_SERVER['HTTP_HOST'];
                 
@@ -54,11 +55,9 @@ class Contact extends CI_Controller {
 		if(empty($name) || empty($email) || empty($subject) || empty($message)) {
 			// show the form
 			$this->load->library('parser');
-                        $this->parser->parse('widgets/header', $data);
-                        $this->parser->parse('contact', $data);
-
-                        $this->parser->parse('widgets/rightBar', $data);
-                        $this->parser->parse('widgets/footer', $data);
+                        $this->parser->parse('widgets/header_new', $data);
+                        $this->parser->parse('contact_new', $data);
+                        $this->parser->parse('widgets/footer_new', $data);
 
 
 		} else {
@@ -72,11 +71,9 @@ class Contact extends CI_Controller {
 			$this->email->send();
 
 			$this->load->library('parser');
-                        $this->parser->parse('widgets/header', $data);
-                        $this->parser->parse('contact_success', $data);
-
-                        $this->parser->parse('widgets/rightBar', $data);
-                        $this->parser->parse('widgets/footer', $data);
+                        $this->parser->parse('widgets/header_new', $data);
+                        $this->parser->parse('contact_success_new', $data);
+                        $this->parser->parse('widgets/footer_new', $data);
 
 
 		}

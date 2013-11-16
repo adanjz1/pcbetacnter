@@ -120,6 +120,8 @@ class Coupons extends CI_Controller {
                 $data['metaDescription'] = $seoPg->Meta_Description;
             }
             $data['activeCoupons'] = 'active';
+            $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="#" class="activePath">COUPONS</a>';
+
             /**
              * Selected Menu deals and lastest deals
              */

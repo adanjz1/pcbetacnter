@@ -171,7 +171,31 @@ class Deals extends CI_Controller {
             /**
              * Selected Menu deals and lastest deals
              */
-            
+            $path='';
+            $class='activePath';
+            if(!empty($category) && $category != 'null'){
+                if(!empty($subcat)){
+                    $class='prevPath';
+                }else{
+                    $class='activePath';
+                }
+                $cat = $this->Category->get_categoryById($category);
+                $path .= '> <a href="'.$cat->url.'" class="'.$class.'">'.$cat->name.'</a> ';
+            }
+            if(!empty($subcat) && $subcat != 'null'){
+                $cat = $this->Category->get_subcategoryById($subcat);
+                $path .= '> <a href="'.$cat->url.'" class="activePath">'.$cat->name.'</a> ';
+                $class='prevPath';
+            }
+            if(!empty($store) && $store != 'null'){
+                $cat = $this->Source->get_source($store);
+                $path .= '> <a href="'.$cat->url.'" class="'.$class.'">'.$cat->deal_source_name.'</a> ';
+                $class='prevPath';
+            }
+            if(empty($path)){
+                $class='activePath';
+            }
+            $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="/deals-list" class="'.$class.'">DEALS</a> '.$path;
             $deals = array();
             $merge = array();
             $this->load->model('Deal');
@@ -221,7 +245,7 @@ class Deals extends CI_Controller {
                 foreach ($categ_list as $categ){
                     if(!in_array($categ,$_SESSION['subcategories'])){
                         if(empty($categ->url)){
-                            $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$_SESSION['categories'][0].'/'.$categ->id;
+                            $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'deals/index/0/category/'.$_SESSION['categories'][0].'/'.$categ->id;
                         }else{
                             $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
                         }
@@ -281,7 +305,6 @@ class Deals extends CI_Controller {
             }else{
                 redirect('/deals/index/'.$var1.'/'.$var2);
             }
-            
         }
         public function review($id='',$saved=false,$dat=false){
             $this->load->helper('metaHelper');
@@ -292,6 +315,7 @@ class Deals extends CI_Controller {
              $this->load->model('pages');
             $seoPg = $this->pages->getSEOPage('deals');
             $seoPg = $seoPg[0];
+            $data['message'] = '';
             $data['pageTitle'] = $seoPg->Title;//Title tag
             $data['headerText'] = $seoPg->Header;//H1 tag
             $data['metaTitle'] = $seoPg->Meta_title;
@@ -335,7 +359,7 @@ class Deals extends CI_Controller {
                 }else{
                     $deal->hot = '';
                 }
-                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
+                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'deals/review/'.$deal->id;
                 
                
                 $this->load->model('Review');
@@ -385,14 +409,14 @@ class Deals extends CI_Controller {
             //$data['shcms'] = array('false');
              $data['formSubmitted'] = '';
             if(!empty($saved)){
-                $data['formSubmitted'] = '<font color="#FF0000">Your rating successfully submitted.</font> ';
+                $data['message'] = '<font color="#FF0000">Your rating successfully submitted.</font> ';
             }
             $data['deal'] = $deals;
             
               /**
                * Footer
                */
-              $data['dealReviewForm'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/reviewForm/';
+              $data['dealReviewForm'] = $this->config->item('base_url').$this->config->item('index_page').'deals/reviewForm/';
               
               /**********************************************/
                 $this->load->library('parser');

@@ -36,7 +36,7 @@ class StaticPage extends CI_Controller {
             $data['metaTitle'] = $page->meta_title;
             $data['metaKeywords'] = $page->meta_keywords;
             $data['metaDescription'] = $page->meta_description;
-           
+            $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="'.$page->url.'" class="activePath">'.$page->title.'</a> ';
             /**
              * Selected Menu deals and lastest deals
              */
@@ -48,11 +48,9 @@ class StaticPage extends CI_Controller {
                */
               /**********************************************/
                 $this->load->library('parser');
-                $this->parser->parse('widgets/header', $data);
-                $this->parser->parse('static', $data);
-                
-                $this->parser->parse('widgets/rightBar', $data);
-                $this->parser->parse('widgets/footer', $data);
+                $this->parser->parse('widgets/header_new', $data);
+                $this->parser->parse('static_new', $data);
+                $this->parser->parse('widgets/footer_new', $data);
         }
         
 }

@@ -31,7 +31,7 @@ class Stores extends CI_Controller {
             /**
              * HEADER
              */
-            $data['storesPaginatorUrl'] = $this->config->item('base_url').$this->config->item('index_page').'/stores/paginator';
+            $data['storesPaginatorUrl'] = $this->config->item('base_url').$this->config->item('index_page').'stores/paginator';
             $this->load->model('pages');
             $seoPg = $this->pages->getSEOPage('stores');
             $seoPg = $seoPg[0];
@@ -41,7 +41,7 @@ class Stores extends CI_Controller {
             $data['metaKeywords'] = $seoPg->Meta_keywords;
             $data['metaDescription'] = $seoPg->Meta_Description;
            
-            
+            $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="/all-stores" class="activePath">STORES</a> ';
             $this->load->model('Source');
             $stor = $this->Source->get_stores(24,$limit,$initial);
             $lastInRow = 1;
@@ -63,7 +63,7 @@ class Stores extends CI_Controller {
                 $lastInRow++;
             }
             $data['stores'] = $stor;
-            $data['storesUrlBrandSearch'] = $this->config->item('base_url').$this->config->item('index_page').'/stores/index/0/';
+            $data['storesUrlBrandSearch'] = $this->config->item('base_url').$this->config->item('index_page').'stores/index/0/';
             $data['initials'] = array(
                                         array(
                                             'id'=>'0-9'

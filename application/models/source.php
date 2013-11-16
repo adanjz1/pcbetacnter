@@ -93,12 +93,6 @@ class Source extends CI_Model {
         if($initial != ''){
             $this->db->like('deal_source_name',$initial,'after');
         }
-        if(!empty($_SESSION['categories'])){
-            $this->db->where_in('cat_id',$_SESSION['categories']);
-        }
-        if(!empty($_SESSION['subCategories'])){
-            $this->db->where_in('sub_cat_id',$_SESSION['subCategories']);
-        }
         $this->db->join('deals','deals.deal_sources_id = deal_sources.deal_source_id');
         $this->db->group_by('deal_sources.deal_source_id');
         $this->db->limit($qty,$limit);

@@ -49,43 +49,17 @@ class SpecialPage extends CI_Controller {
             if($limit == ''){
                 $limit = 0;
             }
-            $merge = $this->Deal->get_pageDeals(52,$limit,$idPage); //Get the other deals
+            $merge = $this->Deal->get_pageDeals(16,$limit,$idPage); //Get the other deals
             $this->load->library('session');
-            foreach($merge as $deal){
-                if(empty($deal->display_name)){
-                    $deal->display_name = $deal->title;
-                }
-                if(empty($deal->image_url)){
-                    $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
-                }else{
-                    $deal->image =$deal->image_url;
-                }
-                if(!empty($deal->deal_sources_id)){
-                    $deal->provider = $this->Source->get_dealSourceStr($deal->deal_sources_id);
-                }
-                if($deal->hot){
-                    $deal->hot = '<div class="hot_deal"></div>';
-                }else{
-                    $deal->hot = '';
-                }
-                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/review/'.$deal->id;
-                $ses = $this->session->all_userdata(); 
-                if(!empty($ses[$deal->id])){
-                     $deal->thumbsClass = 'thumbActive';
-                }else{
-                    $deal->thumbsClass = 'thumbs';
-                }
-                $deal->categoryStr = $this->Category->get_CatName($deal->cat_id);
-                $deal->categoryCount = $this->Category->get_catCant($deal->cat_id);
-                
-            }
-            $data['deals'] = $merge;
+            $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="'.$page->url.'" class="activePath">'.$page->title.'</a> ';
+
+            $data['deals'] = encapsuleDeals($merge,$this,false,4);
             $data['totalDeals'] = $this->Deal->get_totalDeals_page($idPage);
             $this->load->library('pagination');
             
             $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/specialPage/paginator/'.$idPage;
             $config['total_rows'] = $data['totalDeals'];
-            $config['per_page'] = 52; 
+            $config['per_page'] = 16; 
             $this->pagination->initialize($config); 
             $data['paginator'] = $this->pagination->create_links();
             
@@ -100,11 +74,10 @@ class SpecialPage extends CI_Controller {
                */
               /**********************************************/
                 $this->load->library('parser');
-                $this->parser->parse('widgets/header', $data);
-                $this->parser->parse('special', $data);
+                $this->parser->parse('widgets/header_new', $data);
+                $this->parser->parse('special_new', $data);
                 
-                $this->parser->parse('widgets/rightBar', $data);
-                $this->parser->parse('widgets/footer', $data);
+                $this->parser->parse('widgets/footer_new', $data);
         }
           public function paginator($var1='',$var2=''){
             $this->load->helper('url');

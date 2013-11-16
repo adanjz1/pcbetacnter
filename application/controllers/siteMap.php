@@ -37,6 +37,7 @@ class Sitemap extends CI_Controller {
             $data['metaDescription'] = $seoPg->Meta_Description;
            
             $this->load->model('Category');
+            $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="/siteMap" class="activePath">Site Map</a> ';
             $categories = $this->Category->get_categories();
             foreach($categories as $cat){
                 $subcats = $this->Category->get_Subcategories('','',$cat->id);
@@ -44,10 +45,10 @@ class Sitemap extends CI_Controller {
                 foreach($subcats as $sub){
                     
                     
-                    $scats[] = array('subName'=>$sub->name,'subUrl'=> $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$cat->id.'/'.$sub->id);
+                    $scats[] = array('subName'=>$sub->name,'subUrl'=> $this->config->item('base_url').$this->config->item('index_page').$sub->url);
                 }
                 $cat->subcategories = $scats;
-                $cat->categoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$cat->id;
+                $cat->categoryUrl = $this->config->item('base_url').$this->config->item('index_page').$cat->url;
             }
             $data['categories'] = $categories;
             
@@ -60,11 +61,9 @@ class Sitemap extends CI_Controller {
                */
               /**********************************************/
                 $this->load->library('parser');
-                $this->parser->parse('widgets/header', $data);
-                $this->parser->parse('siteMap', $data);
-                
-                $this->parser->parse('widgets/rightBar', $data);
-                $this->parser->parse('widgets/footer', $data);
+                $this->parser->parse('widgets/header_new', $data);
+                $this->parser->parse('siteMap_new', $data);
+                $this->parser->parse('widgets/footer_new', $data);
         }
         
 }

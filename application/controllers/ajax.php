@@ -192,7 +192,7 @@ class Ajax extends CI_Controller {
                 $categ_list = $this->Category->get_Subcategories(null,null,$_SESSION['categories'][0]);
                 foreach ($categ_list as $categ){
                     if(empty($categ->url)){
-                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'/deals/index/0/category/'.$_SESSION['categories'][0].'/'.$categ->id;
+                        $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').'deals/index/0/category/'.$_SESSION['categories'][0].'/'.$categ->id;
                     }else{
                         $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
                     }

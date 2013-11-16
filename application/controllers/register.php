@@ -49,13 +49,8 @@ class Register extends CI_Controller {
                 $email = $this->input->post('register_email');
 		if(empty($email)) {
 			// show the form
-			$this->load->library('parser');
-                        $this->parser->parse('widgets/header', $data);
-                        $this->parser->parse('register', $data);
-
-                        $this->parser->parse('widgets/rightBar', $data);
-                        $this->parser->parse('widgets/footer', $data);
-
+			$this->load->helper('url');
+                        redirect('/');
 
 		} else {
 			// success! email it, assume it sent, then show contact success view.
@@ -69,17 +64,16 @@ class Register extends CI_Controller {
 			$this->email->send();
                         $this->load->model('Client');
                         $this->Client->insertEmail($email);
-			$this->load->library('parser');
-                        $this->parser->parse('widgets/header', $data);
-                        $this->parser->parse('register_success', $data);
-
-                        $this->parser->parse('widgets/rightBar', $data);
-                        $this->parser->parse('widgets/footer', $data);
+                        $this->load->helper('url');
+                        redirect('/');
 
 
 		}
 	}
-        
+        function login(){
+            $this->load->helper('url');
+            redirect('/');
+        }
 }
 
 /* End of file welcome.php */

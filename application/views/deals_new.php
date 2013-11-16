@@ -38,6 +38,9 @@ $(function(){
                 data: { null:0}
               }).done(function( msg ) {
                  $('#encapsuledDeals').html(msg);
+                 if($('.paginData').html() == ''){
+                     $('.paginator').hide();
+                 }
               });
             });
             $('.elemToFilter').click(function(){
@@ -48,6 +51,9 @@ $(function(){
                 data: { null:0}
               }).done(function( msg ) {
                  $('#encapsuledDeals').html(msg);
+                 if($('.paginData').html() == ''){
+                     $('.paginator').hide();
+                 }
               });
             });
             $('.goArrow').click(function(){
@@ -58,6 +64,9 @@ $(function(){
                 data: { null:0}
               }).done(function( msg ) {
                  $('#encapsuledDeals').html(msg);
+                 if($('.paginData').html() == ''){
+                     $('.paginator').hide();
+                 }
               });
             });
             $('.displayable').click(function(){
@@ -71,6 +80,9 @@ $(function(){
                 data: { null:0}
               }).done(function( msg ) {
                  $('#encapsuledDeals').html(msg);
+                 if($('.paginData').html() == ''){
+                     $('.paginator').hide();
+                 }
               });
                 
             });

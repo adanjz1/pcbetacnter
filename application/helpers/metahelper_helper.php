@@ -51,6 +51,7 @@
             $data['contactUrl']  = $data['base_url'].$t->config->item('index_page').'contact';
             $data['registerUrl']  = $data['base_url'].$t->config->item('index_page').'register';
             $data['offerUrlPop'] = $data['base_url'].$t->config->item('index_page').'/deals/pop';
+            $data['blogUrl'] = $data['base_url'].$t->config->item('index_page').'blog';
             
             
             /****FOOTER****/
@@ -293,7 +294,7 @@
                     $deal->short_display_name = $deal->display_name;
                 }
                 
-                $deal->offerUrl = $t->config->item('base_url').$t->config->item('index_page').'/deals/review/'.$deal->id;
+                $deal->offerUrl = $t->config->item('base_url').$t->config->item('index_page').'deals/review/'.$deal->id;
                 $deal->encodedUrl = urlencode($deal->offerUrl);
                 $sess = $t->session->all_userdata();
                 if(!empty($sess[$deal->id])){
@@ -343,11 +344,11 @@
         $k = 0;
         foreach($array as $ar){
             if(!empty($flag) && $flag =='stores'){
-//                $ar->dealsQty = $t->Deal->getCountDealsByStoreAndCategoryFilters($ar->deal_source_id,$_SESSION['categories'],$_SESSION['subcategories']);
+                $ar->dealsQty = $t->Deal->getCountDealsByStoreAndCategoryFilters($ar->deal_source_id,$_SESSION['categories'],$_SESSION['subcategories']);
             }elseif(!empty($flag) && $flag =='categories'){
-                //$ar->dealsQty = $t->Deal->getCountDealsByCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
+                $ar->dealsQty = $t->Deal->getCountDealsByCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
             }elseif(!empty($flag) && $flag =='subcategories'){
-//                $ar->dealsQty = $t->Deal->getCountDealsBySubCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
+                $ar->dealsQty = $t->Deal->getCountDealsBySubCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
             }
             foreach($value as $val){
                 if($ar->{$type} == $val){

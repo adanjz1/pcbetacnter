@@ -11,29 +11,6 @@
  * @author adan
  */
 class Deal extends CI_Model {
-    var $id = 0;
-    var $deal_sources_id = '';
-    var $cat_id = '';
-    var $sub_cat_id = '';
-    var $mainMenuOrder = ''; //if 0, no main menu
-    var $title = '';
-    var $display_name = '';
-    var $description = '';
-    var $short_description = '';
-    var $deal_url = '';
-    var $image_url = '';
-    var $deal_end_date = '';
-    var $deal_start_date = '';
-    var $deal_price = '';
-    var $actual_price = '';
-    var $savings_amount = '';
-    var $discount_perc = '';
-    var $deal_type = '';
-    var $sku = '';
-    var $keywords='';
-    var $isDailyDeal='';
-    var $is_active='';
-    var $deal_coupon='';
     function __construct()
     {
         // Call the Model constructor
@@ -41,7 +18,8 @@ class Deal extends CI_Model {
     }
     function get_mainMenuDeals($qty)
     {
-        $this->db->where('mainMenuOrder >', '0');
+        $this->db->where('mainMenuOrderStart <=', date('Y-m-d'));
+        $this->db->where('mainMenuOrderEnd >', date('Y-m-d'));
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
@@ -61,11 +39,11 @@ class Deal extends CI_Model {
         
         //$this->db->order_by("title", "random");  
         $this->db->limit($qty);
-        $this->db->where('(mainMenuOrder is NULL or mainMenuOrder = 0)');
+        $this->db->where('(mainMenuOrderStart is NULL or mainMenuOrderStart > NOW() or mainMenuOrderEnd < NOW())');
         $this->db->where('deal_sources_id', $dealSourceId);
         $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
-        $query = $this->db->get('deals');
+        $query = $this->db->from('deals');
         //var_dump($this->db->last_query());
         return $query->result();
     }
@@ -75,6 +53,7 @@ class Deal extends CI_Model {
         $this->db->like('specialPages',','.$idPages.',');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
+        $this->db->where('sub_cat_id >', '0');
         $query = $this->db->get('deals');
         
         return $query->result();
@@ -83,25 +62,25 @@ class Deal extends CI_Model {
          $this->db->not_like('image_url','dr30wky7ya0nu.cloudfront.net/');
          $this->db->limit($qty);
          $this->db->order_by("title", "random"); 
-         $query = $this->db->get('deals');
+         $query = $this->db->from('deals');
          return $query->result();
     }
     function getImages($qty){
          $this->db->limit($qty);
          $this->db->order_by("title", "random"); 
-         $query = $this->db->get('deals');
+         $query = $this->db->from('deals');
          return $query->result();
     }
     function saveImage($idDeal='',$image){
         $this->db->where('id',$idDeal);
         $data = array(
-               'image_url' => $image,
+               'image_url' >= $image,
             );
         $this->db->update('deals',$data);
     }
     function setInactive($idCsv){
         $this->db->where('id',$idCsv);
-        $data = array("status"=>"1");
+        $data = array("status">="1");
         $this->db->update("csvDeals",$data);
     }
     function delete($idDeal=''){
@@ -109,14 +88,13 @@ class Deal extends CI_Model {
         $this->db->delete('deals');
     }
     function get_totalDeals_page($idPages=0){
-        
-        
         $this->db->where('specialPages',','.$idPages.',');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->get('deals');
-        return $this->db->count_all_results();
+        $this->db->from('deals');
+        $total = $this->db->count_all_results();
+        return $total;
     }
     function get_lastDealsHome($qty=0,$usedDeals=array()){
         $this->db->limit($qty);
@@ -284,7 +262,8 @@ class Deal extends CI_Model {
         }
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
-        $this->db->where('hotSubCategoty', '1');
+        $this->db->where('hotSubCategoryStart <=', date('Y-m-d'));
+        $this->db->where('hotSubCategoryEnd >', date('Y-m-d'));
         $this->db->where('coupon_code',NULL);
         $query = $this->db->get('deals');
         
@@ -322,7 +301,8 @@ class Deal extends CI_Model {
         }
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
-        $this->db->where('hotSubCategoty', '1');
+        $this->db->where('hotSubCategoryStart <=', date('Y-m-d'));
+        $this->db->where('hotSubCategoryEnd >', date('Y-m-d'));
         $this->db->where('coupon_code !=','');
         $query = $this->db->get('deals');
         
@@ -358,7 +338,8 @@ class Deal extends CI_Model {
         if(!empty($store)){
             $this->db->where_in('deal_sources_id',$store);
         }
-        $this->db->where('hotCategory', '1');
+        $this->db->where('hotCategoryStart <=', date('Y-m-d'));
+        $this->db->where('hotCategoryEnd >', date('Y-m-d'));
         $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
         $this->db->where('coupon_code',NULL);
@@ -396,7 +377,8 @@ class Deal extends CI_Model {
         if(!empty($store)){
             $this->db->where_in('deal_sources_id',$store);
         }
-        $this->db->where('hotCategory', '1');
+        $this->db->where('hotCategoryStart <=', date('Y-m-d'));
+        $this->db->where('hotCategoryEnd >', date('Y-m-d'));
         $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
         $this->db->where('coupon_code !=','');
@@ -435,7 +417,8 @@ class Deal extends CI_Model {
             $this->db->where_in('deal_sources_id',$store);
         }
         $this->db->where('is_active', '1');
-        $this->db->where('hotDeals', '1');
+        $this->db->where('hotDealsStart >=', date('Y-m-d'));
+        $this->db->where('hotDealsEnd <', date('Y-m-d'));
         $this->db->where('cat_id >', '0');
         $this->db->where('coupon_code',NULL);
         $query = $this->db->get('deals');
@@ -473,7 +456,8 @@ class Deal extends CI_Model {
             $this->db->where_in('deal_sources_id',$store);
         }
         $this->db->where('is_active', '1');
-        $this->db->where('hotDeals', '1');
+        $this->db->where('hotDealsStart >=', date('Y-m-d'));
+        $this->db->where('hotDealsEnd <', date('Y-m-d'));
         $this->db->where('cat_id >', '0');
         $this->db->where('coupon_code !=','');
         $query = $this->db->get('deals');
@@ -634,14 +618,14 @@ class Deal extends CI_Model {
             $this->db->where('id',$idDeal);
         }
         $data = array(
-               'is_active' => $value,
+               'is_active' >= $value,
             );
         $this->db->update('deals',$data);
     }
     function set_plusOnedeal($idDeal='',$dealLikes=0){
         $this->db->where('id',$idDeal);
         $data = array(
-               'thumbs' => $dealLikes,
+               'thumbs' >= $dealLikes,
             );
         $this->db->update('deals',$data);
     }

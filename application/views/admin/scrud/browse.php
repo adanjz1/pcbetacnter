@@ -1,5 +1,5 @@
 <div class="container" >
-		<h2><?php echo $conf['title']; ?></h2>
+		<h2><?php echo (!empty($conf['title']))?$conf['title']:''; ?></h2>
 		<?php if (!empty($components)){	?>
 		<ul class="nav nav-tabs" id="auth_tab" style="margin-bottom: 0px;">
             <?php foreach ($components as $com){

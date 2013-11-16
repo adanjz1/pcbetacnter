@@ -41,7 +41,9 @@ public function index()
             $data['metaKeywords'] = $seoPg->Meta_keywords;
             $data['metaDescription'] = $seoPg->Meta_Description;
            
-           
+
+            $data['pathLocation']='';
+            
             /**
              * Selected Menu deals and lastest deals
              */

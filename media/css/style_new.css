@@ -22,6 +22,7 @@ a{
 }
 .topHeader .logo{
     float:left;
+    cursor:pointer;
 }
 
 .topHeader .search{
@@ -100,6 +101,7 @@ ul li{
 }
 .mainTitle{
     margin-bottom: 30px;
+    min-height: 10px;
 }
 .mainTitle h1{
     color: #4d4c4c;
@@ -386,6 +388,30 @@ margin-top: 16px;
     color: #fff;
     margin-left: 13px;
     margin-top: 0px;
+}
+.contactForm{
+    background-color: #f49200;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px 0px;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    cursor:pointer;
+}
+.btnCommentSubmit{
+    background-color: #f49200;
+    border: 0px;
+    width: 100px;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px 24px;
+    color: #fff;
+    float:right;
+    margin-right: 7px;
+    margin-left: 0px;
+    margin-top: 10px;
 }
 .thumbs{
     background: url(../images/new/likeIconGrey.png) no-repeat;
@@ -887,6 +913,9 @@ cursor: pointer;
     float:left;
     width: 700px;
 }
+.listDeals.special{
+    width:940px;
+}
 .topBarDeals{
     margin-bottom: 20px;
 }
@@ -1145,4 +1174,135 @@ pre{
 
 .store_box{
     padding:0px;
+}
+.reviewBox,.staticPageBox,.contactBox,.sitemapBox{
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 10px 40px 2px #c0c0c0;
+    margin-bottom:20px;
+    min-height: 300px;
+}
+
+.topReview .img{
+    max-width: 280px;
+    max-height: 270px;
+}
+.topReview .image{
+    float: left;
+    width: 280px;
+    height: 270px;
+    border: 1px solid #ccc;
+    margin-right: 15px;
+    text-align: center;
+}
+.topReview .description{
+    float:left;
+    width: 620px;
+}
+.topReview .description .title{
+    margin-bottom: 10px;
+}
+.topReview .description .title a{
+    font-size: 22px;
+    color: #000;
+    font-weight: bold;
+}
+.topReview .description .storeDesc{
+    color: #9d9184;
+    font-size:12px;
+    margin-bottom: 10px;
+}
+.topReview .description .btnGetDeal{
+    width: 195px;
+    margin-left: -15px;
+    margin-bottom: 20px;
+}
+.topReview .description .textred{
+    font-size: 21px;
+    color: #df613c;
+    font-weight: bold;
+}
+.topReview .description .messageSaved{
+    margin-top: 10px;
+}
+.topReview .description .priceDesc{
+    margin-bottom: 10px;
+}
+.TabbedPanels{
+    width: 920px !important;
+    margin:0px !important;
+}
+.TabbedPanelsContent{
+    width:auto !important;
+}
+.TabbedPanelsContentGroup {
+    padding-top:10px;
+    width: auto !important;
+    border: 0px !important;
+}
+.TabbedPanelsTab{
+    border: 0px !important;
+    background: none !important;
+    color: #aca297 !important;
+}
+.TabbedPanelsTabSelected{
+    border-bottom:2px solid #f49200 !important;
+    color: #f49200 !important;
+}
+.TabbedPanelsTabGroup{
+    border-bottom: 2px solid #cfcfcf;
+    height: 36px;
+}
+.average img{
+    margin-top: -5px;
+}
+.reviews_base{
+    margin-top: 20px;
+}
+strong{
+    font-weight: bold !important;
+}
+.contactBox input,.contactBox textarea{
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: -5px;
+}
+.contactBox textarea{
+    height: 200px;
+}
+.sitemapBox .categories{
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed #c1bfbf;
+}
+.sitemapBox .categories h1 {
+    padding: 6px 0 0 0;
+    margin: 0px;
+    color: #0A3F8B;
+    font-size: 14px;
+    font-weight: bold;
+}
+.sitemapBox .categories ul li {
+    width: 33%;
+    float: left;
+}
+.path{
+    padding-top:10px;
+    margin-bottom: 10px;
+}
+.activePath{
+    color:#434242;
+}
+.prevPath{
+    color:#9f9f9f;
+}
+iframe{
+    width: 920px;
+    min-height: 1190px;
+    border: 0px;
+    overflow-y: hidden;
+    margin-bottom: 20px;
 }
