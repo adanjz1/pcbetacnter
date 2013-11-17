@@ -17,7 +17,7 @@ class Pages extends CI_Model {
         parent::__construct();
     }
     function getAllSpecialPages(){
-        $query = $this->db->get('specialPages');
+        $query = $this->db->get('specialpages');
         $row = $query->result();
         return $row;
     }
@@ -34,7 +34,7 @@ class Pages extends CI_Model {
     }
     function getSpecialPage($id){
         $this->db->where('id',$id);
-        $query = $this->db->get('specialPages');
+        $query = $this->db->get('specialpages');
         $row = $query->result();
         return $row;
     }
