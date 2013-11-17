@@ -252,6 +252,6 @@
 <div class="socialNetworks">
     <div class="blog" onclick="document.location='{blogUrl}'"></div>
     <div class="facebook" onclick="document.location='http://www.facebook.com/PcCounterProducts'"></div>
-    <div class="twitter" onclick="document.location='http://www.facebook.com/pccounter'"></div>
+    <div class="twitter" onclick="document.location='https://twitter.com/pccounter'"></div>
     <div class="googleplus" onclick="document.location='http://www.facebook.com/pccounter'"></div>
 </div>
