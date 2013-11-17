@@ -3,7 +3,7 @@
 		<?php if (!empty($components)){	?>
 		<ul class="nav nav-tabs" id="auth_tab" style="margin-bottom: 0px;">
             <?php foreach ($components as $com){
-				$permissions = $this->crud_auth->getPermissionType($com['id']);
+                                $permissions = $this->crud_auth->getPermissionType($com['id']);
 				if (!in_array(4, $permissions)) continue;
 				
 				if (!file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .sha1('com_'.$com['id']).'/'.$com['component_table'].'.php' )) continue;

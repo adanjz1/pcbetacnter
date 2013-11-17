@@ -128,10 +128,12 @@ class Crud {
         $conf['color'] = (!empty($conf['color'])) ? $conf['color'] : '';
         $this->table = $conf['table'] = $table;
         
+        
         $this->dao = new ScrudDao($conf['table'], $this->da);
         $this->conf = $conf;
-
+        
         $fields = $this->dao->listFields($this->conf['table']);
+        
         foreach ($fields as $v) {
             $this->fields[] = $this->conf['table'] . '.' . $v['Field'];
             if ($v['Key'] == "PRI") {
@@ -250,6 +252,7 @@ class Crud {
 
         $action = (isset($_GET['xtype'])) ? trim($_GET['xtype']) : '';
         ob_start();
+        
         switch ($action) {
         	case 'index':
         		$this->index();
@@ -292,7 +295,7 @@ class Crud {
         }
         $content = ob_get_contents();
         ob_get_clean();
-
+        
         return $content;
     }
 
@@ -305,9 +308,10 @@ class Crud {
         $auth = $CI->crud_auth;
         $src = $CI->input->post('src');
         
+        
         if (!empty($src) && !empty($src[$this->conf['table']])){
                 foreach ($src[$this->conf['table']] as $k => $v){
-	        
+                    
 	        	if (isset($this->conf['form_elements'][$this->conf['table'].'.'.$k]) &&
 	        	$this->conf['form_elements'][$this->conf['table'].'.'.$k]['element'][0] == 'date' && $v != ''){
 	        		$v = str2mysqltime($v,'Y-m-d');
@@ -344,9 +348,9 @@ class Crud {
                 }
             }
         }
-        
         $xConditions = $CI->session->userdata('xtable_search_conditions');
         $src = $CI->input->post('src');
+        
         if (empty($src) && !empty($xConditions)) {
             $_POST['src'] = $xConditions;
             $src = $CI->input->post('src');
@@ -369,6 +373,7 @@ class Crud {
         $order = '';
         $ps = array();
         $strAnd = '';
+        
         if (is_array($this->search)) {
             foreach ($this->fields as $field) {
                 $ary = explode('.', $field);
@@ -459,6 +464,7 @@ class Crud {
         if (!empty($src)) {
             $CI->session->set_userdata('xtable_search_conditions',$CI->input->post('src'));
         }
+        
         $crudAuth = $CI->session->userdata('CRUD_AUTH');
 	    if ($this->globalAccess == false && 
         	!empty($crudAuth) && 
@@ -470,6 +476,7 @@ class Crud {
 
         $params = array();
         $params['fields'] = $this->fields;
+        
         $params['join'] = $this->join;
         $params['found_rows'] = true;
         $params['limit'] = $this->limit;

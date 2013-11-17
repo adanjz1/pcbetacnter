@@ -19,8 +19,10 @@ class Table extends Admin_Controller {
 
         $tables = array();
         $query = $this->db->query('SHOW TABLES');
+        
         if (!empty($query)) {
             foreach ($query->result_array() as $row) {
+                
                 $tables[] = $row['Tables_in_' . $this->db->database];
             }
         }

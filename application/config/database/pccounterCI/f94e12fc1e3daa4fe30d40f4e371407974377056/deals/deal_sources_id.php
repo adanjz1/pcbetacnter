@@ -1,2 +1,2 @@
 <?php exit; ?>
-{"field":"deal_sources_id","label":"Deal source","type":"autocomplete","type_options":{"size":"210","width":"300","height":"100","thumbnail":"mini"},"validation":"notEmpty","db_options":{"table":"deal_sources","key":"deal_source_id","value":"deal_source_name"},"list_choose":"database"}
+{"field":"deal_sources_id","label":"Deal Source","type":"select","type_options":{"size":"210","width":"300","height":"100","thumbnail":"mini"},"validation":"","db_options":{"table":"deal_sources","key":"deal_source_id","value":"deal_source_name"},"list_choose":"database","multiple":""}

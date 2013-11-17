@@ -22,7 +22,7 @@ class Scrud extends Admin_Controller {
         $this->db->where('id',$comId);
         $query = $this->db->get();
         $com = $query->row_array();
-        //var_dump($com);component_restriction
+        
         $_GET['table'] = $com['component_table'];
         
         if (!file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .sha1('com_'.$comId). '/' . $com['component_table'] . '.php')) {
@@ -30,7 +30,6 @@ class Scrud extends Admin_Controller {
         }
         
         $content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/' .sha1('com_'.$comId) . '/' . $com['component_table'] . '.php'));
-        if(!empty($conf))
         $conf = unserialize($content);
         
         $hook = Hook::singleton();
@@ -139,9 +138,7 @@ class Scrud extends Admin_Controller {
         $query = $this->db->query('SHOW TABLES');
         if (!empty($query)) {
             foreach ($query->result_array() as $row) {
-                if(!empty($row['Tables_in_' . $this->db->database])){
-                    $tables[] = $row['Tables_in_' . $this->db->database];
-                }
+                $tables[] = $row['Tables_in_' . $this->db->database];
             }
         }
         $var['tables'] = $tables;
