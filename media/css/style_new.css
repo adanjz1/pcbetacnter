@@ -707,7 +707,7 @@ a:hover{
 .carousel1 .item .dealContent .dealTitle a:hover{
     color:#000 !important;
 }
-.headerMenu .active a{
+.headerMenu .active{
     color: #f28e02 !important;
 }
 .downArrow{

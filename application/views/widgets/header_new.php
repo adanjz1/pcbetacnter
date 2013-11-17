@@ -131,23 +131,23 @@
 <div class="headerMenu">
     <div class="centerScreen">
         <ul>
-            <li class="{activeHome}">
-                <a href="{siteUrl}">							
+            <li>
+                <a href="{siteUrl}" class="{activeHome}">							
                     Home
                 </a>
             </li>
-            <li class="{activeDeals}">
-                <a href="{dealsUrl}">
+            <li>
+                <a href="{dealsUrl}" class="{activeDeals}">
                     Deals
                 </a>
             </li>
-            <li class="{activeCoupons}">
-                <a href="{couponsUrl}">
+            <li>
+                <a href="{couponsUrl}" class="{activeCoupons}">
                     Coupon Codes
                 </a>
             </li>
-            <li class="{activeCategory}">
-                <a href="javascript:$('.categoryMenuList').toggle()">
+            <li>
+                <a href="javascript:$('.categoryMenuList').toggle()" class="{activeCategory}">
                     Browse by category<div class="downArrow"></div>
                 </a>
                 <div class="categoryMenuList">
@@ -165,8 +165,8 @@
                     </div>
                 </div>
             </li>
-            <li class="{activeStores}">
-                <a href="javascript:$('.storeMenuList').toggle();">
+            <li>
+                <a href="javascript:$('.storeMenuList').toggle();" class="{activeStores}">
                     Browse by stores<div class="downArrow" style="margin-left: 130px;"></div>
                 </a>
                 <div class="storeMenuList">
