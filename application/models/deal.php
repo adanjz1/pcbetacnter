@@ -50,7 +50,7 @@ class Deal extends CI_Model {
     function get_pageDeals($qty,$from='',$idPages=0){
          
         $this->db->limit($qty,$from);
-        $this->db->like('specialPages',','.$idPages.',');
+        $this->db->like('specialpages',','.$idPages.',');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
@@ -88,7 +88,7 @@ class Deal extends CI_Model {
         $this->db->delete('deals');
     }
     function get_totalDeals_page($idPages=0){
-        $this->db->where('specialPages',','.$idPages.',');
+        $this->db->where('specialpages',','.$idPages.',');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
