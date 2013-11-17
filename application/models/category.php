@@ -50,13 +50,13 @@ class Category extends CI_Model {
     }
     function getSubCategoryNameById($cat){
         $this->db->where('id',$cat);
-        $query = $this->db->get('subCategories');
+        $query = $this->db->get('subcategories');
         $row = $query->result();
         return $row[0]->name;
     }
     function get_subcategoryById($cat){
         $this->db->like('id',$cat);
-        $query = $this->db->get('subCategories');
+        $query = $this->db->get('subcategories');
         $row = $query->result();
         return $row[0];
     }
@@ -83,7 +83,7 @@ class Category extends CI_Model {
     }
     function get_subCategoryByStr($catName){
         $this->db->like('name',$catName);
-        $query = $this->db->get('subCategories');
+        $query = $this->db->get('subcategories');
         $row = $query->result();
         if(!empty($row)){
             return $row[0]->id;
@@ -99,7 +99,7 @@ class Category extends CI_Model {
     function set_newSubCategory($catName,$catId){
         $this->db->set('name', $catName);
         $this->db->set('idCategory', $catId);
-        $this->db->insert('subCategories');
+        $this->db->insert('subcategories');
         return $this->db->insert_id();
     }
     
@@ -133,12 +133,12 @@ class Category extends CI_Model {
         }
         $this->db->where('idCategory',$category);
         $this->db->order_by("id", "asc"); 
-        $query = $this->db->get('subCategories');
+        $query = $this->db->get('subcategories');
         return $query->result();
     }
     function get_totalSubCategories($category){
         $this->db->where('idCategory',$category);
-         $this->db->from('subCategories');
+         $this->db->from('subcategories');
         return $this->db->count_all_results();
     }
     

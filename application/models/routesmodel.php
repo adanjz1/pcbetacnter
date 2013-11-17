@@ -1,4 +1,4 @@
-<?
+<?php
 class RoutesModel extends CI_Model {
 function getCategoryRoutes(){
      $this->db->select('id,url');
@@ -12,7 +12,7 @@ function getCategoryCouponRoutes(){
 }
 function getSubCategoryRoutes(){
      $this->db->select('id,idCategory,url');
-     $query = $this->db->get('subCategories');
+     $query = $this->db->get('subcategories');
      return $query->result();
 }
 function getSourcesRoutes(){
