@@ -1,6 +1,6 @@
 <li class="dealIcon {extraClass} {lastInRow}">
                  <div class="dealImage">
-                     <img src="{image}" alt="{display_name}" class="border" border="0"/>
+                     <img src="{image}" class="border" border="0"/>
                  </div>
                  <div class="dealContent">
                     <div class="dealCategoryData">

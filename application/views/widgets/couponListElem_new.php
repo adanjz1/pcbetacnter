@@ -1,13 +1,13 @@
 <li class="couponItem {extraClass} {lastInRow}">
                  <div class="couponImage">
-                     <img src="{image}" alt="{display_name}" class="border" border="0"/>
+                     <img src="{image}" class="border" border="0"/>
                  </div>
                  <div class="couponContent">
                     <div class="dealCategoryData">
                         <span class="redtext">{categoryStr}</span> ({categoryCount})
                     </div>
                     <div class="dealTitle">
-                        <a href="{offerUrl}">{short_display_name}</a>
+                        {short_display_name}
                     </div>
                     <div class="couponProvider">
                         <span>From {provider}</span>

@@ -119,16 +119,16 @@
                 <div class="reviews_base">
                     <form name="rateform" method="post" action="{dealReviewForm}" onsubmit="return validate_feedback();">
                         <input name="productid" id="productid" type="hidden" value="{id}" />
-                        <table width="920" border="0" align="center" cellpadding="0" cellspacing="0" class="reply_box">
-
-                            <tr>
-                                <td width="200"><strong style="font-size:14px; color:#ff6600; display:inline-block; padding-bottom:10px;">Detailed Product Rating </strong></td>
-                                <td>&nbsp;</td>
-                            </tr>
-
-                            <tr>
-                                <td><strong>Item as described</strong></td>
-                                <td>
+                        <div class="reviewForm">
+                            <div class="left">
+                                <strong style="font-size:14px; color:#ff6600; display:inline-block; padding-bottom:10px;">Detailed Product Rating </strong>
+                                <br/>
+                                <strong>Item as described</strong>
+                                <br/>
+                                <strong>Write Comment</strong>
+                                <br/>      {formSubmitted}
+                            </div>
+                            <div class="formRight">
                                     <input type="hidden" name="item_rating" value="{rate_item}" id="item_rating" />
                                     <?php
                                     for ($i = 1; $i <= 10; $i++) {
@@ -148,23 +148,15 @@
                                         }
                                     }
                                     ?>
-                                    <span style="font: normal 12px/18px Arial, Helvetica, sans-serif;">(Rate It)</span>		
-                                </td>
-                            </tr>                
-
-
-
-
-                            <tr>
-                                <td valign="top"><strong>Write Comment</strong></td>
-                                <td><textarea name="feedbk_cont" cols="115" rows="10"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    {formSubmitted}
-                                </td>
-                                <td><input name="feedbk_btn" type="submit" class="btnCommentSubmit" value="Submit"/></td>
-                            </tr>
+                                    <span style="font: normal 12px/18px Arial, Helvetica, sans-serif;">(Rate It)</span>
+                                    <br/>
+                                    <textarea name="feedbk_cont" rows="10"></textarea>
+                                    <input name="feedbk_btn" type="submit" class="btnCommentSubmit" value="Submit"/>
+                            </div>
+                            
+                        </div>
+                        <div class="clear"></div>
+                        <table width="920">
                             <tr>
                                 <td colspan="2">
                                     <div class="latest_deal" id="bottom" style="margin-top: 10px;">

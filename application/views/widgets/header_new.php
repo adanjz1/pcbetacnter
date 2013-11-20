@@ -93,7 +93,9 @@
                 a.click();
             }
         });
-
+           $('.menuHead').click(function(){
+               $("."+$(this).attr('rel')).toggle()
+           });
     });
     
     window.fbAsyncInit = function() {
@@ -147,7 +149,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:$('.categoryMenuList').toggle()" class="{activeCategory}">
+                <a href="#" rel="categoryMenuList" class="{activeCategory} menuHead">
                     Browse by category<div class="downArrow"></div>
                 </a>
                 <div class="categoryMenuList">
@@ -166,7 +168,7 @@
                 </div>
             </li>
             <li>
-                <a href="javascript:$('.storeMenuList').toggle();" class="{activeStores}">
+                <a href="#" rel="storeMenuList" class="{activeStores} menuHead">
                     Browse by stores<div class="downArrow" style="margin-left: 130px;"></div>
                 </a>
                 <div class="storeMenuList">

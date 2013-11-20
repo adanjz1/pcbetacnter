@@ -8,6 +8,10 @@ class Blog extends CI_Controller {
             /**
              * HEADER
              */
+            $data['pageTitle'] = "Blog pccounter.net";//Title tag
+            $data['metaTitle'] = "Blog, great deals";
+            $data['metaKeywords'] = "blog,deals,pccounter";
+            $data['metaDescription'] = "In this blog you will see the lastest deals notices";
             $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="/siteMap" class="activePath">Blog</a> ';
             $data['headerText'] ='<h1>Blog</h1>';
             $this->load->library('parser');

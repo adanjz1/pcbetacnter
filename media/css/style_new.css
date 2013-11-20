@@ -1306,3 +1306,14 @@ iframe{
     overflow-y: hidden;
     margin-bottom: 20px;
 }
+.left{
+    float:left;
+}
+.formRight{
+    margin-left: 30px;
+    float: left;
+    width: 720px;
+}
+.formRight textarea{
+    width: 710px;
+}
