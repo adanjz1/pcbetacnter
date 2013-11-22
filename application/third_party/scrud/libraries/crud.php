@@ -676,18 +676,20 @@ class Crud {
      */
     private function form() {
             
-        if(!empty($_GET['com_id'])){
+        //if(!empty($_GET['com_id'])){
             $CI = & get_instance();
             $CI->db->select('*');
             $CI->db->from('crud_components');
-            $CI->db->where('id',$_GET['com_id']);
+            if(!empty($_GET['com_id'])){
+                $CI->db->where('id',$_GET['com_id']);
+            }
             $query = $CI->db->get();
             $com = $query->row_array();
             $restrictionSubCategories = '';
             if(!empty($com)){
                 $restrictionSubCategories = $com['component_restriction_subCat'];
             }
-        }
+        //}
         
         $hook = Hook::singleton();
         if (isset($_GET['key'])) {
@@ -705,6 +707,7 @@ class Crud {
                 $_tmp = " AND ";
                 $aryVal[] = $_GET['key'][$f];
             }
+            session_start();
             $crudAuth = $CI->session->userdata('CRUD_AUTH');
             if ($this->globalAccess == false &&
             !empty($crudAuth) &&
