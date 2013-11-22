@@ -565,15 +565,31 @@ class Deal extends CI_Model {
             $this->db->where('deal_price < ',$maxPrice);
         }
         if(!empty($q)){
-            $this->db->like('title',$q);
-            $this->db->or_like('description',$q);
+            $str = explode('%20',$q);
+            $sep = '';
+            $like='((';
+            foreach($str as $qsearch){
+                $like .= $sep.' title like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $sep = '';
+            $like.=') or (';
+            foreach($str as $qsearch){
+                $like .= $sep.' description like "%'.$qsearch.'%"';
+                $sep = ' and';
+            }
+            $like .= '))';
+            $this->db->where($like);
         }
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
         $this->db->where('coupon_code',null);
         $this->db->from('deals');
-        return $this->db->count_all_results();
+        
+        $t  = $this->db->count_all_results();
+//        vd($this->db->last_query());
+        return $t;
     }
     function get_totalCoupons($q='',$category='',$subcat='',$store=''){
        

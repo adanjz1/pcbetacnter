@@ -195,6 +195,9 @@ class Deals extends CI_Controller {
             if(empty($path)){
                 $class='activePath';
             }
+            if(!empty($q)){
+                $path .= '> <a href="#" class="activePath">'.str_replace("%20"," ",$q).'</a> ';
+            }
             $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="/deals-list" class="'.$class.'">DEALS</a> '.$path;
             $deals = array();
             $merge = array();
@@ -223,7 +226,9 @@ class Deals extends CI_Controller {
             $data['totalDeals'] = $this->Deal->get_totalDeals($q,$_SESSION['categories'],$_SESSION['subcategories'],$_SESSION['stores'],$_SESSION['priceMin'],$_SESSION['priceMax']);
             $this->load->library('pagination');
             //$config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/paginator/'.$qSearch.'/'.$category;
+            
             $_SESSION['uriSegment'] = $this->uri->segments[1];
+            
             $config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').$this->uri->segments[1];
             $config['total_rows'] = $data['totalDeals'];
             
@@ -291,7 +296,7 @@ class Deals extends CI_Controller {
         /* HACKS TO CENTRALIZE SEARCH AND PAGINATOR*/
         public function search(){
             $this->load->helper('url');
-            redirect('/deals/index/0/___'.$this->input->post('search'));
+            redirect('/deals-search-'.$this->input->post('search'));
         }
         public function paginator($var1='',$var2='',$var3=''){
             $this->load->helper('url');

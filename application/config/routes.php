@@ -44,6 +44,7 @@ $route['404_override'] = 'error';
 $route['sitemap'] = 'siteMap';
 
 $route['coupon-codes'] = 'coupons';
+$route['deals-search-(:any)'] = 'deals/index/0/___$1';
 $route['coupon-codes/(:num)'] = 'coupons/index/$1';
 $route['deals-list'] = 'deals';
 $route['deals-list/(:num)'] = 'deals/index/$1';
