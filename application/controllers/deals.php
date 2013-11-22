@@ -31,14 +31,25 @@ class Deals extends CI_Controller {
 
             $q = $qSearch;
             $resetSession = false;
-            if(empty($limit)){
+            
+            $this->load->helper('metaHelper');
+            
+            $data = getConstData($this);
+            
+            if(empty($limit) ){
                 $resetSession = true;
+            }
+            $data['urlFlag']=0;
+            if($limit == '_'){
+                $limit = 0;
+                $resetSession = false;
+                $data['urlFlag']=1;
             }
             //IF is a category search
             if($q == 'category'){
                 $q = '';
             }
-            $this->load->helper('metaHelper');
+            
             if(!empty($q)){
                 $q = substr($qSearch, 3);
                 if(!empty($q)){
@@ -84,7 +95,7 @@ class Deals extends CI_Controller {
             
             
             
-            $data = getConstData($this);
+            
             
             $arrayOrder = array(
                                 array('val'=>'id','rel'=>'desc','text'=>'Newest'),
@@ -159,14 +170,25 @@ class Deals extends CI_Controller {
                 $data['metaDescription'] = $seoPg->meta_description;
                 $data['activeCategory'] = 'active';
             }else{
-                $seoPg = $this->pages->getSEOPage('deals');
-                $seoPg = $seoPg[0];
-                $data['pageTitle'] = $seoPg->Title;//Title tag
-                $data['headerText'] = $seoPg->Header;//H1 tag
-                $data['metaTitle'] = $seoPg->Meta_title;
-                $data['metaKeywords'] = $seoPg->Meta_keywords;
-                $data['metaDescription'] = $seoPg->Meta_Description;
-                $data['activeDeals'] = 'active';
+                if($data['urlFlag']){
+                    $seoPg = $this->pages->getSEOPage('multi-filter-deals');
+                    $seoPg = $seoPg[0];
+                    $data['pageTitle'] = $seoPg->Title;//Title tag
+                    $data['headerText'] = $seoPg->Header;//H1 tag
+                    $data['metaTitle'] = $seoPg->Meta_title;
+                    $data['metaKeywords'] = $seoPg->Meta_keywords;
+                    $data['metaDescription'] = $seoPg->Meta_Description;
+                    $data['activeDeals'] = 'active';
+                }else{
+                    $seoPg = $this->pages->getSEOPage('deals');
+                    $seoPg = $seoPg[0];
+                    $data['pageTitle'] = $seoPg->Title;//Title tag
+                    $data['headerText'] = $seoPg->Header;//H1 tag
+                    $data['metaTitle'] = $seoPg->Meta_title;
+                    $data['metaKeywords'] = $seoPg->Meta_keywords;
+                    $data['metaDescription'] = $seoPg->Meta_Description;
+                    $data['activeDeals'] = 'active';
+                }
             }
             /**
              * Selected Menu deals and lastest deals
@@ -262,7 +284,14 @@ class Deals extends CI_Controller {
                 }
                 $data['subCategories'] = $categ_list;
             }
-                
+            $data['linkGoTo']=false;
+            $data['linkGoToCat']=false;
+            if(count($_SESSION['categories']) == 0 && count($_SESSION['subcategories']) == 0 && count($_SESSION['stores'])==0){
+                $data['linkGoTo'] = true;
+            }
+            if(count($_SESSION['categories']) == 1 && count($_SESSION['subcategories']) == 0 && count($_SESSION['stores'])==0){
+                $data['linkGoToCat'] = true;
+            }
             /*************************FORMATING FILTERS*******************************/
             if(!empty($data['categories'])){
                 $data['categories'] = deleteUsed($data['categories'],'id',$_SESSION['categories'],'categories',$this);

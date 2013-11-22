@@ -31,30 +31,39 @@ $(function(){
                 $(this).parent().find('.elemToFilter').toggle();
             });
             $('.deleteFilter').click(function(){
-                $('#encapsuledDeals').html($('#encapsuledDeals').html()+'<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">');
-                $.ajax({
-                type: "POST",
-                url: '{siteUrl}ajax/removeFilter/'+$(this).parent().attr('rel')+'/'+$(this).parent().attr('val'),
-                data: { null:0}
-              }).done(function( msg ) {
-                 $('#encapsuledDeals').html(msg);
-                 if($('.paginData').html() == ''){
-                     $('.paginator').hide();
-                 }
-              });
+                if($('#linkGoTo').val() || ($('#linkGoToCat').val() && $(this).attr('rel') == 'subcategories')){
+                    document.location= "/"+$(this).attr('link');
+                }else{
+                
+                    $('#encapsuledDeals').html($('#encapsuledDeals').html()+'<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">');
+                    $.ajax({
+                    type: "POST",
+                    url: '{siteUrl}ajax/removeFilter/'+$(this).parent().attr('rel')+'/'+$(this).parent().attr('val')+'/'+$('#urlFlag').val(),
+                    data: { null:0}
+                  }).done(function( msg ) {
+                     $('#encapsuledDeals').html(msg);
+                     if($('.paginData').html() == ''){
+                         $('.paginator').hide();
+                     }
+                  });
+                }
             });
             $('.elemToFilter').click(function(){
-                $('#encapsuledDeals').html($('#encapsuledDeals').html()+'<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">');
-                $.ajax({
-                type: "POST",
-                url: '{siteUrl}ajax/addFilter/'+$(this).attr('rel')+'/'+$(this).attr('val'),
-                data: { null:0}
-              }).done(function( msg ) {
-                 $('#encapsuledDeals').html(msg);
-                 if($('.paginData').html() == ''){
-                     $('.paginator').hide();
-                 }
-              });
+                if($('#linkGoTo').val() || ($('#linkGoToCat').val() && $(this).attr('rel') == 'subcategories')){
+                    document.location= "/"+$(this).attr('link');
+                }else{
+                    $('#encapsuledDeals').html($('#encapsuledDeals').html()+'<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">');
+                        $.ajax({
+                        type: "POST",
+                        url: '{siteUrl}ajax/addFilter/'+$(this).attr('rel')+'/'+$(this).attr('val')+'/'+$('#urlFlag').val(),
+                        data: { null:0}
+                      }).done(function( msg ) {
+                         $('#encapsuledDeals').html(msg);
+                         if($('.paginData').html() == ''){
+                             $('.paginator').hide();
+                         }
+                      });
+                  }
             });
             $('.goArrow').click(function(){
                 $('#encapsuledDeals').html($('#encapsuledDeals').html()+'<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">');
@@ -88,6 +97,9 @@ $(function(){
             });
 });
  </script>
+ <input type="hidden" value="<?=$linkGoToCat?>" id="linkGoToCat">
+ <input type="hidden" value="<?=$linkGoTo?>" id="linkGoTo">
+ <input type="hidden" value="<?=$urlFlag?>" id="urlFlag">
  <div class="filters">
      <div class="selectedFilters">
          <div class="title">SEARCH</div>
@@ -107,7 +119,7 @@ $(function(){
                  <ul class="filterList">
                      <li class="subTitle">CATEGORY<div class="arrowFilter"></div></li>
                    {categories}
-                   <li val="{id}" rel="categories" class="elemToFilter">{name}({dealsQty})</li>
+                   <li val="{id}" rel="categories" link="{url}" class="elemToFilter">{name}({dealsQty})</li>
                    {/categories}
                 </ul>
              </div>
@@ -115,7 +127,7 @@ $(function(){
                  <ul class="filterList">
                     <li class="subTitle">SUB-CATEGORY<div class="arrowFilter"></div></li>
                    {subCategories}
-                   <li val="{id}" rel="subcategories" class="elemToFilter">{name}({dealsQty})</li>
+                   <li val="{id}" rel="subcategories" link="{url}" class="elemToFilter">{name}({dealsQty})</li>
                    {/subCategories}
                 </ul>
              </div>
@@ -123,7 +135,7 @@ $(function(){
                  <ul class="filterList">
                     <li class="subTitle">STORES<div class="arrowFilter"></div></li>
                    {stores}
-                   <li val="{deal_source_id}" rel="stores" class="elemToFilter">{name}({dealsQty})</li>
+                   <li val="{deal_source_id}" rel="stores" link="{url}" class="elemToFilter">{name}({dealsQty})</li>
                    {/stores}
                 </ul>
              </div>

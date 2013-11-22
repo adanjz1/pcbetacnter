@@ -94,13 +94,53 @@ class Ajax extends CI_Controller {
             }
             echo $dealLikes;
         }
-        private function ajaxResultFilter(){
+        private function ajaxResultFilter($flag=false){
+            
             $q='';
             
             $this->load->model('pages');
             $this->load->helper(array('form', 'url')); 
             $limit = 0;
             $data = getConstData($this);
+            
+            
+            $_SESSION['subcategories'] = array_values($_SESSION['subcategories']);
+            $_SESSION['categories'] = array_values($_SESSION['categories']);
+            $_SESSION['stores'] = array_values($_SESSION['stores']);
+            
+            if(count($_SESSION['subcategories']) == 1 && count($_SESSION['categories']) == 1 && count($_SESSION['stores'])==0){
+                $subcat = $this->Category->get_subcategoryById($_SESSION['subcategories'][0]);
+                echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
+                    <script>
+                    document.location="/'.$subcat->url.'"
+                </script>';
+                die();
+            }else if(count($_SESSION['subcategories']) == 0 && count($_SESSION['categories']) == 1 && count($_SESSION['stores'])==0){
+                $subcat = $this->Category->get_categoryById($_SESSION['categories'][0]);
+                echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
+                    <script>
+                    document.location="/'.$subcat->url.'"
+                </script>';
+                die();
+            }else if(count($_SESSION['subcategories']) == 0 && count($_SESSION['categories']) == 0 && count($_SESSION['stores'])==1){
+                $subcat = $this->Source->get_source($_SESSION['stores'][0]);
+                echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
+                    <script>
+                    document.location="/'.$subcat->url.'"
+                </script>';
+                die();
+            }else{
+                if(!$flag){
+                    echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
+                        <script>
+                        document.location="/Multiple-Deals"
+                        </script>';
+                        die();
+                }
+            }
+            $data['urlFlag'] = $flag;
+            
+            
             $arrayOrder = array(
                                 array('val'=>'id','rel'=>'desc','text'=>'Newest'),
                                 array('val'=>'id','rel'=>'asc','text'=>'Oldest'),
@@ -147,7 +187,7 @@ class Ajax extends CI_Controller {
             if(!empty($_SESSION['priceMax']) || !empty($_SESSION['priceMin'])){
                 $data['filters'][] = array('value'=>'u$s'.$_SESSION['priceMin'].' to u$s'.$_SESSION['priceMax'],'type'=>'Price','typeText'=>'priceMax','name'=>'Price');
             }
-            
+           
             if(!empty($store)){
                 $seoPg = $this->pages->getSEOPage('deals');
                 $seoPg = $seoPg[0];
@@ -211,7 +251,14 @@ class Ajax extends CI_Controller {
                 $data['subCategories'] = array_filter($data['subCategories'],'normalizeArray');
                 
             }
-            
+            $data['linkGoTo']=false;
+            $data['linkGoToCat']=false;
+            if(count($_SESSION['categories']) == 0 && count($_SESSION['subcategories']) == 0 && count($_SESSION['stores'])==0){
+                $data['linkGoTo'] = true;
+            }
+            if(count($_SESSION['categories']) == 1 && count($_SESSION['subcategories']) == 0 && count($_SESSION['stores'])==0){
+                $data['linkGoToCat'] = true;
+            }
             if(!empty($data['stores'])){
                 $data['stores'] = deleteUsed($data['stores'],'deal_source_id',$_SESSION['stores'],'stores',$this);
                 $data['stores'] = array_filter($data['stores'],'normalizeArray');
@@ -228,7 +275,7 @@ class Ajax extends CI_Controller {
                 $this->load->library('parser');
                 $this->parser->parse('deals_new', $data);
         }
-        public function removeFilter($rel='',$id=''){
+        public function removeFilter($rel='',$id='',$flag=false){
             $this->load->helper('metaHelper');
             session_start();
             if($rel == 'priceMax'){
@@ -239,14 +286,17 @@ class Ajax extends CI_Controller {
                     unset($_SESSION[$rel][$key]);
                 }
             }
-            $this->ajaxResultFilter();
+            $this->load->model('Category');
+            $this->load->model('Source');
+            $this->load->helper(array('form', 'url'));
+            $this->ajaxResultFilter($flag);
             
         }
-        public function addFilter($rel='',$id=''){
+        public function addFilter($rel='',$id='',$flag=true){
             $this->load->helper('metaHelper');
             session_start();
             $_SESSION[$rel][] = $id;
-            $this->ajaxResultFilter();
+            $this->ajaxResultFilter($flag);
         }
         public function addPrice($priceMin=0,$priceMax=0){
             $this->load->helper('metaHelper');
