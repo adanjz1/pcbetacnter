@@ -35,6 +35,7 @@ class ScrudDao {
      */
     public function & query($sql, $params = array(), $f = false) {
         $rows = array();
+        $sql = str_replace('subCategories','subcategories',$sql);
         $query = $this->db->query($sql, $params);
 
         if (empty($query)) {
