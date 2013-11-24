@@ -306,7 +306,11 @@ class Scrud extends Admin_Controller {
     		}
     		
     		$fields = array();
-    		$sql = "SHOW COLUMNS FROM `" . $com['component_table'] . "`";
+                $tab = $com['component_table'];
+                if($tab == 'subCategories'){
+                    $tab = 'subcategories';
+                }
+    		$sql = "SHOW COLUMNS FROM `" . $tab . "`";
     		$query = $this->db->query($sql);
     		if (!empty($query)) {
     			foreach ($query->result_array() as $row) {
