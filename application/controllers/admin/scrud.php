@@ -114,6 +114,9 @@ class Scrud extends Admin_Controller {
         
 
         $fields = array();
+        if($table == 'subCategories'){
+            $table  = 'subcategories';
+        }
         $sql = "SHOW COLUMNS FROM `" . $table . "`";
         $query = $this->db->query($sql);
         if (!empty($query)) {
