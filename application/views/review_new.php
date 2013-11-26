@@ -151,6 +151,7 @@
                                     <span style="font: normal 12px/18px Arial, Helvetica, sans-serif;">(Rate It)</span>
                                     <br/>
                                     <textarea name="feedbk_cont" rows="10"></textarea>
+                                    {recaptcha_html}
                                     <input name="feedbk_btn" type="submit" class="btnCommentSubmit" value="Submit"/>
                             </div>
                             

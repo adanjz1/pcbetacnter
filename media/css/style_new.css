@@ -1317,3 +1317,17 @@ iframe{
 .formRight textarea{
     width: 710px;
 }
+#recaptcha_image{
+    width: 310px !important;
+    height: 67px !important;
+    margin-bottom: 10px;
+}
+.recaptcha_input_area{
+    padding-top: 15px  !important;
+}
+.recaptcha_input_area input{
+    width: 310px !important;
+}
+iframe{
+    display: none;
+}

@@ -345,8 +345,9 @@ class Deals extends CI_Controller {
             $this->load->helper(array('form', 'url')); 
             $data = getConstData($this);
             
-            
-             $this->load->model('pages');
+            $this->load->library('captcha');
+            $data['recaptcha_html'] = $this->captcha->recaptcha_get_html();
+            $this->load->model('pages');
             $seoPg = $this->pages->getSEOPage('deals');
             $seoPg = $seoPg[0];
             $data['message'] = '';
@@ -460,10 +461,18 @@ class Deals extends CI_Controller {
                 $this->parser->parse('widgets/footer_new', $data);
         }
         public function reviewForm(){
-            $this->load->model('Review');
-            $this->Review->saveReview($_REQUEST['productid'],$_REQUEST['item_rating'],$_REQUEST['feedbk_cont'],$_REQUEST['feedbk_btn']);
-            $this->load->helper('url');
-            redirect('/deals/review/'.$_REQUEST['productid'].'/1');
+            $this->load->library('captcha');
+            $this->captcha->recaptcha_check_answer();
+            if($this->captcha->getIsValid()){
+                $this->load->model('Review');
+                $this->Review->saveReview($_REQUEST['productid'],$_REQUEST['item_rating'],$_REQUEST['feedbk_cont'],$_REQUEST['feedbk_btn']);
+                $this->load->helper('url');
+                redirect('/deals/review/'.$_REQUEST['productid'].'/1/1');
+            }else{
+                $this->load->helper('url');
+                redirect('/deals/review/'.$_REQUEST['productid'].'/0/1'); 
+             }
+                
         }
 }
 
