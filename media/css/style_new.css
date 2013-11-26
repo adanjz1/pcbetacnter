@@ -1196,6 +1196,10 @@ pre{
     margin-right: 15px;
     text-align: center;
 }
+.topReview .image img{
+    max-width: 267px;
+    max-height: 267px;
+}
 .topReview .description{
     float:left;
     width: 620px;
