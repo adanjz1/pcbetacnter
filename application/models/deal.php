@@ -102,6 +102,7 @@ class Deal extends CI_Model {
         $this->db->where('cat_id >', '0');
         $this->db->where('coupon_code',null);
         $this->db->where_not_in('id',$usedDeals);
+        $this->db->order_by('id','desc');
         $query = $this->db->get('deals');
        
         return $query->result();
@@ -111,6 +112,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('coupon_code !=','');
+        $this->db->order_by('id','desc');
         $query = $this->db->get('deals');
        
         return $query->result();

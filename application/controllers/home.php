@@ -56,7 +56,7 @@ public function index()
             foreach($bannerDeals as $deal){
                 $arrExclude[] = $deal->id;
             }
-            $lastestDeals = $this->Deal->get_lastDeals(8,$arrExclude); //Get the other deals
+            $lastestDeals = $this->Deal->get_lastDealsHome(8,$arrExclude); //Get the other deals
             
             foreach($lastestDeals as $deal){
                 $arrExclude[] = $deal->id;
