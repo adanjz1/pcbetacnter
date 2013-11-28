@@ -100,11 +100,13 @@ class Deal extends CI_Model {
         $this->db->limit($qty);
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
-        $this->db->where('coupon_code',null);
-        $this->db->where_not_in('id',$usedDeals);
+        $this->db->where('coupon_code','');
+        if(!empty($usedDeals)){
+            $this->db->where_not_in('id',$usedDeals);
+        }
         $this->db->order_by('id','desc');
         $query = $this->db->get('deals');
-       
+       //var_dump($this->db->last_query());
         return $query->result();
     }
     function get_lastCouponsHome($qty=0){
@@ -114,7 +116,7 @@ class Deal extends CI_Model {
         $this->db->where('coupon_code !=','');
         $this->db->order_by('id','desc');
         $query = $this->db->get('deals');
-       
+       //var_dump($this->db->last_query());
         return $query->result();
     }
     function get_topDeals($qty=0,$usedDeals=array()){
@@ -122,7 +124,7 @@ class Deal extends CI_Model {
         $this->db->limit($qty);
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
         $this->db->where_not_in('id',$usedDeals);
         $query = $this->db->get('deals');
        
@@ -183,7 +185,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
         $query = $this->db->get('deals');
 //        vd($this->db->last_query());
         return $query->result();
@@ -488,7 +490,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
@@ -503,7 +505,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
@@ -512,7 +514,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
@@ -524,7 +526,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
@@ -536,7 +538,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
@@ -545,7 +547,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
         $this->db->from('deals');
         return $this->db->count_all_results();
     }
@@ -586,7 +588,7 @@ class Deal extends CI_Model {
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
         $this->db->from('deals');
         
         $t  = $this->db->count_all_results();
