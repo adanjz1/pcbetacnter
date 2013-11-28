@@ -36,7 +36,7 @@ class ScrudDao {
     public function & query($sql, $params = array(), $f = false) {
         $rows = array();
         $sql = str_replace('subCategories','subcategories',$sql);
-        $query = $this->db->query($sql, $params);
+        $query = $this->db->query(str_replace("subCategories",'subcategories',$sql), $params);
 
         if (empty($query)) {
             return false;
@@ -92,7 +92,7 @@ class ScrudDao {
 
     public function listFields($tableName) {
         $sql = "SHOW COLUMNS FROM `" . $tableName . "`";
-        $rs = $this->query($sql, array(), true);
+        $rs = $this->query(str_replace("subCategories",'subcategories',$sql), array(), true);
 
         return $rs;
     }
@@ -181,7 +181,7 @@ class ScrudDao {
         $limit = ($limit != '') ? ' LIMIT ' . $limit : $limit;
         $sql = "SELECT " . $sqlFoundRows . " " . $this->fileds . " FROM `" . $this->tableName . "` " . $join . $conditions . " " . $group . " " . $having . " " . $order . " " . $limit;
 
-        return $this->query($sql, $values);
+        return $this->query(str_replace("subCategories",'subcategories',$sql), $values);
     }
 
     /**
@@ -222,7 +222,7 @@ class ScrudDao {
 
         $sql = "INSERT INTO `" . $this->tableName . "` (`" . implode("`,`", $f) . "`) VALUES (" . implode(",", $o) . ")";
 
-        $rs = $this->db->query($sql, $v);
+        $rs = $this->db->query(str_replace("subCategories",'subcategories',$sql), $v);
         if (!empty($rs)) {
             return $this->db->insert_id();
         } else {
@@ -307,7 +307,7 @@ class ScrudDao {
         }
 
         $sql .= implode(',', $f);
-        $rs = $this->db->query($sql, $v);
+        $rs = $this->db->query(str_replace("subCategories",'subcategories',$sql), $v);
         if (!empty($rs)) {
             return $this->db->insert_id();
         } else {
@@ -339,7 +339,7 @@ class ScrudDao {
         }
         $c = ($c != '') ? ' WHERE ' . $c : $c;
         $sql = "DELETE FROM `" . $this->tableName . "` " . $c;
-        $rs = $this->db->query($sql, $values);
+        $rs = $this->db->query(str_replace("subCategories",'subcategories',$sql), $values);
         if (!empty($rs)) {
             return true;
         } else {
@@ -361,7 +361,7 @@ class ScrudDao {
      */
     public function foundRows() {
         $sql = "SELECT FOUND_ROWS() as totalRow";
-        $rs = $this->query($sql);
+        $rs = $this->query(str_replace("subCategories",'subcategories',$sql));
         if ($rs === false) {
             return false;
         } else {
