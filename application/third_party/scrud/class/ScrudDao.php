@@ -263,9 +263,10 @@ class ScrudDao {
         if($tn =='subCategories'){
             $tn = 'subcategories';
         }
+        
         $c = ($c != '') ? ' WHERE ' . $c : $c;
         $sql = "UPDATE `" . $tn . "` SET " . implode(",", $f) . $c;
-        $rs = $this->db->query($sql, $values);
+        $rs = $this->db->query(str_replace("subCategories",'subcategories',$sql), $values);
         if (!empty($rs)) {
             return true;
         } else {
