@@ -23,11 +23,11 @@ class Category extends CI_Model {
             $this->db->limit($qty,$limit);
         }
         $this->db->join('deals','deals.cat_id = categories.id');
-        $this->db->where('deals.coupon_code',NULL);
+        $this->db->where('deals.coupon_code','');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code',null);
+        $this->db->where('coupon_code','');
        
         $this->db->group_by('categories.id');
         $this->db->order_by("id", "asc"); 

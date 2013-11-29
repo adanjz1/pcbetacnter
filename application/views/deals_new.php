@@ -148,7 +148,7 @@ $(function(){
                    
                 </ul>
              </div>';
-                if($catSelected){
+                if(!empty($catSelected)){
                     echo $subCatFilter;
                     echo $filterCat;
                 }else{
