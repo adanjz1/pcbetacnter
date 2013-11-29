@@ -170,15 +170,17 @@ class Deals extends CI_Controller {
                 $data['metaDescription'] = $seoPg->meta_description;
                 $data['activeCategory'] = 'active';
             }else{
-                if($data['urlFlag']){
+                if(!empty($data['urlFlag'])){
                     $seoPg = $this->pages->getSEOPage('multi-filter-deals');
-                    $seoPg = $seoPg[0];
-                    $data['pageTitle'] = $seoPg->Title;//Title tag
-                    $data['headerText'] = $seoPg->Header;//H1 tag
-                    $data['metaTitle'] = $seoPg->Meta_title;
-                    $data['metaKeywords'] = $seoPg->Meta_keywords;
-                    $data['metaDescription'] = $seoPg->Meta_Description;
-                    $data['activeDeals'] = 'active';
+                    if(!empty($seoPg)){
+                        $seoPg = $seoPg[0];
+                        $data['pageTitle'] = $seoPg->Title;//Title tag
+                        $data['headerText'] = $seoPg->Header;//H1 tag
+                        $data['metaTitle'] = $seoPg->Meta_title;
+                        $data['metaKeywords'] = $seoPg->Meta_keywords;
+                        $data['metaDescription'] = $seoPg->Meta_Description;
+                        $data['activeDeals'] = 'active';
+                    }
                 }else{
                     $seoPg = $this->pages->getSEOPage('deals');
                     $seoPg = $seoPg[0];
