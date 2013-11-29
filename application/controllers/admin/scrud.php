@@ -552,12 +552,9 @@ class Scrud extends Admin_Controller {
     		}
     	
     		$width = 50;
-                $formElements = 1;
-    		if (!empty($formElements)) {
-    			$format = '<a type="button" onclick="__view(\'{ppri}\'); return false;" class="btn btn-mini">' . $this->lang->line('view') . '</a>';
-    			$format .= ' <a type="button" onclick="__edit(\'{ppri}\'); return false;" class="btn btn-mini btn-info">' . $this->lang->line('edit') . '</a>';
-    			$width += 80;
-    		}
+                $format = '<a type="button" onclick="__view(\'{ppri}\'); return false;" class="btn btn-mini">' . $this->lang->line('view') . '</a>';
+                $format .= ' <a type="button" onclick="__edit(\'{ppri}\'); return false;" class="btn btn-mini btn-info">' . $this->lang->line('edit') . '</a>';
+                $width += 80;
     		$format .= ' <a type="button" onclick="__delete(\'{ppri}\'); return false;" class="btn btn-mini btn-danger">' . $this->lang->line('delete') . '</a>';
     	
     		$dataList['action'] = array('alias' => $this->lang->line('actions'), 'format' => $format, 'width' => $width, 'align' => 'center');
