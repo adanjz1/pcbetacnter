@@ -343,7 +343,7 @@ class Deals extends CI_Controller {
                 redirect('/deals/index/'.$var1.'/'.$var2);
             }
         }
-        public function review($id='',$saved=false,$dat=false){
+        public function review($id='',$saved=false,$dat=false,$err = false){
             $this->load->helper('metaHelper');
             $this->load->helper(array('form', 'url')); 
             $data = getConstData($this);
@@ -450,6 +450,9 @@ class Deals extends CI_Controller {
             if(!empty($saved)){
                 $data['message'] = '<font color="#FF0000">Your rating successfully submitted.</font> ';
             }
+            if(!empty($err)){
+                $data['message'] = '<font color="#FF0000">Captcha was invalid.</font> ';
+            }
             $data['deal'] = $deals;
             
               /**
@@ -473,7 +476,7 @@ class Deals extends CI_Controller {
                 redirect('/deals/review/'.$_REQUEST['productid'].'/1/1');
             }else{
                 $this->load->helper('url');
-                redirect('/deals/review/'.$_REQUEST['productid'].'/0/1'); 
+                redirect('/deals/review/'.$_REQUEST['productid'].'/0/1/0/1'); 
              }
                 
         }
