@@ -143,9 +143,10 @@ class Deal extends CI_Model {
     }
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category=array(),$subcat=array(),$store=array(),$minPrice=0,$maxPrice=0,$orderBy=array('id','desc'))
     {   
-        if(!empty($order_by)){
+        if(!empty($orderBy)){
             $this->db->order_by($orderBy[0], $orderBy[1]);
         }
+        
         $this->db->limit($qty,$from);
         
         if(!empty($subcat)){
@@ -268,7 +269,7 @@ class Deal extends CI_Model {
         $this->db->where('cat_id >', '0');
         $this->db->where('hotSubCategoryStart <=', date('Y-m-d'));
         $this->db->where('hotSubCategoryEnd >', date('Y-m-d'));
-        $this->db->where('coupon_code',NULL);
+        $this->db->where('coupon_code','');
         $query = $this->db->get('deals');
         
         return $query->result();
@@ -346,7 +347,7 @@ class Deal extends CI_Model {
         $this->db->where('hotCategoryEnd >', date('Y-m-d'));
         $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
-        $this->db->where('coupon_code',NULL);
+        $this->db->where('coupon_code','');
         $query = $this->db->get('deals');
         
         return $query->result();
@@ -424,7 +425,7 @@ class Deal extends CI_Model {
         $this->db->where('hotDealsStart >=', date('Y-m-d'));
         $this->db->where('hotDealsEnd <', date('Y-m-d'));
         $this->db->where('cat_id >', '0');
-        $this->db->where('coupon_code',NULL);
+        $this->db->where('coupon_code','');
         $query = $this->db->get('deals');
         
         return $query->result();

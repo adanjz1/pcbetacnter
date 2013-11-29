@@ -266,6 +266,7 @@ class Deals extends CI_Controller {
             }
             $data['subCategories'] = array();
             if(count($_SESSION['categories']) == 1){
+                $data['catSelected'] = true;
                 $_SESSION['categories'] = array_values($_SESSION['categories']);
                 $this->load->model('Category');
                 $categ_list = $this->Category->get_Subcategories(null,null,$_SESSION['categories'][0]);

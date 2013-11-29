@@ -94,7 +94,7 @@ class Ajax extends CI_Controller {
             }
             echo $dealLikes;
         }
-        private function ajaxResultFilter($flag=false){
+        private function ajaxResultFilter($flag=false,$checkUrl=true){
             
             $q='';
             
@@ -107,35 +107,36 @@ class Ajax extends CI_Controller {
             $_SESSION['subcategories'] = array_values($_SESSION['subcategories']);
             $_SESSION['categories'] = array_values($_SESSION['categories']);
             $_SESSION['stores'] = array_values($_SESSION['stores']);
-            
-            if(count($_SESSION['subcategories']) == 1 && count($_SESSION['categories']) == 1 && count($_SESSION['stores'])==0){
-                $subcat = $this->Category->get_subcategoryById($_SESSION['subcategories'][0]);
-                echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
-                    <script>
-                    document.location="/'.$subcat->url.'"
-                </script>';
-                die();
-            }else if(count($_SESSION['subcategories']) == 0 && count($_SESSION['categories']) == 1 && count($_SESSION['stores'])==0){
-                $subcat = $this->Category->get_categoryById($_SESSION['categories'][0]);
-                echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
-                    <script>
-                    document.location="/'.$subcat->url.'"
-                </script>';
-                die();
-            }else if(count($_SESSION['subcategories']) == 0 && count($_SESSION['categories']) == 0 && count($_SESSION['stores'])==1){
-                $subcat = $this->Source->get_source($_SESSION['stores'][0]);
-                echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
-                    <script>
-                    document.location="/'.$subcat->url.'"
-                </script>';
-                die();
-            }else{
-                if(!$flag){
+            if($checkUrl){
+                if(count($_SESSION['subcategories']) == 1 && count($_SESSION['categories']) == 1 && count($_SESSION['stores'])==0){
+                    $subcat = $this->Category->get_subcategoryById($_SESSION['subcategories'][0]);
                     echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
                         <script>
-                        document.location="/Multiple-Deals"
-                        </script>';
-                        die();
+                        document.location="/'.$subcat->url.'"
+                    </script>';
+                    die();
+                }else if(count($_SESSION['subcategories']) == 0 && count($_SESSION['categories']) == 1 && count($_SESSION['stores'])==0){
+                    $subcat = $this->Category->get_categoryById($_SESSION['categories'][0]);
+                    echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
+                        <script>
+                        document.location="/'.$subcat->url.'"
+                    </script>';
+                    die();
+                }else if(count($_SESSION['subcategories']) == 0 && count($_SESSION['categories']) == 0 && count($_SESSION['stores'])==1){
+                    $subcat = $this->Source->get_source($_SESSION['stores'][0]);
+                    echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
+                        <script>
+                        document.location="/'.$subcat->url.'"
+                    </script>';
+                    die();
+                }else{
+                    if(!$flag){
+                        echo '<div class="overlayLoading"></div><img class="overOver" src="/media/images/new/loading.gif">
+                            <script>
+                            document.location="/Multiple-Deals"
+                            </script>';
+                            die();
+                    }
                 }
             }
             $data['urlFlag'] = $flag;
@@ -228,6 +229,7 @@ class Ajax extends CI_Controller {
                 $data['categories'] = array();
             }
             if(count($_SESSION['categories']) == 1){
+                $data['catSelected'] = true;
                 $_SESSION['categories'] = array_values($_SESSION['categories']);
                 $categ_list = $this->Category->get_Subcategories(null,null,$_SESSION['categories'][0]);
                 foreach ($categ_list as $categ){
@@ -314,6 +316,6 @@ class Ajax extends CI_Controller {
                 $_SESSION['orderBy'][0] = $elem;
                 $_SESSION['orderBy'][1] = $order;
             }
-            $this->ajaxResultFilter();
+            $this->ajaxResultFilter(false,false);
         }
 }

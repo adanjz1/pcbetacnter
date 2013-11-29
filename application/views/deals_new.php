@@ -115,15 +115,16 @@ $(function(){
      <div class="filtersToSelect">
         <div class="title">FILTER BY</div>
          <div class="content">
-             <div class="categoryFilter">
+             <?php
+                $filterCat = '<div class="categoryFilter">
                  <ul class="filterList">
                      <li class="subTitle">CATEGORY<div class="arrowFilter"></div></li>
                    {categories}
                    <li val="{id}" rel="categories" link="{url}" class="elemToFilter">{name}({dealsQty})</li>
                    {/categories}
                 </ul>
-             </div>
-             <div class="subcategoryFilter">
+             </div>';
+                $subCatFilter = '<div class="subcategoryFilter">
                  <ul class="filterList">
                     <li class="subTitle">SUB-CATEGORY<div class="arrowFilter"></div></li>
                    {subCategories}
@@ -146,7 +147,17 @@ $(function(){
                     <li rel="price">u$s <input type="text" id="priceMin" value="0"/> to u$s <input type="text" id="priceMax" value="0"/><div class="arrowFilter goArrow"></div></li>
                    
                 </ul>
-             </div>
+             </div>';
+                if($catSelected){
+                    echo $subCatFilter;
+                    echo $filterCat;
+                }else{
+                    echo $filterCat;
+                    echo $subCatFilter;
+                }
+             ?>
+             
+             
              
          </div>
      </div>
