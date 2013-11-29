@@ -195,14 +195,13 @@ class Scrud extends Admin_Controller {
     public function getfields() {
         $table = $this->input->get('table');
         $fields = array();
-        $sql = "SHOW COLUMNS FROM `" . $table . "`";
-        $query = $this->db->query($sql);
+        $sql = "SHOW COLUMNS FROM `" . str_replace('subCategories','subcategories',$table) . "`";
+        $query = $this->db->query(str_replace('subCategories','subcategories',$sql));
         if (!empty($query)) {
             foreach ($query->result_array() as $row) {
                 $fields[] = $row['Field'];
             }
         }
-
         header('Content-Type: application/json');
         echo json_encode($fields);
     }
@@ -553,6 +552,7 @@ class Scrud extends Admin_Controller {
     		}
     	
     		$width = 50;
+                $formElements = 1;
     		if (!empty($formElements)) {
     			$format = '<a type="button" onclick="__view(\'{ppri}\'); return false;" class="btn btn-mini">' . $this->lang->line('view') . '</a>';
     			$format .= ' <a type="button" onclick="__edit(\'{ppri}\'); return false;" class="btn btn-mini btn-info">' . $this->lang->line('edit') . '</a>';
