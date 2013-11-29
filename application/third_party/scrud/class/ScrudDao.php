@@ -179,8 +179,11 @@ class ScrudDao {
         $having = ($having != '') ? ' HAVING  ' . $having : $having;
         $order = ($order != '') ? ' ORDER BY ' . $order : $order;
         $limit = ($limit != '') ? ' LIMIT ' . $limit : $limit;
+        if($this->tableName == 'deal_sources'){
+            $order = ' ORDER BY deal_source_name asc';
+        }
+       
         $sql = "SELECT " . $sqlFoundRows . " " . $this->fileds . " FROM `" . $this->tableName . "` " . $join . $conditions . " " . $group . " " . $having . " " . $order . " " . $limit;
-
         return $this->query(str_replace("subCategories",'subcategories',$sql), $values);
     }
 
