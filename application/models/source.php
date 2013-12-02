@@ -94,6 +94,7 @@ class Source extends CI_Model {
         $this->db->where('deals.is_active',1);
         $this->db->where('deals.cat_id >',0);
         $this->db->where('deals.sub_cat_id >',0);
+        $query = $this->db->get('deal_sources');
         return $this->db->count_all_results();
     }
     function get_stores($qty='',$limit='',$initial=''){
