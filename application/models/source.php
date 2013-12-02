@@ -68,7 +68,6 @@ class Source extends CI_Model {
     }
     function get_totalStores($initial='')
     {
-        $this->db->select('deal_sources.deal_source_id, deal_sources.deal_source_name, deal_sources.name, deal_sources.deal_source_url, deal_sources.deal_source_logo_url,deal_sources.url, count(deals.id) as dealsQty');
         if(!empty($initial)){
             if($initial == '0-9'){
                 $this->db->or_like('deal_source_name','0','after');
@@ -85,17 +84,13 @@ class Source extends CI_Model {
                 $this->db->like('deal_source_name',$initial,'after');
             }
         }
-        $this->db->join('deals','deals.deal_sources_id = deal_sources.deal_source_id');
-        $this->db->group_by('deal_sources.deal_source_id');
+        
         $this->db->order_by("deal_source_name", "asc"); 
         $idStoresNonEmpty = (array)$this->getNonEmptyStores();
         $this->db->where_in('deal_source_id',$idStoresNonEmpty);
-        $this->db->where('deals.coupon_code','');
-        $this->db->where('deals.is_active',1);
-        $this->db->where('deals.cat_id >',0);
-        $this->db->where('deals.sub_cat_id >',0);
-        $query = $this->db->get('deal_sources');
-        return $this->db->count_all_results();
+        $this->db->from('deal_sources');
+        $t = $this->db->count_all_results();
+        return $t;
     }
     function get_stores($qty='',$limit='',$initial=''){
         $this->db->select('deal_sources.deal_source_id, deal_sources.deal_source_name, deal_sources.name, deal_sources.deal_source_url, deal_sources.deal_source_logo_url,deal_sources.url, count(deals.id) as dealsQty');
