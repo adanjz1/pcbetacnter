@@ -58,7 +58,8 @@ class Source extends CI_Model {
     }
     function getNonEmptyStores(){
         
-        $query = $this->db->query('SELECT Distinct deal_sources_id FROM deals');
+        $query = $this->db->query('SELECT Distinct deal_sources_id FROM deals where coupon_code = "" and is_active = 1 and cat_id > 0 and sub_cat_id >0');
+        
         $ids = array();
         foreach ($query->result_array() as $dealSourceId){
             //var_dump($dealSourceId['deal_sources_id']);
@@ -90,6 +91,7 @@ class Source extends CI_Model {
         $this->db->where_in('deal_source_id',$idStoresNonEmpty);
         $this->db->from('deal_sources');
         $t = $this->db->count_all_results();
+        
         return $t;
     }
     function get_stores($qty='',$limit='',$initial=''){
