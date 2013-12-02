@@ -18,6 +18,9 @@ class Deal extends CI_Model {
     }
     function get_mainMenuDeals($qty)
     {
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->where('mainMenuOrderStart <=', date('Y-m-d'));
         $this->db->where('mainMenuOrderEnd >', date('Y-m-d'));
         $this->db->where('is_active', '1');
@@ -36,7 +39,9 @@ class Deal extends CI_Model {
     }
     
     function get_homeDeals($qty,$dealSourceId){
-        
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         //$this->db->order_by("title", "random");  
         $this->db->limit($qty);
         $this->db->where('(mainMenuOrderStart is NULL or mainMenuOrderStart > NOW() or mainMenuOrderEnd < NOW())');
@@ -48,7 +53,9 @@ class Deal extends CI_Model {
         return $query->result();
     }
     function get_pageDeals($qty,$from='',$idPages=0){
-         
+         if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->limit($qty,$from);
         $this->db->like('specialpages',','.$idPages.',');
         $this->db->where('is_active', '1');
@@ -88,6 +95,9 @@ class Deal extends CI_Model {
         $this->db->delete('deals');
     }
     function get_totalDeals_page($idPages=0){
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->where('specialpages',','.$idPages.',');
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
@@ -97,6 +107,9 @@ class Deal extends CI_Model {
         return $total;
     }
     function get_lastDealsHome($qty=0,$usedDeals=array()){
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->limit($qty);
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
@@ -112,6 +125,9 @@ class Deal extends CI_Model {
         return $query->result();
     }
     function get_lastCouponsHome($qty=0){
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->limit($qty);
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
@@ -123,6 +139,9 @@ class Deal extends CI_Model {
         return $query->result();
     }
     function get_topDeals($qty=0,$usedDeals=array()){
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->order_by('thumbs','desc');
         $this->db->limit($qty);
         $this->db->where('is_active', '1');
@@ -135,6 +154,9 @@ class Deal extends CI_Model {
         return $query->result();
     }
     function get_topCoupons($qty=0,$usedDeals=array()){
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->order_by('thumbs','desc');
         $this->db->limit($qty);
         $this->db->where('is_active', '1');
@@ -148,6 +170,9 @@ class Deal extends CI_Model {
     }
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category=array(),$subcat=array(),$store=array(),$minPrice=0,$maxPrice=0,$orderBy=array('id','desc'))
     {   
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         if(!empty($orderBy)){
             $this->db->order_by($orderBy[0], $orderBy[1]);
         }
@@ -200,6 +225,9 @@ class Deal extends CI_Model {
     }
     function get_lastCoupons($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category=array(),$subcat=array(),$store=array(),$minPrice=0,$maxPrice=0,$orderBy=array('id','desc'))
     {   
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         if(!empty($order_by)){
             //$this->db->order_by($orderBy[0], $orderBy[1]);
         }
@@ -245,7 +273,9 @@ class Deal extends CI_Model {
        
     function get_lastStarredSubcatDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-        
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->limit($qty,$from);
         if(!empty($q)){
             $str = explode('%20',$q);
@@ -286,7 +316,9 @@ class Deal extends CI_Model {
     }
     function get_lastStarredSubcatCoupons($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-        
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->limit($qty,$from);
         if(!empty($q)){
             $str = explode('%20',$q);
@@ -326,7 +358,9 @@ class Deal extends CI_Model {
     }
     function get_lastStarredCatDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-         
+         if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->limit($qty,$from);
        if(!empty($q)){
             $str = explode('%20',$q);
@@ -366,7 +400,9 @@ class Deal extends CI_Model {
     }
     function get_lastStarredCatCoupons($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-         
+         if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->limit($qty,$from);
        if(!empty($q)){
             $str = explode('%20',$q);
@@ -406,7 +442,9 @@ class Deal extends CI_Model {
     }
     function get_lastStarredDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-         
+         if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->limit($qty,$from);
         if(!empty($q)){
             $str = explode('%20',$q);
@@ -440,13 +478,16 @@ class Deal extends CI_Model {
         $this->db->where('cat_id >', '0');
         $this->db->where('deal_price !=', '');        $this->db->where('coupon_code',''); 
         //$this->db->where('((deal_start_date <= NOW() and deal_end_date > NOW()) or (deal_start_date = "0000-00-00 00:00:00" or deal_end_date = "0000-00-00 00:00:00") or (deal_end_date is null or deal_start_date is null))');
+        
         $query = $this->db->get('deals');
         
         return $query->result();
     }
     function get_lastStarredCoupons($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category='',$subcat='',$store='')
     {
-         
+         if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->limit($qty,$from);
         if(!empty($q)){
             $str = explode('%20',$q);
@@ -494,6 +535,9 @@ class Deal extends CI_Model {
     }
     function get_dealsWithCode($qty)
     {
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         $this->db->where('coupon_code !=',''); 
         //$this->db->where('((deal_start_date <= NOW() and deal_end_date > NOW()) or (deal_start_date = "0000-00-00 00:00:00" or deal_end_date = "0000-00-00 00:00:00") or (deal_end_date is null or deal_start_date is null))');
         $this->db->order_by("id", "desc"); 
@@ -575,7 +619,9 @@ class Deal extends CI_Model {
         return $this->db->count_all_results();
     }
     function get_totalDeals($q='',$category='',$subcat='',$store='',$minPrice=0,$maxPrice=0){
-       
+       if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         if(!empty($subcat)){
             $this->db->where_in('sub_cat_id',$subcat);
         }
@@ -620,7 +666,9 @@ class Deal extends CI_Model {
         return $t;
     }
     function get_totalCoupons($q='',$category='',$subcat='',$store=''){
-       
+       if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
         if(!empty($subcat)){
             $this->db->where_in('sub_cat_id',$subcat);
         }

@@ -233,9 +233,9 @@ class Deals extends CI_Controller {
             }
             $starred = array();
             if($limit == 0){
-                if(!empty($subcat)){
+                if(!empty($subcat) && $subcat != 'null'){
                     $starred = $this->Deal->get_lastStarredSubcatDeals(15,$limit,$q,$category,$subcat,$store); //Get the other deals
-                }elseif(!empty($category)){
+                }elseif(!empty($category) && $category != 'null'){
                     $starred = $this->Deal->get_lastStarredCatDeals(15,$limit,$q,$category,$subcat,$store); //Get the other deals
                 }else{
                     $starred = $this->Deal->get_lastStarredDeals(15,$limit,$q,$category,$subcat,$store); //Get the other deals

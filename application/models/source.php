@@ -91,8 +91,21 @@ class Source extends CI_Model {
     }
     function get_stores($qty='',$limit='',$initial=''){
         $this->db->select('deal_sources.deal_source_id, deal_sources.deal_source_name, deal_sources.name, deal_sources.deal_source_url, deal_sources.deal_source_logo_url,deal_sources.url, count(deals.id) as dealsQty');
-        if($initial != ''){
-            $this->db->like('deal_source_name',$initial,'after');
+        if(!empty($initial)){
+            if($initial == '0-9'){
+                $this->db->or_like('deal_source_name','0','after');
+                $this->db->or_like('deal_source_name','1','after');
+                $this->db->or_like('deal_source_name','2','after');
+                $this->db->or_like('deal_source_name','3','after');
+                $this->db->or_like('deal_source_name','4','after');
+                $this->db->or_like('deal_source_name','5','after');
+                $this->db->or_like('deal_source_name','6','after');
+                $this->db->or_like('deal_source_name','7','after');
+                $this->db->or_like('deal_source_name','8','after');
+                $this->db->or_like('deal_source_name','9','after');
+            }else{
+                $this->db->like('deal_source_name',$initial,'after');
+            }
         }
         $this->db->join('deals','deals.deal_sources_id = deal_sources.deal_source_id');
         $this->db->group_by('deal_sources.deal_source_id');

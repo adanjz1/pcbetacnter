@@ -5,7 +5,7 @@
                 <ul>
                     <li>
                         {initials}
-                            <a href="{storesUrlBrandSearch}">{id}</a>
+                            <a href="{storesUrlBrandSearch}{id}">{id}</a>
                         {/initials}
                             <a href="{storesUrl}" class="floatRight">
                                 ALL STORES
