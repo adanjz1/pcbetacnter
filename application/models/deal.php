@@ -277,8 +277,8 @@ class Deal extends CI_Model {
         $this->db->where('cat_id >', '0');
         $this->db->where('hotSubCategoryStart <=', date('Y-m-d'));
         $this->db->where('hotSubCategoryEnd >', date('Y-m-d'));
-        $this->db->where('deal_price !=', '');        
-        $this->db->where('coupon_code',''); 
+        $this->db->where('deal_price !=', '');
+        $this->db->where('coupon_code','');
         //$this->db->where('((deal_start_date <= NOW() and deal_end_date > NOW()) or (deal_start_date = "0000-00-00 00:00:00" or deal_end_date = "0000-00-00 00:00:00") or (deal_end_date is null or deal_start_date is null))');
         $query = $this->db->get('deals');
         

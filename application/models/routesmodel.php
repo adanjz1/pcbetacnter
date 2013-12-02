@@ -27,7 +27,7 @@ function getStaticRoutes(){
 }
 function getSpecialRoutes(){
      $this->db->select('id,url');
-     $query = $this->db->get('specialPages');
+     $query = $this->db->get('specialpages');
      return $query->result();
 }
 /**
