@@ -24,6 +24,10 @@ class Ajax extends CI_Controller {
 	public function index($limit = ''){
            
         }
+        public function timezone(){
+            session_start();
+            $_SESSION['timezone'] = $_GET['time'];
+        }
         public function twlogin(){
             require_once('/media/twitteroauth_new/twitteroauth.php');
             $CONSUMER_KEY='cChZNFj6T5R0TigYB9yd1w';

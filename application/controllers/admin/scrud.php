@@ -24,12 +24,20 @@ class Scrud extends Admin_Controller {
         $com = $query->row_array();
         
         $_GET['table'] = $com['component_table'];
+        var_dump(sha1('com_'.$comId));
+        if($com['component_table'] =='deals'){
+            $comSha='014e219d72b849b9438e8583ba877fcaa3c6ef9f';
+        }else{
+            $comSha = sha1('com_'.$comId);
+        }
         
-        if (!file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .sha1('com_'.$comId). '/' . $com['component_table'] . '.php')) {
+        if (!file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .$comSha. '/' . $com['component_table'] . '.php')) {
         	exit;
         }
         
-        $content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/' .sha1('com_'.$comId) . '/' . $com['component_table'] . '.php'));
+        
+        $content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/' .$comSha . '/' . $com['component_table'] . '.php'));
+        
         $conf = unserialize($content);
         
         $hook = Hook::singleton();
@@ -125,9 +133,13 @@ class Scrud extends Admin_Controller {
             }
         }
         $var['fields'] = $fields;
-
-        if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $table . '/' . $table . '.php')) {
-            $content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $table . '/' . $table . '.php'));
+        if($table == 'deals'){
+            $comSha='014e219d72b849b9438e8583ba877fcaa3c6ef9f';
+        }else{
+            $comSha = sha1('com_'.$comId);
+        }
+        if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $table . '/' . $table . '.php')) {
+            $content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $table . '/' . $table . '.php'));
             if (empty($content)) {
                 $content = "{}";
             }
@@ -148,8 +160,9 @@ class Scrud extends Admin_Controller {
 
         $fieldConfig = array();
         foreach ($fields as $f) {
-            if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $table . '/' . $f['Field'] . '.php')) {
-                $content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $table . '/' . $f['Field'] . '.php'));
+            
+            if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $table . '/' . $f['Field'] . '.php')) {
+                $content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $table . '/' . $f['Field'] . '.php'));
                 if (!empty($content)) {
                     $fieldConfig[$f['Field']] = $content;
                 }
@@ -209,10 +222,15 @@ class Scrud extends Admin_Controller {
     public function delfile() {
         $this->load->add_package_path(APPPATH . 'third_party/scrud/');
         $comId = $this->input->get('com_id');
-        if (!file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .sha1('com_'.$comId) . '/' . $_GET['table'] . '.php')) {
+        if($_GET['table'] == 'deals'){
+            $comSha='014e219d72b849b9438e8583ba877fcaa3c6ef9f';
+        }else{
+            $comSha = sha1('com_'.$comId);
+        }
+        if (!file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .$comSha . '/' . $_GET['table'] . '.php')) {
             exit;
         }
-        $content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .sha1('com_'.$comId) . '/' . $_GET['table'] . '.php'));
+        $content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .$comSha . '/' . $_GET['table'] . '.php'));
         $conf = unserialize($content);
         $this->load->library('crud', array('table' => $this->input->get('table'), 'conf' => $conf));
         $data = $this->crud->process();
@@ -245,10 +263,16 @@ class Scrud extends Admin_Controller {
     		$com = $query->row_array();
     		$table = $com['component_table'];
     		$_GET['table'] = $com['component_name'];
-    		if (!file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .sha1('com_'.$comId) . '/' . $com['component_table'] . '.php')) {
+                if($_GET['table'] == 'deals'){
+                    $comSha='014e219d72b849b9438e8583ba877fcaa3c6ef9f';
+                }else{
+                    $comSha = sha1('com_'.$comId);
+                }
+
+    		if (!file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database . '/' .$comSha . '/' . $com['component_table'] . '.php')) {
     			exit;
     		}
-    		$content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database  . '/' .sha1('com_'.$comId). '/' . $com['component_table'] . '.php'));
+    		$content = str_replace("<?php exit; ?>\n", "", file_get_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database  . '/' .$comSha. '/' . $com['component_table'] . '.php'));
     		$conf = unserialize($content);
     	}else{
     		$table = $this->input->get('table');
@@ -284,7 +308,12 @@ class Scrud extends Admin_Controller {
     	$this->db->where('id',$comId);
     	$query = $this->db->get();
     	$com = $query->row_array();
-    	
+    	if($com['component_table'] == 'deals'){
+            $comSha='014e219d72b849b9438e8583ba877fcaa3c6ef9f';
+        }else{
+            $comSha = sha1('com_'.$comId);
+        }
+        
     	if (!empty($com) && isset($com['component_table'])) {
     	
     		if (!is_dir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database)) {
@@ -292,15 +321,15 @@ class Scrud extends Admin_Controller {
     			mkdir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database, 0777);
     			umask($oldumask);
     		}
-    		if (!is_dir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId))) {
+    		if (!is_dir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha)) {
     			$oldumask = umask(0);
-    			mkdir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId), 0777);
+    			mkdir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha, 0777);
     			umask($oldumask);
     		}
     	
-    		if (!is_dir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'])) {
+    		if (!is_dir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'])) {
     			$oldumask = umask(0);
-    			mkdir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'], 0777);
+    			mkdir(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'], 0777);
     			umask($oldumask);
     		}
     		
@@ -319,24 +348,24 @@ class Scrud extends Admin_Controller {
     		
 
     		if (isset($_POST['config'])) {
-    			if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'] . '/' . $com['component_table'] . '.php')) {
-    				@unlink(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'] . '/' . $com['component_table'] . '.php');
+    			if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'] . '/' . $com['component_table'] . '.php')) {
+    				@unlink(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'] . '/' . $com['component_table'] . '.php');
     			}
     			$oldumask = umask(0);
-    			file_put_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'] . '/' . $com['component_table'] . '.php', "<?php exit; ?>\n" . json_encode($_POST['config']));
+    			file_put_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'] . '/' . $com['component_table'] . '.php', "<?php exit; ?>\n" . json_encode($_POST['config']));
     			umask($oldumask);
     		}
     		 
     		if (isset($_POST['scrud'])) {
     			$crud = $_POST['scrud'];
     			foreach ($fields as $field) {
-    				if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'] . '/' . $field['Field'] . '.php')) {
-    					@unlink(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'] . '/' . $field['Field'] . '.php');
+    				if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'] . '/' . $field['Field'] . '.php')) {
+    					@unlink(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'] . '/' . $field['Field'] . '.php');
     				}
     			}
     			foreach ($crud as $f => $v) {
     				$oldumask = umask(0);
-    				file_put_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'] . '/' . $f . '.php', "<?php exit; ?>\n" . json_encode($v));
+    				file_put_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'] . '/' . $f . '.php', "<?php exit; ?>\n" . json_encode($v));
     				umask($oldumask);
     			}
     		}
@@ -572,11 +601,11 @@ class Scrud extends Admin_Controller {
     			$conf['elements'] = $elements;
     		}
     	
-    		if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'] . '.php')) {
-    			@unlink(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'] . '.php');
+    		if (file_exists(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'] . '.php')) {
+    			@unlink(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'] . '.php');
     		}
     		$oldumask = umask(0);
-    		file_put_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.sha1('com_'.$comId) . '/' . $com['component_table'] . '.php', "<?php exit; ?>\n" . serialize($conf));
+    		file_put_contents(__DATABASE_CONFIG_PATH__ . '/' . $this->db->database. '/'.$comSha . '/' . $com['component_table'] . '.php', "<?php exit; ?>\n" . serialize($conf));
     		umask($oldumask);
     		
     		$vfields = array();

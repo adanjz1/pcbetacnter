@@ -18,17 +18,18 @@ class Deal extends CI_Model {
     }
     function get_mainMenuDeals($qty)
     {
-        if(!empty($this->db->ar_orderby)){
-            $this->db->ar_orderby = array();
-        }
-        $this->db->where('mainMenuOrderStart <=', date('Y-m-d'));
-        $this->db->where('mainMenuOrderEnd >', date('Y-m-d'));
+       
+        $this->db->where('mainMenuOrderStart <=', date('Y-m-d H:i:s'));
+        $this->db->where('mainMenuOrderEnd >', date('Y-m-d H:i:s'));
+        $this->db->where('deal_start_date <=', date('Y-m-d H:i:s'));
+        $this->db->where('deal_end_date >', date('Y-m-d H:i:s'));
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
         $this->db->where('sub_cat_id >', '0');
         $this->db->limit($qty);
         $query = $this->db->get('deals');
-        return $query->result();
+        $a = $query->result();
+        return $a;
     }
     function getActiveCSV()
     {
@@ -38,6 +39,9 @@ class Deal extends CI_Model {
         return $query->result();
     }
     
+    function updateActive(){
+     
+    }
     function get_homeDeals($qty,$dealSourceId){
         if(!empty($this->db->ar_orderby)){
             $this->db->ar_orderby = array();
@@ -305,8 +309,8 @@ class Deal extends CI_Model {
         }
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
-        $this->db->where('hotSubCategoryStart <=', date('Y-m-d'));
-        $this->db->where('hotSubCategoryEnd >', date('Y-m-d'));
+        $this->db->where('hotSubCategoryStart <=', date('Y-m-d H:i:s'));
+        $this->db->where('hotSubCategoryEnd >', date('Y-m-d H:i:s'));
         $this->db->where('deal_price !=', '');
         $this->db->where('coupon_code','');
         //$this->db->where('((deal_start_date <= NOW() and deal_end_date > NOW()) or (deal_start_date = "0000-00-00 00:00:00" or deal_end_date = "0000-00-00 00:00:00") or (deal_end_date is null or deal_start_date is null))');
@@ -348,8 +352,8 @@ class Deal extends CI_Model {
         }
         $this->db->where('is_active', '1');
         $this->db->where('cat_id >', '0');
-        $this->db->where('hotSubCategoryStart <=', date('Y-m-d'));
-        $this->db->where('hotSubCategoryEnd >', date('Y-m-d'));
+        $this->db->where('hotSubCategoryStart <=', date('Y-m-d H:i:s'));
+        $this->db->where('hotSubCategoryEnd >', date('Y-m-d H:i:s'));
         $this->db->where('coupon_code !=',''); 
         //$this->db->where('((deal_start_date <= NOW() and deal_end_date > NOW()) or (deal_start_date = "0000-00-00 00:00:00" or deal_end_date = "0000-00-00 00:00:00") or (deal_end_date is null or deal_start_date is null))');
         $query = $this->db->get('deals');
@@ -388,8 +392,8 @@ class Deal extends CI_Model {
         if(!empty($store)){
             $this->db->where_in('deal_sources_id',$store);
         }
-        $this->db->where('hotCategoryStart <=', date('Y-m-d'));
-        $this->db->where('hotCategoryEnd >', date('Y-m-d'));
+        $this->db->where('hotCategoryStart <=', date('Y-m-d H:i:s'));
+        $this->db->where('hotCategoryEnd >', date('Y-m-d H:i:s'));
         $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
         $this->db->where('deal_price !=', '');        $this->db->where('coupon_code',''); 
@@ -430,8 +434,8 @@ class Deal extends CI_Model {
         if(!empty($store)){
             $this->db->where_in('deal_sources_id',$store);
         }
-        $this->db->where('hotCategoryStart <=', date('Y-m-d'));
-        $this->db->where('hotCategoryEnd >', date('Y-m-d'));
+        $this->db->where('hotCategoryStart <=', date('Y-m-d H:i:s'));
+        $this->db->where('hotCategoryEnd >', date('Y-m-d H:i:s'));
         $this->db->where('cat_id >', '0');
         $this->db->where('is_active', '1');
         $this->db->where('coupon_code !=',''); 
@@ -473,8 +477,8 @@ class Deal extends CI_Model {
             $this->db->where_in('deal_sources_id',$store);
         }
         $this->db->where('is_active', '1');
-        $this->db->where('hotDealsStart >=', date('Y-m-d'));
-        $this->db->where('hotDealsEnd <', date('Y-m-d'));
+        $this->db->where('hotDealsStart >=', date('Y-m-d H:i:s'));
+        $this->db->where('hotDealsEnd <', date('Y-m-d H:i:s'));
         $this->db->where('cat_id >', '0');
         $this->db->where('deal_price !=', '');        $this->db->where('coupon_code',''); 
         //$this->db->where('((deal_start_date <= NOW() and deal_end_date > NOW()) or (deal_start_date = "0000-00-00 00:00:00" or deal_end_date = "0000-00-00 00:00:00") or (deal_end_date is null or deal_start_date is null))');
@@ -516,8 +520,8 @@ class Deal extends CI_Model {
             $this->db->where_in('deal_sources_id',$store);
         }
         $this->db->where('is_active', '1');
-        $this->db->where('hotDealsStart >=', date('Y-m-d'));
-        $this->db->where('hotDealsEnd <', date('Y-m-d'));
+        $this->db->where('hotDealsStart >=', date('Y-m-d H:i:s'));
+        $this->db->where('hotDealsEnd <', date('Y-m-d H:i:s'));
         $this->db->where('cat_id >', '0');
         $this->db->where('coupon_code !=',''); 
         //$this->db->where('((deal_start_date <= NOW() and deal_end_date > NOW()) or (deal_start_date = "0000-00-00 00:00:00" or deal_end_date = "0000-00-00 00:00:00") or (deal_end_date is null or deal_start_date is null))');

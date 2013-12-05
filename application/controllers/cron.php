@@ -32,6 +32,10 @@ class Cron extends CI_Controller {
             }
         }
     }
+    public function inactivatePastDeals(){
+        $this->load->model('Deal');
+        $this->Deal->UpdateActives();
+    }
     public function checkCSV(){
         $this->load->model('Deal');
         $csvs = $this->Deal->getActiveCSV();

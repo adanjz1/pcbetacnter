@@ -1056,15 +1056,17 @@ function __value($fieldName, $e = array()) {
             case 'checkbox':
                 if (!empty($value) && is_array($value) && count($value) > 0) {
                     $tmp = array();
-                    if(count($value) == 1 && $value[1]=="1"){
-                        $value = 1;
-                    }else{
-                        foreach ($value as $k1 => $v1) {
-                            if (isset($e[1][$v1])) {
-                                $tmp[] = $e[1][$v1];
+                    if(!empty($value[1])){
+                        if(count($value) == 1 && $value[1]=="1"){
+                            $value = 1;
+                        }else{
+                            foreach ($value as $k1 => $v1) {
+                                if (isset($e[1][$v1])) {
+                                    $tmp[] = $e[1][$v1];
+                                }
                             }
+                            $value = implode(', ', $tmp);
                         }
-                        $value = implode(', ', $tmp);
                     }
                 } else {
                     $value = '';

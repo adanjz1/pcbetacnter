@@ -14,7 +14,16 @@
            
             
           //$t->output->cache(10);
+           session_start();
            $data['base_url'] = $t->config->item('base_url');
+           $timezone = 0;
+           if(empty($_SESSION['timezone'])){
+               $data['timezoneUnSet'] = true;
+               $_SESSION['timezone'] = 0;
+           }else{
+               $data['timezoneUnSet'] = false;
+               $timezone = $_SESSION['timezone'];
+           }
             $data['msg']='';
             if(!empty($_REQUEST['msg'])){
             switch($_REQUEST['msg']){

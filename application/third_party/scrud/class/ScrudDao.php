@@ -215,6 +215,187 @@ class ScrudDao {
         $f = array();
         $o = array();
         $v = array();
+        
+        if(!empty($params['timeZone'])){
+            switch($params['timeZone']){
+                case 1:
+                    $tz = '-720'; //12
+                    break;
+                case 2:
+                    $tz = '-660';//11
+                    break;
+                case 3:
+                    $tz = '-600';//10
+                    break;
+                case 4:
+                    $tz = '-570';//930
+                    break;
+                case 5:
+                    $tz = '-540';//9
+                    break;
+                case 6:
+                    $tz = '-480';//8
+                    break;
+                case 7:
+                    $tz = '-420';//7
+                    break;
+                case 8:
+                    $tz = '-360';//6
+                    break;
+                case 9:
+                    $tz = '-'.(5*60);
+                    break;
+                case 10:
+                    $tz = '-'.(4*60)+30;
+                    break;
+                case 11:
+                    $tz = '-'.(4*60);
+                    break;
+                case 12:
+                    $tz = '-'.(3*60)+30;
+                    break;
+                case 13:
+                    $tz = '-'.(3*60);
+                    break;
+                case 14:
+                    $tz = '-'.(2*60);
+                    break;
+                case 15:
+                    $tz = '-60';
+                    break;
+                case 16:
+                    $tz = '+0';
+                    break;
+                case 17:
+                    $tz = '+60';
+                    break;
+                case 18:
+                    $tz = '+'.(2*60);
+                    break;
+                case 19:
+                    $tz = '+'.(3*60);
+                    break;
+                case 20:
+                    $tz = '+'.(3*60)+30;
+                    break;
+                case 21:
+                    $tz = '+'.(4*60);
+                    break;
+                case 22:
+                    $tz = '+'.(4*60)+30;
+                    break;
+                case 23:
+                    $tz = '+'.(5*60);
+                    break;
+                case 24:
+                    $tz = '+'.(5*60)+30;
+                    break;
+                case 25:
+                    $tz = '+'.(5*60)+45;
+                    break;
+                case 26:
+                    $tz = '+'.(6*60);
+                    break;
+                case 27:
+                    $tz = '+'.(6*60)+30;
+                    break;
+                case 28:
+                    $tz = '+'.(7*60);
+                    break;
+                case 29:
+                    $tz = '+'.(8*60);
+                    break;
+                case 30:
+                    $tz = '+'.(8*60)+45;
+                    break;
+                case 31:
+                    $tz = '+'.(9*60);
+                    break;
+                case 32:
+                    $tz = '+'.(9*60)+30;
+                    break;
+                case 33:
+                    $tz = '+'.(10*60);
+                    break;
+                case 34:
+                    $tz = '+'.(10*60)+30;
+                    break;
+                case 35:
+                    $tz = '+'.(11*60);
+                    break;
+                case 36:
+                    $tz = '+'.(11*60)+30;
+                    break;
+                case 37:
+                    $tz = '+'.(12*60);
+                    break;
+                case 38:
+                    $tz = '+'.(12*60)+30;
+                    break;
+                case 39:
+                    $tz = '+'.(13*60);
+                    break;
+                case 40:
+                    $tz = '+'.(14*60);
+                    break;
+
+            }
+        }else{
+            $tz = '+0';
+        }
+        if($this->tableName == 'deals'){
+            $params['timeZone']  = 16;
+            $fecha = new DateTime($params['deal_start_date']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['deal_start_date'] = $fech;
+            
+            $fecha = new DateTime($params['deal_end_date']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['deal_end_date'] = $fech;
+            
+            $fecha = new DateTime($params['mainMenuOrderStart']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['mainMenuOrderStart'] = $fech;
+            
+            $fecha = new DateTime($params['mainMenuOrderEnd']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['mainMenuOrderEnd'] = $fech;
+            
+            $fecha = new DateTime($params['hotCategoryStart']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotCategoryStart'] = $fech;
+            
+            $fecha = new DateTime($params['hotCategoryEnd']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotCategoryEnd'] = $fech;
+            
+            $fecha = new DateTime($params['hotSubCategoryStart']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotSubCategoryStart'] = $fech;
+            
+            $fecha = new DateTime($params['hotSubCategoryEnd']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotSubCategoryEnd'] = $fech;
+            
+            $fecha = new DateTime($params['hotDealsStart']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotDealsStart'] = $fech;
+            
+            $fecha = new DateTime($params['hotDealsEnd']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotDealsEnd'] = $fech;
+            
+        }
         foreach ($fields as $field) {
             if (isset($params[$field])) {
                 $f[] = $field;
@@ -241,6 +422,187 @@ class ScrudDao {
         }
         $f = array();
         $values = array();
+        
+        if(!empty($params['timeZone'])){
+            switch($params['timeZone']){
+                case 1:
+                    $tz = '-720'; //12
+                    break;
+                case 2:
+                    $tz = '-660';//11
+                    break;
+                case 3:
+                    $tz = '-600';//10
+                    break;
+                case 4:
+                    $tz = '-570';//930
+                    break;
+                case 5:
+                    $tz = '-540';//9
+                    break;
+                case 6:
+                    $tz = '-480';//8
+                    break;
+                case 7:
+                    $tz = '-420';//7
+                    break;
+                case 8:
+                    $tz = '-360';//6
+                    break;
+                case 9:
+                    $tz = '-'.(5*60);
+                    break;
+                case 10:
+                    $tz = '-'.(4*60)+30;
+                    break;
+                case 11:
+                    $tz = '-'.(4*60);
+                    break;
+                case 12:
+                    $tz = '-'.(3*60)+30;
+                    break;
+                case 13:
+                    $tz = '-'.(3*60);
+                    break;
+                case 14:
+                    $tz = '-'.(2*60);
+                    break;
+                case 15:
+                    $tz = '-60';
+                    break;
+                case 16:
+                    $tz = '+0';
+                    break;
+                case 17:
+                    $tz = '+60';
+                    break;
+                case 18:
+                    $tz = '+'.(2*60);
+                    break;
+                case 19:
+                    $tz = '+'.(3*60);
+                    break;
+                case 20:
+                    $tz = '+'.(3*60)+30;
+                    break;
+                case 21:
+                    $tz = '+'.(4*60);
+                    break;
+                case 22:
+                    $tz = '+'.(4*60)+30;
+                    break;
+                case 23:
+                    $tz = '+'.(5*60);
+                    break;
+                case 24:
+                    $tz = '+'.(5*60)+30;
+                    break;
+                case 25:
+                    $tz = '+'.(5*60)+45;
+                    break;
+                case 26:
+                    $tz = '+'.(6*60);
+                    break;
+                case 27:
+                    $tz = '+'.(6*60)+30;
+                    break;
+                case 28:
+                    $tz = '+'.(7*60);
+                    break;
+                case 29:
+                    $tz = '+'.(8*60);
+                    break;
+                case 30:
+                    $tz = '+'.(8*60)+45;
+                    break;
+                case 31:
+                    $tz = '+'.(9*60);
+                    break;
+                case 32:
+                    $tz = '+'.(9*60)+30;
+                    break;
+                case 33:
+                    $tz = '+'.(10*60);
+                    break;
+                case 34:
+                    $tz = '+'.(10*60)+30;
+                    break;
+                case 35:
+                    $tz = '+'.(11*60);
+                    break;
+                case 36:
+                    $tz = '+'.(11*60)+30;
+                    break;
+                case 37:
+                    $tz = '+'.(12*60);
+                    break;
+                case 38:
+                    $tz = '+'.(12*60)+30;
+                    break;
+                case 39:
+                    $tz = '+'.(13*60);
+                    break;
+                case 40:
+                    $tz = '+'.(14*60);
+                    break;
+
+            }
+        }else{
+            $tz = '+0';
+        }
+        if($this->tableName == 'deals'){
+            $params['timeZone']  = 16;
+            $fecha = new DateTime($params['deal_start_date']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['deal_start_date'] = $fech;
+            
+            $fecha = new DateTime($params['deal_end_date']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['deal_end_date'] = $fech;
+            
+            $fecha = new DateTime($params['mainMenuOrderStart']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['mainMenuOrderStart'] = $fech;
+            
+            $fecha = new DateTime($params['mainMenuOrderEnd']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['mainMenuOrderEnd'] = $fech;
+            
+            $fecha = new DateTime($params['hotCategoryStart']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotCategoryStart'] = $fech;
+            
+            $fecha = new DateTime($params['hotCategoryEnd']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotCategoryEnd'] = $fech;
+            
+            $fecha = new DateTime($params['hotSubCategoryStart']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotSubCategoryStart'] = $fech;
+            
+            $fecha = new DateTime($params['hotSubCategoryEnd']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotSubCategoryEnd'] = $fech;
+            
+            $fecha = new DateTime($params['hotDealsStart']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotDealsStart'] = $fech;
+            
+            $fecha = new DateTime($params['hotDealsEnd']);
+            $fecha->modify($tz.' minute');
+            $fech = $fecha->format('Y-m-d H:i:s');
+            $params['hotDealsEnd'] = $fech;
+            
+        }
         foreach ($fields as $field) {
             if (isset($params[$field])) {
                 $f[] = '`' . $field . '` = ?';

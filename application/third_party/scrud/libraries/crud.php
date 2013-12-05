@@ -869,7 +869,7 @@ class Crud {
         $key = $CI->input->post('key');
         $auth_token = $CI->input->post('auth_token');
         $hook = Hook::singleton();
-        var_dump($this->data[$this->conf['table']]);
+//        var_dump($this->data[$this->conf['table']]);
         foreach ($this->data[$this->conf['table']] as $k => $v){
                
 		    if (isset($this->conf['form_elements'][$this->conf['table'].'.'.$k]) && 
@@ -896,7 +896,7 @@ class Crud {
                          if($vnew>0){
                             $this->data[$this->conf['table']][$k] = 1;
                          }
-                        var_dump($this->data[$this->conf['table']]);
+                        //var_dump($this->data[$this->conf['table']]);
                     }else{
                         $this->data[$this->conf['table']][$k] = $v;
                     }    
