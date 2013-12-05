@@ -378,13 +378,14 @@ class Deals extends CI_Controller {
                     $deal->display_name = $deal->title;
                 }
                 $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="/all-deals" class="prevPath">Deals</a> > <a href="/all-deals" class="activePath">'.$deal->display_name.'</a>';
+                
                 if(empty($deal->image_url)){
-                    $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
+                        $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
                 }else{
-                    $deal->image =$deal->image_url;
+                    $deal->image = str_replace("https://pccounter.s3.amazonaws.com/","http://dr30wky7ya0nu.cloudfront.net/",$deal->image_url);
                 }
-                 if(!Imageexists($deal->image)){
-                    $deal->image = $this->Source->get_dealSourceImg($deal->deal_sources_id);
+                if(!strpos($deal->image,"ttp://") && !strpos($deal->image,'ttps://')){
+                    $deal->image = 'http://www.pccounter.net/media/images/'.$deal->image;
                 }
                 if(!empty($deal->deal_sources_id)){
                     $deal->provider = $this->Source->get_dealSourceStr($deal->deal_sources_id);
