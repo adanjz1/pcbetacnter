@@ -43,7 +43,7 @@ class Coupons extends CI_Controller {
             
             $this->load->model('pages');
             $this->load->helper(array('form', 'url')); 
-            session_start();
+            //session_start();
             if(empty($_SESSION['orderBy']) || $resetSession){
                 $_SESSION['orderBy'] = array();
             }

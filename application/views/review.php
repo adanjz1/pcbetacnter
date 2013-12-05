@@ -74,7 +74,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td colspan="2">
-                                    <img src="{image_url}" alt="" style="max-width:338px;max-height:272px" border="0" class="border"/>
+                                    <img src="{image}" alt="" style="max-width:338px;max-height:272px" border="0" class="border"/>
                                 </td>
                             </tr>
                         </table>

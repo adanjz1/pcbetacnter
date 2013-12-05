@@ -378,7 +378,6 @@ class Deals extends CI_Controller {
                     $deal->display_name = $deal->title;
                 }
                 $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="/all-deals" class="prevPath">Deals</a> > <a href="/all-deals" class="activePath">'.$deal->display_name.'</a>';
-                
                 if(empty($deal->image_url)){
                         $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
                 }else{

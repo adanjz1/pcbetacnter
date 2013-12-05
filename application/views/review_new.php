@@ -67,7 +67,7 @@
     <div class="latest_deal">
         <div class="topReview">
             <div class="image">
-                <img src="{image_url}"/>
+                <img src="{image}"/>
             </div>
             <div class="description">
                 <div class="title">

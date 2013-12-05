@@ -707,7 +707,7 @@ class Crud {
                 $_tmp = " AND ";
                 $aryVal[] = $_GET['key'][$f];
             }
-            session_start();
+            //session_start();
             $crudAuth = $CI->session->userdata('CRUD_AUTH');
             if ($this->globalAccess == false &&
             !empty($crudAuth) &&
