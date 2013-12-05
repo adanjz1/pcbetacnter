@@ -30,6 +30,18 @@ $(function(){
             $('.subTitle').click(function(){
                 $(this).parent().find('.elemToFilter').toggle();
             });
+            $('#deleteAllFilters').click(function(){
+                  $.ajax({
+                    type: "POST",
+                    url: '{siteUrl}ajax/removeAllFilters/',
+                    data: { null:0}
+                  }).done(function( msg ) {
+                     $('#encapsuledDeals').html(msg);
+                     if($('.paginData').html() == ''){
+                         $('.paginator').hide();
+                     }
+                  });
+            });
             $('.deleteFilter').click(function(){
                 if($('#linkGoTo').val() || ($('#linkGoToCat').val() && $(this).attr('rel') == 'subcategories')){
                     document.location= "/"+$(this).attr('link');
@@ -108,7 +120,11 @@ $(function(){
                  {filters}
                  <li val="{name}" rel="{typeText}" class="selectedFiltersLi"><div class="deleteFilter"></div><div class="Type">{type}</div>{value}<div class="clear"></div></li>
                  {/filters}
-                 {deleteAllFilter}
+                 <?php 
+                 if(!empty($filters)){ 
+                     echo $deleteAllFilter; 
+                    } 
+                 ?>
              </ul>
          </div>
      </div>

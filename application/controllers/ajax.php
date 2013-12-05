@@ -281,6 +281,18 @@ class Ajax extends CI_Controller {
                 $this->load->library('parser');
                 $this->parser->parse('deals_new', $data);
         }
+        public function removeAllFilters(){
+            $_SESSION['categories']=array();
+            $_SESSION['subcategories']=array();
+            $_SESSION['stores']=array();
+            $_SESSION['priceMax']=0;
+            $_SESSION['priceMin']=0;
+            $this->load->helper('metaHelper');
+            $this->load->model('Category');
+            $this->load->model('Source');
+            $this->load->helper(array('form', 'url'));
+            $this->ajaxResultFilter(false);
+        }
         public function removeFilter($rel='',$id='',$flag=false){
             $this->load->helper('metaHelper');
             //session_start();
