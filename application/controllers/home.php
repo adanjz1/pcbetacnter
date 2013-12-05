@@ -21,7 +21,7 @@ class Home extends CI_Controller {
        {
         parent::__construct();
        }
-public function index()
+public function index($timeZone="")
 	{
             /**
              * HEADER
@@ -29,6 +29,14 @@ public function index()
 
             
             $this->load->helper('metaHelper');
+            if(!empty($timeZone)){
+                echo'<pre style="text-align:center;font-size:20px;">UTC: '.date('Y-m-d H:i:s').'</pre>';
+                $timeZone = str_replace('GMT','Etc/GMT',$timeZone);
+                date_default_timezone_set($timeZone);
+                echo'<pre style="text-align:center;font-size:20px;">'.$timeZone.': '.date('Y-m-d H:i:s').'</pre>';
+            
+            }
+            
             $this->load->helper(array('form', 'url'));
             
             $data = getConstData($this);

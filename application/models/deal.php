@@ -29,6 +29,7 @@ class Deal extends CI_Model {
         $this->db->limit($qty);
         $query = $this->db->get('deals');
         $a = $query->result();
+//        var_dump($this->db->last_query());
         return $a;
     }
     function getActiveCSV()

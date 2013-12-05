@@ -55,6 +55,10 @@ $route['all-stores/(:num)/(:any)'] = 'stores/index/$1/$2';
 $route["categories/(:num)"] = "categories/index/$1";
 $route["web-hosting-deals"] = "deals/index/0/20/20";
 $route["web-hosting-deals/(:num)"] ="deals/index/$1/20/20";
+$route["EST"] ="home/index/EST";
+$route["PST"] ="home/index/GMT+8";//
+$route["CST"] ="home/index/GMT+6";//
+$route["MST"] ="home/index/MST";
 
 
 /* End of file routes.php */
