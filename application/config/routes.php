@@ -48,6 +48,7 @@ $route['deals-search-(:any)'] = 'deals/index/0/___$1';
 $route['coupon-codes/(:num)'] = 'coupons/index/$1';
 $route['deals-list'] = 'deals';
 $route['Multiple-Deals'] = 'deals/index/_';
+$route['Multiple-Deals/(:num)'] = 'deals/index/_/$1';
 $route['deals-list/(:num)'] = 'deals/index/$1';
 $route['all-stores'] = 'stores/index';
 $route['all-stores/(:num)'] = 'stores/index/$1';
