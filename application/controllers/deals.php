@@ -60,7 +60,6 @@ class Deals extends CI_Controller {
             
             $this->load->model('pages');
             $this->load->helper(array('form', 'url')); 
-            session_start();
             if(empty($_SESSION['orderBy']) || $resetSession){
                 $_SESSION['orderBy'] = array();
             }
@@ -241,13 +240,14 @@ class Deals extends CI_Controller {
                     $starred = $this->Deal->get_lastStarredDeals(15,$limit,$q,$category,$subcat,$store); //Get the other deals
                 }
             }
-        
+            
             $merge = $this->Deal->get_lastDeals(15-count($starred),$limit,$q,$_SESSION['categories'],$_SESSION['subcategories'],$_SESSION['stores'],$_SESSION['priceMin'],$_SESSION['priceMax'],$_SESSION['orderBy']); //Get the other deals
-            $merge = array_merge($starred,$merge);
             
             $data['deals'] = encapsuleDeals($merge,$this,false,3);
             
             $data['totalDeals'] = $this->Deal->get_totalDeals($q,$_SESSION['categories'],$_SESSION['subcategories'],$_SESSION['stores'],$_SESSION['priceMin'],$_SESSION['priceMax']);
+            $merge = array_merge($starred,$merge);
+            
             $this->load->library('pagination');
             //$config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/paginator/'.$qSearch.'/'.$category;
             
@@ -295,6 +295,7 @@ class Deals extends CI_Controller {
             if(count($_SESSION['categories']) == 1 && count($_SESSION['subcategories']) == 0 && count($_SESSION['stores'])==0){
                 $data['linkGoToCat'] = true;
             }
+            
             /*************************FORMATING FILTERS*******************************/
             if(!empty($data['categories'])){
                 $data['categories'] = deleteUsed($data['categories'],'id',$_SESSION['categories'],'categories',$this);

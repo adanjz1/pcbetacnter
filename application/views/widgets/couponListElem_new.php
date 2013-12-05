@@ -4,7 +4,7 @@
                  </div>
                  <div class="couponContent">
                     <div class="dealCategoryData">
-                        <span class="redtext">{categoryStr}</span> ({categoryCount})
+                        <span class="redtext">{categoryStr}</span>
                     </div>
                     <div class="dealTitle">
                         {short_display_name}

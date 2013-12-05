@@ -30,7 +30,7 @@ public function index()
             
             $this->load->helper('metaHelper');
             $this->load->helper(array('form', 'url'));
-            $this->load->library('session');
+            
             $data = getConstData($this);
             $this->load->model('pages');
             $seoPg = $this->pages->getSEOPage('home');
@@ -56,6 +56,7 @@ public function index()
             foreach($bannerDeals as $deal){
                 $arrExclude[] = $deal->id;
             }
+            
             $lastestDeals = $this->Deal->get_lastDealsHome(8,$arrExclude); //Get the other deals
             
             foreach($lastestDeals as $deal){

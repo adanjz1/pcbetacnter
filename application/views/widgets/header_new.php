@@ -34,6 +34,7 @@
 <script type="text/javascript" src="/media/js/new/zclip.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        
      if(<?php echo $timezoneUnSet?>){
             var visitortime = new Date();
             var visitortimezone = -visitortime.getTimezoneOffset()/60;

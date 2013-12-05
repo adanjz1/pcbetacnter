@@ -4,7 +4,7 @@
                  </div>
                  <div class="dealContent">
                     <div class="dealCategoryData">
-                        <span class="redtext">{categoryStr}</span> ({categoryCount})
+                        <span class="redtext">{categoryStr}</span>
                     </div>
                     <div class="dealTitle">
                         <a href="{offerUrl}">{short_display_name}</a>

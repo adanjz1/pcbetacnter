@@ -135,7 +135,7 @@ $(function(){
                  
             </li>
             {/categories}   
-            <li class="categoryIcon placeHolder hiddenCat"></li>
+            <li class="categoryIcon placeHolder hiddenCat" onclick="document.location='{dealsUrl}'"></li>
             <div class="clear"></div>
          </ul>
      </div>

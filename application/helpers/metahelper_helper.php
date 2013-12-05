@@ -14,14 +14,14 @@
            
             
           //$t->output->cache(10);
-           session_start();
+           
            $data['base_url'] = $t->config->item('base_url');
            $timezone = 0;
            if(empty($_SESSION['timezone'])){
-               $data['timezoneUnSet'] = true;
+               $data['timezoneUnSet'] = "true";
                $_SESSION['timezone'] = 0;
            }else{
-               $data['timezoneUnSet'] = false;
+               $data['timezoneUnSet'] = "false";
                $timezone = $_SESSION['timezone'];
            }
             $data['msg']='';
@@ -199,7 +199,8 @@
                   
 
               $t->load->model('Category');
-                $categ_list = $t->Category->get_categories(90);
+                $categ_list = $t->Category->get_categories(30);
+                $data['categArray']= array();
                 foreach ($categ_list as $categ){
                     if(empty($categ->url)){
                         $categ->subCategoryUrl = $t->config->item('base_url').$t->config->item('index_page').'/categories/subcategories/0/'.$categ->id;
@@ -217,6 +218,7 @@
                         $categ->extraClass = '';
                     }
                     //$categ->dealsQty = $t->Deal->getCountDealsByCategory($categ->id);
+                    //$data['categArray'][$categ->id] = $t->Category->get_catCant($categ->id);
                 }
                 $data['categories'] = $categ_list;
                 $data['categoriesMenu'] = $categ_list;
@@ -262,7 +264,7 @@
                 
             return $data;
     }
-    function encapsuleDeals($deals,$t,$hiddenCat=true,$dealsperRow=4){
+    function encapsuleDeals($deals,$t,$hiddenCat=true,$dealsperRow=4,$categoryArray = array()){
             $t->load->model('Review');
             $dealcount=1;
             $lastRowDealCount=1;
@@ -324,7 +326,7 @@
                 }
                 $deal->categoryStr = $t->Category->get_CatName($deal->cat_id);
                 $deal->catUrl = $t->Category->get_CatUrl($deal->cat_id);
-                $deal->categoryCount = $t->Category->get_catCant($deal->cat_id);
+                //$deal->categoryCount = $categoryArray[$deal->cat_id];
                 if($dealcount == 1 ){
                     $deal->activeDeal = 'active';
                 }else{
@@ -351,22 +353,22 @@
     }
     function deleteUsed($array,$type,$value,$flag='',$t){
         $k = 0;
-        foreach($array as $ar){
-            if(!empty($flag) && $flag =='stores'){
-                $ar->dealsQty = $t->Deal->getCountDealsByStoreAndCategoryFilters($ar->deal_source_id,$_SESSION['categories'],$_SESSION['subcategories']);
-            }elseif(!empty($flag) && $flag =='categories'){
-                $ar->dealsQty = $t->Deal->getCountDealsByCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
-            }elseif(!empty($flag) && $flag =='subcategories'){
-                $ar->dealsQty = $t->Deal->getCountDealsBySubCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
-            }
-            foreach($value as $val){
-                if($ar->{$type} == $val){
-                    unset($array[$k]);
-                    break;
-                }
-            }
-            $k++;
-        }
+//        foreach($array as $ar){
+//            if(!empty($flag) && $flag =='stores'){
+//                $ar->dealsQty = $t->Deal->getCountDealsByStoreAndCategoryFilters($ar->deal_source_id,$_SESSION['categories'],$_SESSION['subcategories']);
+//            }elseif(!empty($flag) && $flag =='categories'){
+//                $ar->dealsQty = $t->Deal->getCountDealsByCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
+//            }elseif(!empty($flag) && $flag =='subcategories'){
+//                $ar->dealsQty = $t->Deal->getCountDealsBySubCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
+//            }
+//            foreach($value as $val){
+//                if($ar->{$type} == $val){
+//                    unset($array[$k]);
+//                    break;
+//                }
+//            }
+//            $k++;
+//        }
         //vd($array);
         return $array;
     }

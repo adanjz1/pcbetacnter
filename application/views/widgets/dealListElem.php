@@ -72,6 +72,6 @@
                     </a>
                 </div>
                 <div class="dealCategoryList">
-                    <a href="{siteUrl}{catUrl}">{categoryStr}({categoryCount})</a>
+                    <a href="{siteUrl}{catUrl}">{categoryStr}</a>
                 </div>
             </div>
