@@ -384,8 +384,8 @@ class Deals extends CI_Controller {
                 }else{
                     $deal->image = str_replace("https://pccounter.s3.amazonaws.com/","http://dr30wky7ya0nu.cloudfront.net/",$deal->image_url);
                 }
-                if(!strpos($deal->image,"ttp://") && !strpos($deal->image,'ttps://')){
-                    $deal->image = 'http://www.pccounter.net/media/images/'.$deal->image;
+                if(!strpos($deal->image_url,"ttp://") && !strpos($deal->image_url,'ttps://')){
+                    $deal->image = 'http://www.pccounter.net/media/images/'.$deal->image_url;
                 }
                 if(!empty($deal->deal_sources_id)){
                     $deal->provider = $this->Source->get_dealSourceStr($deal->deal_sources_id);
