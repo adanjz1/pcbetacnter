@@ -25,7 +25,7 @@ class Ajax extends CI_Controller {
            
         }
         public function timezone(){
-            session_start();
+            //session_start();
             $_SESSION['timezone'] = $_GET['time'];
         }
         public function twlogin(){
@@ -283,7 +283,7 @@ class Ajax extends CI_Controller {
         }
         public function removeFilter($rel='',$id='',$flag=false){
             $this->load->helper('metaHelper');
-            session_start();
+            //session_start();
             if($rel == 'priceMax'){
                 $_SESSION['priceMax'] = 0;
                 $_SESSION['priceMin'] = 0;
@@ -300,13 +300,13 @@ class Ajax extends CI_Controller {
         }
         public function addFilter($rel='',$id='',$flag=true){
             $this->load->helper('metaHelper');
-            session_start();
+            //session_start();
             $_SESSION[$rel][] = $id;
             $this->ajaxResultFilter($flag);
         }
         public function addPrice($priceMin=0,$priceMax=0){
             $this->load->helper('metaHelper');
-            session_start();
+            //ssession_start();
             if(!empty($priceMin) || !empty($priceMax)){
                 $_SESSION['priceMax'] = $priceMax;
                 $_SESSION['priceMin'] = $priceMin;
@@ -315,7 +315,7 @@ class Ajax extends CI_Controller {
         }
         public function addOrder($elem,$order){
             $this->load->helper('metaHelper');
-            session_start();
+            //session_start();
             if(!empty($elem) && !empty($order)){
                 $_SESSION['orderBy'][0] = $elem;
                 $_SESSION['orderBy'][1] = $order;
