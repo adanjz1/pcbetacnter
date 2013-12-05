@@ -154,6 +154,7 @@ $(function(){
                  
             </li>
             {/stores}
+            <li class="storeIcon hiddenCat  allstoresIcon" onclick="document.location='{storesUrl}'">All stores</li>
             <div class="clear"></div>
          </ul>
      </div>
