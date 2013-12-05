@@ -24,7 +24,7 @@ class Scrud extends Admin_Controller {
         $com = $query->row_array();
         
         $_GET['table'] = $com['component_table'];
-        var_dump(sha1('com_'.$comId));
+        //var_dump(sha1('com_'.$comId));
         if($com['component_table'] =='deals'){
             $comSha='014e219d72b849b9438e8583ba877fcaa3c6ef9f';
         }else{
