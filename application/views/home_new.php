@@ -146,14 +146,18 @@ $(function(){
      <div class="clear"></div>
      <div class="list">
          <ul>
-             {stores}
-             <li class="storeIcon {extraClass}" onclick="document.location='{dealsStore}'">
+             <?php foreach($stores  as $store){
+                 if($store->in_home){?>
+             <li class="storeIcon <?=$store->extraClass?>" onclick="document.location='<?= $store->dealsStore?>'">
                   <div style="display: table-cell; vertical-align: middle;text-align: center;">
-                    <img src="{image}">
+                    <img src="<?=$store->image?>">
                   </div>
                  
             </li>
-            {/stores}
+            
+                 <?php }
+                 
+                 } ?>
             <li class="storeIcon hiddenCat  allstoresIcon" onclick="document.location='{storesUrl}'">All stores</li>
             <div class="clear"></div>
          </ul>

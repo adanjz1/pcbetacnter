@@ -95,7 +95,7 @@ class Source extends CI_Model {
         return $t;
     }
     function get_stores($qty='',$limit='',$initial=''){
-        $this->db->select('deal_sources.deal_source_id, deal_sources.deal_source_name, deal_sources.name, deal_sources.deal_source_url, deal_sources.deal_source_logo_url,deal_sources.url, count(deals.id) as dealsQty');
+        $this->db->select('deal_sources.deal_source_id,deal_sources.in_home, deal_sources.deal_source_name, deal_sources.name, deal_sources.deal_source_url, deal_sources.deal_source_logo_url,deal_sources.url, count(deals.id) as dealsQty');
         if(!empty($initial)){
             if($initial == '0-9'){
                 $this->db->or_like('deal_source_name','0','after');
