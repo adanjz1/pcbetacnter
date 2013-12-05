@@ -353,7 +353,7 @@
     }
     function deleteUsed($array,$type,$value,$flag='',$t){
         $k = 0;
-//        foreach($array as $ar){
+       foreach($array as $ar){
 //            if(!empty($flag) && $flag =='stores'){
 //                $ar->dealsQty = $t->Deal->getCountDealsByStoreAndCategoryFilters($ar->deal_source_id,$_SESSION['categories'],$_SESSION['subcategories']);
 //            }elseif(!empty($flag) && $flag =='categories'){
@@ -361,14 +361,14 @@
 //            }elseif(!empty($flag) && $flag =='subcategories'){
 //                $ar->dealsQty = $t->Deal->getCountDealsBySubCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
 //            }
-//            foreach($value as $val){
-//                if($ar->{$type} == $val){
-//                    unset($array[$k]);
-//                    break;
-//                }
-//            }
-//            $k++;
-//        }
+            foreach($value as $val){
+                if($ar->{$type} == $val){
+                    unset($array[$k]);
+                    break;
+                }
+            }
+            $k++;
+        }
         //vd($array);
         return $array;
     }
