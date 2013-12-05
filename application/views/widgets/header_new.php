@@ -6,6 +6,7 @@
         <title>
             {pageTitle}
         </title>
+        <link rel="shortcut icon" href="media/images/new/favicon.ico" />
         <meta name="Title" content="{metaTitle}">
         <meta name="keywords" content="{metaKeywords}"/>
         <meta name="description" content="{metaDescription}"/>

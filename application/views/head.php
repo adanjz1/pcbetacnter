@@ -3,6 +3,7 @@
 
 <title><?php echo isset($title) ? $title.' - '.lang('website_title') : lang('website_title'); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="/media/images/new/favicon.ico" />
 <meta name="description" content="">
 <meta name="author" content="A3M">
 

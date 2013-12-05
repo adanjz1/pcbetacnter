@@ -4,6 +4,7 @@
         <meta charset="<?php echo __HTML_CHARSET__; ?>">
         <title><?php echo $this->lang->line('codeigniter_admin_pro'); ?> login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/media/images/new/favicon.ico" />
         <meta name="description" content="">
         <meta name="author" content="">
 
