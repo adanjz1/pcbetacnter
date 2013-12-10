@@ -242,7 +242,6 @@ class Ajax extends CI_Controller {
                     }else{
                         $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
                     }
-                    $categ->dealsQty = $this->Deal->getCountDealsBySubCategory($categ->id);
                 }
                 $data['subCategories'] = $categ_list;
             }
