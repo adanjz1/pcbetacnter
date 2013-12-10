@@ -34,21 +34,22 @@
 
 <script type="text/javascript" src="/media/js/new/zclip.js"></script>
 <script type="text/javascript">
+//     if(<?php // echo $timezoneUnSet?>){
+//            var visitortime = new Date();
+//            var visitortimezone = -visitortime.getTimezoneOffset()/60;
+//            $.ajax({
+//                type: "GET",
+//                url: '{siteUrl}ajax/timezone/',
+//                data: 'time='+ visitortimezone,
+//                success: function(){
+//                    location.reload();
+//                }
+//            });
+//        }
+//    
+
     $(document).ready(function(){
-        
-     if(<?php echo $timezoneUnSet?>){
-            var visitortime = new Date();
-            var visitortimezone = -visitortime.getTimezoneOffset()/60;
-            $.ajax({
-                type: "GET",
-                url: '{siteUrl}ajax/timezone/',
-                data: 'time='+ visitortimezone,
-                success: function(){
-                    location.reload();
-                }
-            });
-        }
-        $('.unchecked').click(function(){
+            $('.unchecked').click(function(){
             $(this).removeClass('unchecked');
             $(this).addClass('checked');
         });

@@ -146,9 +146,13 @@ $(function(){
      <div class="clear"></div>
      <div class="list">
          <ul>
-             <?php foreach($stores  as $store){
-                 if($store->in_home){?>
-             <li class="storeIcon <?=$store->extraClass?>" onclick="document.location='<?= $store->dealsStore?>'">
+             <?php 
+             $cantShown = 0;
+             foreach($stores  as $store){
+                 if($store->in_home){
+                     $cantShown++;
+                     ?>
+             <li class="storeIcon <?= ($cantShown>8)?'hiddenCat':''?>" onclick="document.location='<?= $store->dealsStore?>'">
                   <div style="display: table-cell; vertical-align: middle;text-align: center;">
                     <img src="<?=$store->image?>">
                   </div>
