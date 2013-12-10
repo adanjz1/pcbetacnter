@@ -128,11 +128,14 @@ class Category extends CI_Model {
     }
     function get_Subcategories($qty='',$limit='',$category)
     {
+        $this->db->select('subcategories.id,subcategories.url,subcategories.name, count(deals.id) as dealsQty');
+        $this->db->join('deals','deals.sub_cat_id = subcategories.id');
         if(!empty($qty)){
             $this->db->limit($qty,$limit);
         }
         $this->db->where('idCategory',$category);
         $this->db->order_by("id", "asc"); 
+        $this->db->group_by('subcategories.id');
         $query = $this->db->get('subcategories');
         return $query->result();
     }

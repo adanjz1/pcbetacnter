@@ -279,7 +279,6 @@ class Deals extends CI_Controller {
                         }else{
                             $categ->subCategoryUrl = $this->config->item('base_url').$this->config->item('index_page').$categ->url;
                         }
-                        $categ->dealsQty = $this->Deal->getCountDealsBySubCategory($categ->id);
                     }else{
                         unset($categ);
                     }
@@ -287,6 +286,14 @@ class Deals extends CI_Controller {
                 }
                 $data['subCategories'] = $categ_list;
             }
+//                $time = microtime();
+//                $time = explode(' ', $time);
+//                $time = $time[1] + $time[0];
+//                $finish = $time;
+//                $total_time = round(($finish - $start), 4);
+//                echo 'Page generated in '.$total_time.' seconds.';
+                //die();
+
             $data['linkGoTo']=false;
             $data['linkGoToCat']=false;
             if(count($_SESSION['categories']) == 0 && count($_SESSION['subcategories']) == 0 && count($_SESSION['stores'])==0){
@@ -311,7 +318,7 @@ class Deals extends CI_Controller {
                 $data['stores'] = deleteUsed($data['stores'],'deal_source_id',$_SESSION['stores'],'stores',$this);
                 $data['stores'] = array_filter($data['stores'],'normalizeArray');
              }
-//            die();
+        
               $data['noDeals'] =  ((count($data['deals'])==0)?'<div class="pro_box">
                                                         <span style="color:#FF0000;">NO DEALS ARE THERE.</span>
                                                  </div>':'');
