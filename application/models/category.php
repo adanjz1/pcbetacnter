@@ -18,23 +18,17 @@ class Category extends CI_Model {
     }
     function get_categories($qty='',$limit='')
     {
-        $this->db->select('categories.id,categories.url, categories.couponCatUrl,categories.name, count(deals.id) as dealsQty');
+        $this->db->select('*');
         if($qty != ''){
             $this->db->limit($qty,$limit);
         }
-        $this->db->join('deals','deals.cat_id = categories.id');
-        $this->db->where('deals.coupon_code','');
-        $this->db->where('is_active', '1');
-        $this->db->where('cat_id >', '0');
-        $this->db->where('sub_cat_id >', '0');
-        $this->db->where('coupon_code','');
-       
-        $this->db->group_by('categories.id');
+        
         $this->db->order_by("id", "asc"); 
         $query = $this->db->get('categories');
         
         return $query->result();
     }
+    
     function get_categoryById($cat){
         $this->db->where('id',$cat);
         $query = $this->db->get('categories');
@@ -128,14 +122,16 @@ class Category extends CI_Model {
     }
     function get_Subcategories($qty='',$limit='',$category)
     {
-        $this->db->select('subcategories.id,subcategories.url,subcategories.name, count(deals.id) as dealsQty');
-        $this->db->join('deals','deals.sub_cat_id = subcategories.id');
         if(!empty($qty)){
             $this->db->limit($qty,$limit);
         }
         $this->db->where('idCategory',$category);
         $this->db->order_by("id", "asc"); 
-        $this->db->group_by('subcategories.id');
+        $query = $this->db->get('subcategories');
+        return $query->result();
+    }
+    function get_AllSubcategories()
+    {
         $query = $this->db->get('subcategories');
         return $query->result();
     }

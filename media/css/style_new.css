@@ -1342,3 +1342,93 @@ iframe{
     font-weight: bold;
     color: #9a9a9a;
 }
+.listDeals .list .couponItem{
+    background: url(../images/new/couponBox.png) no-repeat;
+    width: 350px;
+    height: 170px;
+    margin-bottom: 17px;
+    background-size: 100%;
+    float: left;
+}
+.listDeals .coupons{
+    width: 700px;
+}
+.listDeals .couponActions .share{
+    margin-left: 50px;
+    background: url(../images/new/shareIconGrey.png) no-repeat;
+    width: 18px;
+    height: 28px;
+    float: left;
+    cursor: pointer;
+    background-size: 100%;
+}
+.listDeals .couponActions .commentQty{
+    margin-left: 28px;
+    margin-top: 0px;
+    color: #a89b90;
+}
+.listDeals .couponActions  .comment{
+    background: url(../images/new/commentIconGrey.png) no-repeat;
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-left: 42px;
+    margin-top: 5px;
+    cursor: pointer;
+    background-size: 100%;
+}
+.listDeals .shareBox{
+    margin-top: -5px;
+}
+.listDeals .couponActions .thumbs{
+    background: url(../images/new/likeIconGrey.png) no-repeat;
+    width: 18px;
+    height: 27px;
+    float: left;
+    cursor: pointer;
+    background-size: 100%;
+}
+.listDeals.coupons{
+    width:700px;
+}
+.listDeals .thumbsValue{
+    margin-top: 5px;
+}
+.listDeals .couponActions{
+    margin-top: -50px;
+    margin-left: 175px;
+}
+.listDeals .couponBtn div{
+    background-color: #f49200;
+    border: 0px;
+    width: 175px;
+    border-radius: 5px;
+    font-size: 10px;
+    padding: 5px 0px;
+    color: #fff;
+    margin-left: 160px;
+    margin-top: -25px;
+    text-align: center;
+}
+.listDeals .couponContent{
+   width: 185px;
+   height: 98px;
+   margin: auto;
+   overflow: hidden;
+   float: right;
+   position: absolute;
+   margin-top: -154px;
+   margin-left: 161px;
+   font-size: 11px;
+}
+.listDeals .couponImage{
+    text-align: center;
+    width: 144px;
+    margin-left: 12px;
+    height: 153px;
+}
+.listDeals .couponImage img{
+    max-width: 136px;
+    max-height: 126px;
+    margin-top: 26px;
+}

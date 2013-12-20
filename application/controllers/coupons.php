@@ -22,7 +22,8 @@ class Coupons extends CI_Controller {
         parent::__construct();
        }
 	
-        public function index( $limit='',$qSearch='',$category='',$subcat='',$store='',$priceMin=0,$priceMax=0,$orderBy='[json]'){
+        public function index( $limit='',$qSearch='',$category='',$subcat='',$store='',$orderBy='[json]'){
+            
             $q = $qSearch;
             $resetSession = false;
             if(empty($limit)){
@@ -33,38 +34,35 @@ class Coupons extends CI_Controller {
                 $q = '';
             }
             $this->load->helper('metaHelper');
-            if(!empty($q)){
-                $q = substr($qSearch, 3);
-                if(!empty($q)){
+            if(empty($limit)){
                     $resetSession  = true;
-                }
             }
             $this->load->library('session');
             
             $this->load->model('pages');
             $this->load->helper(array('form', 'url')); 
             //session_start();
-            if(empty($_SESSION['orderBy']) || $resetSession){
-                $_SESSION['orderBy'] = array();
+            if(empty($_SESSION['c_orderBy']) || $resetSession){
+                $_SESSION['c_orderBy'] = array();
             }
-            if(empty($_SESSION['categories']) || $resetSession){
-                $_SESSION['categories'] = array();
+            if(empty($_SESSION['c_categories']) || $resetSession){
+                $_SESSION['c_categories'] = array();
             }
-            if(empty($_SESSION['subcategories']) || $resetSession){
-                $_SESSION['subcategories'] = array();
+            if(empty($_SESSION['c_subcategories']) || $resetSession){
+                $_SESSION['c_subcategories'] = array();
             }
-            if(empty($_SESSION['stores']) || $resetSession){
-                $_SESSION['stores'] = array();
+            if(empty($_SESSION['c_stores']) || $resetSession){
+                $_SESSION['c_stores'] = array();
             }
             
-            if(!empty($category) && !in_array($category, $_SESSION['categories'])){
-                $_SESSION['categories'][] = $category;
+            if(!empty($category) && !in_array($category, $_SESSION['c_categories'])){
+                $_SESSION['c_categories'][] = $category;
             }
-            if(!empty($subcat) && !in_array($subcat, $_SESSION['subcategories'])){
-                $_SESSION['subcategories'][] = $subcat;
+            if(!empty($subcat) && !in_array($subcat, $_SESSION['c_subcategories'])){
+                $_SESSION['c_subcategories'][] = $subcat;
             }
-            if(!empty($store) && !in_array($store, $_SESSION['stores'])){
-                $_SESSION['stores'][] = $store;
+            if(!empty($store) && !in_array($store, $_SESSION['c_stores'])){
+                $_SESSION['c_stores'][] = $store;
             }
             
             $data = getConstData($this);
@@ -79,13 +77,13 @@ class Coupons extends CI_Controller {
                 $data['deleteAllFilter']  = '<li id="deleteAllFilters">DELETE ALL</li>';
             }
             
-            foreach($_SESSION['categories'] as $filter){
+            foreach($_SESSION['c_categories'] as $filter){
                 $data['filters'][] = array('name'=>$filter,'typeText'=>'categories','type'=>'Category','value'=>$this->Category->getCategoryNameById($filter));
             }
-            foreach($_SESSION['subcategories'] as $filter){
+            foreach($_SESSION['c_subcategories'] as $filter){
                 $data['filters'][] = array('name'=>$filter,'typeText'=>'subcategories','type'=>'Subcategory','value'=>$this->Category->getSubCategoryNameById($filter));
             }
-            foreach($_SESSION['stores'] as $filter){
+            foreach($_SESSION['c_stores'] as $filter){
                 $data['filters'][] = array('name'=>$filter,'typeText'=>'stores','type'=>'Store','value'=>$this->Source->get_dealSourceStr($filter));
             }
             
@@ -144,10 +142,10 @@ class Coupons extends CI_Controller {
                     $starred = $this->Deal->get_lastStarredCoupons(16,$limit,$q,$category,$subcat,$store); //Get the other deals
                 }
             }
-            $merge = $this->Deal->get_lastCoupons(16-count($starred),$limit,$q,$_SESSION['categories'],$_SESSION['subcategories'],$_SESSION['stores'],$_SESSION['orderBy']); //Get the other deals
+            $merge = $this->Deal->get_lastCoupons(16-count($starred),$limit,$q,$_SESSION['c_categories'],$_SESSION['c_subcategories'],$_SESSION['c_stores'],$_SESSION['c_orderBy']); //Get the other deals
             $merge = array_merge($starred,$merge);
             $data['deals'] = encapsuleDeals($merge,$this,false,3);
-            $data['totalDeals'] = $this->Deal->get_totalCoupons($q,$_SESSION['categories'],$_SESSION['subcategories'],$_SESSION['stores']);
+            $data['totalDeals'] = $this->Deal->get_totalCoupons($q,$_SESSION['c_categories'],$_SESSION['c_subcategories'],$_SESSION['c_stores']);
             $this->load->library('pagination');
             //$config['base_url'] = $this->config->item('base_url').$this->config->item('index_page').'/deals/paginator/'.$qSearch.'/'.$category;
             $_SESSION['uriSegment'] = $this->uri->segments[1];
@@ -161,16 +159,27 @@ class Coupons extends CI_Controller {
             $data['paginator'] = $this->pagination->create_links();
             $data['subCategories'] = array();
            //arraymap, eliminar elementos con dealsQty == 0
-            if(count($_SESSION['subcategories']) > 0){
+            if(count($_SESSION['c_subcategories']) > 0){
                 $data['categories'] = array();
             }
             $data['subCategories'] = array();
             
             /*************************FORMATING FILTERS*******************************/
             if(!empty($data['categories'])){
-                $data['categories'] = deleteUsed($data['categories'],'id',$_SESSION['categories'],'categories',$this);
-                $data['categories'] = array_filter($data['categories'],'normalizeArray');
+                $data['categories'] = deleteUsed($data['categories'],'id',$_SESSION['c_categories'],'categories',$this);
+                $data['categories'] = array_filter($data['categories'],'c_normalizeArray');
             }
+        
+            if(!empty($data['subCategories'])){
+                $data['subCategories'] = deleteUsed($data['subCategories'],'id',$_SESSION['c_subcategories'],'subcategories',$this);
+                $data['subCategories'] = array_filter($data['subCategories'],'c_normalizeArray');
+            }
+            
+            if(!empty($data['stores'])){
+                $data['stores'] = deleteUsed($data['stores'],'deal_source_id',$_SESSION['c_stores'],'stores',$this);
+                $data['stores'] = array_filter($data['stores'],'c_normalizeArray');
+             }
+
             $arrayOrder = $data['categories'];
             $orderTx = '';
             $orderAll = false;
@@ -201,9 +210,34 @@ class Coupons extends CI_Controller {
                                                  </div>':'');
                 $data['topStores'] = array();
               /**
-               * Footer
+               * ORDER
                */
               /**********************************************/
+                
+                $arrayOrder = array(
+                                array('val'=>'id','rel'=>'desc','text'=>'Newest'),
+                                array('val'=>'id','rel'=>'asc','text'=>'Oldest'),
+                                array('val'=>'thumbs','rel'=>'desc','text'=>'Recommended')
+                );
+            $orderTx = '';
+            if(empty($_SESSION['orderBy'])){
+               $orderTx .= '<li val="id" rel="desc" class="elemOrder displayable">Newest</li>'; 
+               unset($arrayOrder[0]);
+            }else{
+                $k=0;
+                foreach($arrayOrder as $arr){
+                    if($_SESSION['orderBy'][0] == $arr['val'] && $_SESSION['orderBy'][1]==$arr['rel']){
+                        $orderTx .= '<li val="'.$arr['val'].'" rel="'.$arr['rel'].'" class="elemOrder displayable">'.$arr['text'].'</li>'; 
+                        unset($arrayOrder[$k]);
+                        break;
+                    }
+                    $k++;
+                }
+            }
+            foreach($arrayOrder as $arr){
+                $orderTx .= '<li val="'.$arr['val'].'" rel="'.$arr['rel'].'" class="elemOrder orderHidden">'.$arr['text'].'</li>'; 
+            }
+            $data['orderDeals'] = '<ul>'.$orderTx. '</ul>';
                 
                 $this->load->library('parser');
                 $this->parser->parse('widgets/header_new', $data);

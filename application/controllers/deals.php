@@ -23,11 +23,6 @@ class Deals extends CI_Controller {
        }
 	
         public function index( $limit='',$qSearch='',$category='',$subcat='',$store='',$priceMin=0,$priceMax=0,$orderBy='[json]'){
-            
-            $time = microtime();
-            $time = explode(' ', $time);
-            $time = $time[1] + $time[0];
-            $start = $time;
 
             $q = $qSearch;
             $resetSession = false;

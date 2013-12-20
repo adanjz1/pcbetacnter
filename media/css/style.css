@@ -2639,3 +2639,11 @@ background: none !important;}
     margin-bottom: 10px;
     
 }
+.listDeals .couponItem{
+    background: url(../images/new/couponBox.png) no-repeat;
+    width: 330px;
+    height: 231px;
+    margin-bottom: 17px;
+    background-size: 100%;
+    float: right;
+}

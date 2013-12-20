@@ -755,7 +755,22 @@ class Deal extends CI_Model {
         //vd($this->db->last_query());
         return $total;
     }
-    
+    function getDealsForEditCat($cat){
+        $this->db->select('deals.title,deals.image_url,deals.id, deals.description, categories.name as category, subcategories.name as subcategory');
+        $this->db->where('cat_id',$cat);
+        $this->db->join('categories','deals.cat_id = categories.id');
+        $this->db->join('subcategories','deals.sub_cat_id = subcategories.id');
+        $query = $this->db->get('deals');
+        return $query->result();
+    }
+    function editDealCat($idDeal,$cat,$subcat){
+        $this->db->where('id',$idDeal);
+        $data = array(
+               'cat_id' => $cat,
+                'sub_cat_id' => $subcat
+            );
+        $this->db->update('deals',$data);
+    }
     function get_dealById($id){
         $this->db->where('id',$id);
         $query = $this->db->get('deals');

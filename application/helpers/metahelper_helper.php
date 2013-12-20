@@ -280,7 +280,7 @@
                     $deal->display_name = $deal->title;
                 }
                 if(empty($deal->image_url)){
-                    $deal->image = 'media/images/noImage.jpg';
+                    $deal->image = 'noImage.jpg';
                 }else{
                     $deal->image = str_replace("https://pccounter.s3.amazonaws.com/","http://dr30wky7ya0nu.cloudfront.net/",$deal->image_url);
                 }
@@ -351,16 +351,12 @@
     function normalizeArray($array){
         return (!empty($array->dealsQty));
     }
+    function c_normalizeArray($array){
+        return (!empty($array->couponsQty));
+    }
     function deleteUsed($array,$type,$value,$flag='',$t){
         $k = 0;
        foreach($array as $ar){
-//            if(!empty($flag) && $flag =='stores'){
-//                $ar->dealsQty = $t->Deal->getCountDealsByStoreAndCategoryFilters($ar->deal_source_id,$_SESSION['categories'],$_SESSION['subcategories']);
-//            }elseif(!empty($flag) && $flag =='categories'){
-//                $ar->dealsQty = $t->Deal->getCountDealsByCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
-//            }elseif(!empty($flag) && $flag =='subcategories'){
-//                $ar->dealsQty = $t->Deal->getCountDealsBySubCategoryAndStoreFilters($ar->id,$_SESSION['stores']);
-//            }
             foreach($value as $val){
                 if($ar->{$type} == $val){
                     unset($array[$k]);
@@ -369,7 +365,6 @@
             }
             $k++;
         }
-        //vd($array);
         return $array;
     }
 ?>
