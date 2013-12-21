@@ -31,6 +31,9 @@ class Cron extends CI_Controller {
                 $this->Deal->saveImage($deal->id,$this->Source->get_dealSourceImg($deal->deal_sources_id));
             }
         }
+        $message = "The cron job is running \r\n DeleteImages:".$msg."\r\n";
+         
+        mail('adanzweig@gmail.com', 'Pccounter Optimize-Image cron', $message);
     }
     public function inactivatePastDeals(){
         $this->load->model('Deal');
@@ -101,7 +104,6 @@ class Cron extends CI_Controller {
         foreach($arr as $k=>$v){
             $msg .= "Key= ".$k.' ==> '.$v.'\r\n';
         }
-        var_dump($msg);
          $message = "The cron job is running \r\n Images:".$msg."\r\n";
          
         mail('adanzweig@gmail.com', 'Pccounter Optimize-Image cron', $message);
@@ -109,7 +111,9 @@ class Cron extends CI_Controller {
     public function index(){
         $msg = '';
        
-
+        $message = "The cron job is running \r\n CRAWL: start\r\n";
+         
+        mail('adanzweig@gmail.com', 'Pccounter Optimize-Image cron', $message);
        ini_set('memory_limit', '256M');
        error_reporting(E_ALL);  
        ini_set('display_errors','On');
@@ -118,6 +122,9 @@ class Cron extends CI_Controller {
         }
     //}
     //public function linkShare() {
+        $message = "The cron job is running \r\n CRAWL: run.".$_GET['debug']."\r\n";
+         
+        mail('adanzweig@gmail.com', 'Pccounter Optimize-Image cron', $message);
         $this->load->model('Deal');
         $this->load->model('Source');
         $this->load->model('Category');
