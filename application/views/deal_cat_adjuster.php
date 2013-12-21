@@ -34,7 +34,7 @@
             <td><input type="checkbox" name="check[]" value="<?=$deal->id?>"></td>
             <td><img src="<?=$deal->image_url?>" width="100"  height="100"></td>
             <td><?=$deal->title?></td>
-            <td><?=substr($deal->description,0,100)?></td>
+            <td><?=substr(strip_tags($deal->description),0,100)?></td>
             <td><?=$deal->category?></td>
             <td><?=$deal->subcategory?></td>
         </tr>
