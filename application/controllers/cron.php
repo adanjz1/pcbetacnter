@@ -139,7 +139,7 @@ class Cron extends CI_Controller {
         if(!empty($_GET['setInactive'])){
             $this->Deal->set_activation(); //deactivate all deals
         }
-        
+        die('sasa');
     if(empty($_GET['debug']) || $_GET['debug'] == 'linkshare'){
         
         set_time_limit(0);
