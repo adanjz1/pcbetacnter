@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"ids":["title","text"],"table":{"crudTitle":"rightBox manager","crudRowsPerPage":"20"},"filter":{"list":["id","title","text"],"atrr":{"text":{"alias":"Text"},"title":{"alias":"Title"},"id":{"alias":"id"}}},"column":{"list":["id","title","text"],"actived":["title"],"atrr":{"text":{"alias":"Text"},"title":{"alias":"Title"},"id":{"alias":"id"}}},"frm_type":"2"}

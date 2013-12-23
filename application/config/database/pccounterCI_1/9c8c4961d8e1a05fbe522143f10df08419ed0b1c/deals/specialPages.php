@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"field":"specialPages","label":"Special Pages","type":"select","type_options":{"size":"210","width":"300","height":"100","thumbnail":"mini"},"validation":"","multiple":"multiple","db_options":{"table":"specialpages","key":"id","value":"name"},"list_choose":"database"}

@@ -1,0 +1,2 @@
+<?php exit; ?>
+{"field":"idCategory","label":"Category","type":"autocomplete","type_options":{"size":"210","width":"300","height":"100","thumbnail":"mini"},"validation":"","db_options":{"table":"categories","key":"id","value":"name"},"list_choose":"database"}

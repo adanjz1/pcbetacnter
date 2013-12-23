@@ -88,7 +88,7 @@ class Cron extends CI_Controller {
     }
     public function optimizeImages(){
         
-         
+        $this->load->model('Deal');
         $arr = array();
         $deals = $this->Deal->getUnoptimizedImages(200);
         foreach($deals as $deal){
