@@ -25,6 +25,9 @@ class Source extends CI_Model {
     }
     function get_dealSourceIdByStr($dealSourceStr)
     {
+        $this->db->stop_cache();
+        $this->db->flush_cache();
+
         $this->db->where('deal_source_name', $dealSourceStr);
         $query = $this->db->get('deal_sources');
         $row = $query->result();
