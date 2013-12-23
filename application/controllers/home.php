@@ -60,6 +60,9 @@ public function index($timeZone="")
             $this->load->model('Category');
             $this->load->model('Source');
             $bannerDeals = $this->Deal->get_mainMenuDeals(5); //Get the main menu deal list
+            if (empty($bannerDeals)){
+                $bannerDeals = $this->Deal->get_lastDealsHome(5,array()); //Get the other deals    
+            }
             $arrExclude=array();
             foreach($bannerDeals as $deal){
                 $arrExclude[] = $deal->id;
