@@ -135,6 +135,14 @@ class Category extends CI_Model {
         $query = $this->db->get('subcategories');
         return $query->result();
     }
+    function UpdateDealsQty()
+    {
+        $this->db->query('update categories set dealsQty = (select count(*) from deals where deals.cat_id = categories.id and deal_start_date < NOW() and deal_end_date > NOW() and coupon_code="" and sub_cat_id > 0) ,couponsQty = (select count(*) from deals where deals.cat_id = categories.id and deal_start_date < NOW() and deal_end_date > NOW() and coupon_code!="" and sub_cat_id > 0)');
+    }
+    function UpdateDealsQtySubCat()
+    {
+        $this->db->query('update subcategories set dealsQty = (select count(*) from deals where deals.sub_cat_id = subcategories.id and deal_start_date < NOW() and deal_end_date > NOW() and coupon_code="" and sub_cat_id > 0) ,couponsQty = (select count(*) from deals where deals.sub_cat_id = subcategories.id and deal_start_date < NOW() and deal_end_date > NOW() and coupon_code!="" and sub_cat_id > 0)');
+    }
     function get_totalSubCategories($category){
         $this->db->where('idCategory',$category);
          $this->db->from('subcategories');

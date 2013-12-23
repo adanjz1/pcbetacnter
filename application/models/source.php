@@ -120,6 +120,10 @@ class Source extends CI_Model {
         $query = $this->db->get('deal_sources');
         return $query->result();
     }
+    function UpdateDealsQty()
+    {
+        $this->db->query('update deal_sources set dealsQty = (select count(*) from deals where deals.deal_sources_id = deal_sources.deal_source_id and deal_start_date < NOW() and deal_end_date > NOW() and coupon_code="" and sub_cat_id > 0) ,couponsQty = (select count(*) from deals where deals.deal_sources_id = deal_sources.deal_source_id and deal_start_date < NOW() and deal_end_date > NOW() and coupon_code!="" and sub_cat_id > 0)');
+    }
 }
 
 ?>

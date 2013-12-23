@@ -39,6 +39,14 @@ class Cron extends CI_Controller {
         $this->load->model('Deal');
         $this->Deal->UpdateActives();
     }
+    public function updatedealsQty(){
+        $this->load->model('Deal');
+        $this->load->model('Source');
+        $this->load->model('Category');
+        $this->Category->UpdateDealsQty();
+        $this->Category->UpdateDealsQtySubCat();
+        $this->Source->UpdateDealsQty();
+    }
     public function checkCSV(){
         $this->load->model('Deal');
         $csvs = $this->Deal->getActiveCSV();
