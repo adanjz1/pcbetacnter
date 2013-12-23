@@ -789,14 +789,14 @@ class Deal extends CI_Model {
             $this->db->where('id',$idDeal);
         }
         $data = array(
-               'is_active' >= $value,
+               'is_active' => $value,
             );
         $this->db->update('deals',$data);
     }
     function set_plusOnedeal($idDeal='',$dealLikes=0){
         $this->db->where('id',$idDeal);
         $data = array(
-               'thumbs' >= $dealLikes,
+               'thumbs' => $dealLikes,
             );
         $this->db->update('deals',$data);
     }
