@@ -67,10 +67,10 @@ $(function(){
                            ${deal_price}
                        </span> 
                     </div>
+                    <a class="dealBtn" href="{deal_url}" target="_blank">
+                        <div class="getDealStr">GET THIS DEAL</div>
+                    </a>
                 </div>
-                <a class="dealBtn" href="{deal_url}" target="_blank">
-                    <div class="getDealStr">GET THIS DEAL</div>
-                </a>
                  <div class="dealActions">
                     <div class="{thumbsClass}" rel="{id}"><div class="thumbsValue">{thumbs}| APPRECIATE THIS</div></div>
                     <div class="comment" onclick="document.location='deals/review/{id}/0/true#TabbedPanels1'"><div class="commentQty">{qtyComments} | COMMENT</div></div>

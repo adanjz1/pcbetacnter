@@ -31,8 +31,8 @@ class Review extends CI_Model {
     public function saveReview($product_id,$rating=0,$comment='',$btn){
         $this->db->set('product_id', $product_id);
         $this->db->set('review', $comment);
+        $this->db->set('datetime', date('Y-m-d H:i:s'));
         $this->db->set('stars', $rating);
-        
         return $this->db->insert('product_review');
     }
     public function get_sumStars($product=''){

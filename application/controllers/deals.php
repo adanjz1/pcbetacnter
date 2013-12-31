@@ -368,7 +368,7 @@ class Deals extends CI_Controller {
             $deals = $this->Deal->get_dealById($id);
             foreach($deals as $deal){
                  
-                 
+                
                  if($deal->actual_price > 0){
                     $deal->showActualPrice = 'List Price: <span>$'.$deal->actual_price.'</span><br/>';
                     $deal->showSavings = ' You Save: <span class="textred1">$'. ($deal->actual_price - $deal->deal_price).' ('.round((($deal->actual_price - $deal->deal_price) * 100) / $deal->actual_price,2).'%)</span><br/>';
@@ -432,6 +432,7 @@ class Deals extends CI_Controller {
                 if(count($deal->feedback) == 0){
                     $deal->noReviewes = '<td colspan="5" style="text-align:center;">No Reviews Yet.</td>';
                 }
+                $data['reviews'] = $reviews;
                 $deal->comments = $reviews;
                 $deal->noComments='';
                 if(count($deal->comments) == 0){

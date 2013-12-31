@@ -631,9 +631,16 @@ margin-top: 34px;
     background-color: #dadada;
     border: 1px solid #c97a18;
     color:#000;
-    margin-left: 455px;
-    margin-top: -30px;
+    margin-left: 200px;
+    /*margin-top: -30px;*/
     text-decoration: none;
+}
+.carousel1 .item .dealBtn{
+    color: #000;
+font-size: 12px;
+bottom: 0px;
+position: absolute;
+height: 35px;
 }
 .oldPrice{
     text-decoration: line-through;

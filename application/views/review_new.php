@@ -178,17 +178,21 @@
                                 <th width="5%">&nbsp;</th>
                                 <th width="35%"><strong>Date</strong></th>
                             </tr>
-                            {comments}
+                            <?php foreach($reviews as $com){
+                                ?>
                             <tr>
                                 <td width="5%">&nbsp;</td>
-                                <td width="15%">{comId}</td>
+                                <td width="15%"><?php echo  $com->id?></td>
                                 <td width="40%">
-                                    {review}
+                                    <?php echo  $com->review ?>
                                 </td>
                                 <td width="5%">&nbsp;</td>
-                                <td width="35%"><?php echo date("F j, Y, g:i a", strtotime('{datetime}')); ?></td>
+                                <td width="35%"><?php echo date("F j, Y, g:i a", strtotime($com->datetime)); ?></td>
                             </tr>
-                            {/comments}
+                            <?php
+                            
+                            }
+                            ?>
                             {noComments}
 
 
