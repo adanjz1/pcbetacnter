@@ -19,8 +19,7 @@
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
     </head>
-    <!--<body onload="loadFBConnect();">-->
-    <body>
+    <body onload="loadFBConnect();">
  <script type='text/javascript'>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -34,20 +33,14 @@
 
 <script type="text/javascript" src="/media/js/new/zclip.js"></script>
 <script type="text/javascript">
-//     if(<?php // echo $timezoneUnSet?>){
-//            var visitortime = new Date();
-//            var visitortimezone = -visitortime.getTimezoneOffset()/60;
-//            $.ajax({
-//                type: "GET",
-//                url: '{siteUrl}ajax/timezone/',
-//                data: 'time='+ visitortimezone,
-//                success: function(){
-//                    location.reload();
-//                }
-//            });
-//        }
-//    
-
+    function loadFBConnect(){
+        (function() {
+            var e = document.createElement('script');
+            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+            e.async = true;
+            document.getElementById('fb-root').appendChild(e);
+        }());
+    }
     $(document).ready(function(){
             $('.unchecked').click(function(){
             $(this).removeClass('unchecked');

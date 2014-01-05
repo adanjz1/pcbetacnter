@@ -59,15 +59,5 @@
         Copyright 2013 pccounter.net | <a href="{contactUrl}">Contact Us</a>  |  <a href="{mapUrl}">Site Map</a>
     </div>
 </div>
-<script type="text/javascript">
-    function loadFBConnect(){
-        (function() {
-            var e = document.createElement('script');
-            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-            e.async = true;
-            document.getElementById('fb-root').appendChild(e);
-        }());
-    }
-</script>
 </body>
 </html>

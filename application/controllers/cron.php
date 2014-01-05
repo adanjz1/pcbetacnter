@@ -136,6 +136,7 @@ class Cron extends CI_Controller {
         $this->load->model('Deal');
         $this->load->model('Source');
         $this->load->model('Category');
+        $this->load->model('Crawler');
         if(!empty($_GET['setInactive'])){
             $this->Deal->set_activation(); //deactivate all deals
         }
@@ -143,8 +144,8 @@ class Cron extends CI_Controller {
     if(empty($_GET['debug']) || $_GET['debug'] == 'linkshare'){
         
         set_time_limit(0);
-        $keyword = array("MP3", "Camera", "Software", "Hardware", "DVD Player", "Computer", "Xerox", "Printer", "telephone", "ipaq", "Notebook", "Antivirus", "Keyboard", "Mouse", "HP", "Mac", "Sony", "Samsung", "Amazon","Apple","Dell","Microsoft","logitech","cisco","tplink","game");
-
+        $keyword = $this->Crawler->get_keywords();
+        
         $totalRecords = 1000; //AUXILIAR
         $i = 0;
         $sleepBetweenPages = 5; //Every 5 pages, sleeps 1 Second
@@ -157,7 +158,7 @@ class Cron extends CI_Controller {
             $r = 0;
             while ($page <= $totalPages) {
 
-                $xmlLink = "http://productsearch.linksynergy.com/productsearch?token=9c572896dedff9f2f640edaceeff1e37ead2a7a844ceb2ca7360d19f89807f07&keyword=" . $keyword[$k] . "&MaxResults=100&pagenumber=" . $page . "&sort=retailprice&sorttype=asc&sort=productname&sorttype=asc";
+                $xmlLink = "http://productsearch.linksynergy.com/productsearch?token=9c572896dedff9f2f640edaceeff1e37ead2a7a844ceb2ca7360d19f89807f07&keyword=" . $keyword[$k] . "&MaxResults=100&pagenumber=" . $page;
                 $xml = simpleXML_load_file($xmlLink, "SimpleXMLElement", LIBXML_NOCDATA);
                 
                 foreach ($xml->item as $product) {
@@ -307,64 +308,27 @@ class Cron extends CI_Controller {
         $CJ_ID = '009d3d49b3a21ad21e29bc4e88997388512c6f3bc7a2396d33ddab99df3297f12a42f56699f46a92d4696ed1a32323ba08325dab5d62fcefd5f65dac9c68261445/2c605fac92d37ef9844de0dc2c72aec63a042a9aecedc8241b2b9301ab05b6ca040b826ae03916508a7b3beb226719a0cd9a5b05005f9fbb91bc976318972301';
         switch($_GET['key']){
                 case 1:
-            $advertisers = array('3662048,3692834,1596784,1826017'
-                                ,'3579991,2503677,3194603,1552894,3776933'
-                              ,'998086,777292,1097361'
-                              ,'2743018,2125808'
-                              );
+                    $advertisers = $this->Crawler->get_advertisers(10,0);
                     break;
                 
                 case 2:
-            $advertisers = array('1957211'
-                                ,'3054995'
-                              ,'3727174,2069963'
-                                ,'3768420,3387105,1513033'
-                                ,'2948661,2837956,2057995');
+                    $advertisers = $this->Crawler->get_advertisers(10,10);
                     break;
-                
                 case 3:
-            $advertisers = array('1525519'
-                                ,'2641935'
-                                ,'2461829,2461831'
-                                ,'2443929,2758031'
-                                ,'1357495,3274480'
-                                ,'2503687,22928290'
-                              );
+                    $advertisers = $this->Crawler->get_advertisers(10,20);
                     break;
                 case 4:
-            $advertisers = array('1592463,2540350'
-                                ,'1983932'
-                                ,'3739663,3144657'
-                                ,'1818328,1646298'
-                              ,'1529833,2395398','1637643'
-                                ,'2461402','3124983'
-                                ,'3099532,2381550'
-                              );
+                    $advertisers = $this->Crawler->get_advertisers(10,30);
                     break;
                 case 5:
-            $advertisers = array('3635222'
-                                ,'2833145'
-                                ,'2728387'
-                                ,'3413974,2906885','3678977'
-                                ,'2136193,3800140','2431611'
-                                ,'2446104'
-                                    ,'3015561,1880125'
-                                  ,'2452483','3413608,2529698'
-                                  ,'3718229','3410489','1560854'
-                                );
+                    $advertisers = $this->Crawler->get_advertisers(20,40);
                 break;
                 case 6:
-            $advertisers = array('3304009'
-                                ,'3132762'
-                                ,'242732'
-                                ,'3295320'
-                                ,'237343' 
-                                ,'1807847'
-                                ,'2045991');
+                    $advertisers = $this->Crawler->get_advertisers(20,60);
                 break;
         }
-        
-       
+        var_dump($advertisers);
+       die();
         foreach ($advertisers as $advId) {
             $websiteid = '2033446';
             $pagenumber = 1;
@@ -601,6 +565,10 @@ function detectPosibleCat($strings,$cron){
            $categories['1'] = array(
                array('points'=>'10',
                      'str'=> 'apple'),
+               array('points'=>'10',
+                     'str'=> 'macbook'),
+               array('points'=>'10',
+                     'str'=> 'airbook'),
                array('points'=>'15',
                      'str'=> 'notebook'),
                array('points'=>'15',
