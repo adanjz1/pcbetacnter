@@ -599,7 +599,8 @@ class Cron extends CI_Controller {
                         'deal_price'=> $m[10],
                         'actual_price'=> $m[10],
                         'sku'=> $m[3],
-                        'manufacturer'=> $m[0]  
+                        'manufacturer'=> $m[0],
+                        'coupon_code'=>''
                     );
                 }
                 if(count($deals) == 500){

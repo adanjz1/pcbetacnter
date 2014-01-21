@@ -135,7 +135,7 @@ class Deal extends CI_Model {
         $this->db->where('deal_end_date >', date('Y-m-d H:i:s'));
         $query = $this->db->get('deals');
         $a = $query->result();
-       //var_dump($this->db->last_query());
+       var_dump($this->db->last_query());
         return $a;
     }
     function get_lastCouponsHome($qty=0){
