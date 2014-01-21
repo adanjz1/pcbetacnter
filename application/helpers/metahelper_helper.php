@@ -52,7 +52,7 @@
             $data['siteUrl']  = $data['base_url'];
 
             //$data['siteUrlMedia']  = 'http://ec2-54-213-191-45.us-west-2.compute.amazonaws.com/';
-            $data['siteUrlMedia']  = 'http://pccounter/';
+            $data['siteUrlMedia']  = 'http://pccounter.net/';
             $data['dealsUrl']  = $data['base_url'].$t->config->item('index_page').'deals-list';
             $data['couponsUrl']  = $data['base_url'].$t->config->item('index_page').'coupon-codes';
             $data['categoriesUrl']  = $data['base_url'].$t->config->item('index_page').'categories';
@@ -367,4 +367,24 @@
         }
         return $array;
     }
+    function objectToArray($d) {
+		if (is_object($d)) {
+			// Gets the properties of the given object
+			// with get_object_vars function
+			$d = get_object_vars($d);
+		}
+ 
+		if (is_array($d)) {
+			/*
+			* Return array converted to object
+			* Using __FUNCTION__ (Magic constant)
+			* for recursive call
+			*/
+			return array_map(__FUNCTION__, $d);
+		}
+		else {
+			// Return array
+			return $d;
+		}
+	}
 ?>

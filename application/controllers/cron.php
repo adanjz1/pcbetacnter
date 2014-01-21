@@ -67,10 +67,6 @@ class Cron extends CI_Controller {
                         'deal_sources_id' => $deal[0],
                         'cat_id' => $deal[1],
                         'sub_cat_id'=> $deal[2],
-                        'mainMenuOrder'=>$deal[3],
-                        'hotCategory'=>$deal[4],
-                        'hotSubCategoty'=>$deal[5],
-                        'hotDeals'=> $deal[6],
                         'title'=> $deal[7],
                         'description'=> $deal[8],
                         'deal_url'=> $deal[9],
@@ -327,8 +323,6 @@ class Cron extends CI_Controller {
                     $advertisers = $this->Crawler->get_advertisers(20,60);
                 break;
         }
-        var_dump($advertisers);
-       die();
         foreach ($advertisers as $advId) {
             $websiteid = '2033446';
             $pagenumber = 1;
@@ -545,21 +539,87 @@ class Cron extends CI_Controller {
         $this->Deal->set_deal($insertStack);
         curl_close($ch);
         }
-        foreach($deals as $v){
-            $msg='DEAL:
-                ';
-            foreach($v as $l=> $j)
-            $msg .= $l.' => '.$j.'
-                ';
-        }
-        $message = "The cron job is running = 
-            ".$msg."\r\n";
-
-        mail('adanzweig@gmail.com', 'Pccounter cron Crawler', $message);
+    if(empty($_GET['debug']) || $_GET['debug'] == 'onenetdirect'){
+        set_time_limit(0);
+        $csvUrl = 'https://aff.onenetworkdirect.com/product_catalog.html?id=a46241929e492eff46332f356c846ab3';
+        $source = @file_get_contents($csvUrl);
+        
+        //var_dump($source);
+        $source = str_replace("\n",",",$source);
+        
+        $arr = str_getcsv($source,",");
+        //var_dump($arr);
+        $manage = array_chunk($arr,17);
+        
+        $deals = array();
+        unset($manage[0]);
+           foreach($manage as $m){
+               if(empty($m[4])){
+                  $m[4] = ''; 
+               }
+               if(empty($m[14])){
+                  $m[14] = ''; 
+               }
+               if(empty($m[12])){
+                  $m[12] = ''; 
+               }
+               if(empty($m[7])){
+                  $m[7] = ''; 
+               }
+               if(empty($m[10])){
+                  $m[10] = ''; 
+               }
+               if(empty($m[3])){
+                  $m[3] = ''; 
+               }
+               
+                $hash = md5($m[4].$m[14].$m[12]);
+                $params = array(
+                    'hash_md5'=> "$hash"
+                );
+            
+                        
+                $matchDeal = $this->Deal->findMatchDeals($params);
+                $SourceId = $this->Source->get_dealSourceIdByStr("$m[0]");
+                if (empty($SourceId)) {
+                    $SourceId = $this->Source->set_newSource("$m[0]",99);
+                }
+                
+                if (empty($matchDeal)) {
+                    $deals[] = array(
+                        'deal_sources_id' => $SourceId,
+                        'cat_id' => 21,
+                        'sub_cat_id'=> 147,
+                        'title'=> $m[4],
+                        'description'=> $m[7],
+                        'deal_url'=> $m[14],
+                        'image_url'=> $m[12],
+                        'deal_end_date'=> '2050-12-31 00:00:00',
+                        'deal_start_date'=> date('Y-m-d h:i:s'),
+                        'deal_price'=> $m[10],
+                        'actual_price'=> $m[10],
+                        'sku'=> $m[3],
+                        'manufacturer'=> $m[0]  
+                    );
+                }
+                if(count($deals) == 500){
+                    $this->Deal->set_deal($deals);
+                    $deals = array();
+                }
+           }
+            if(count($deals)>1){
+                 $this->Deal->set_deal($deals);
+                 $deals = array();
+             }
+                
+    
+        
+        mail('adanzweig@gmail.com', 'Pccounter cron Crawler', "deals added");
     }
     
 }
 
+}
 
 function detectPosibleCat($strings,$cron){
            $categories['1'] = array(

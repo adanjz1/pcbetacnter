@@ -1,0 +1,126 @@
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700italic,300,700,400);
+body{
+    margin: 0px;
+    font-family: 'Open Sans', sans-serif !important;
+}
+a{
+    text-decoration: none;
+}
+.topHeader .centerScreen{
+    margin-top: 10px;
+    border-bottom: 3px solid #f7961e;
+}
+.centerScreen{
+    text-align: center;   
+}
+.leftCatBar{
+    float:left;
+    width:20%;
+    background-color:#0d0c0a;
+}
+.leftCatBar li{
+    text-align: center;
+}
+.leftCatBar li img{
+    max-width:90%;
+}
+ul{
+    margin:0px;
+    padding:0px;
+}
+ul li{
+    list-style: none;
+}
+.logo img{
+    max-width:90%;
+}
+.subcat{
+    
+    position: absolute;
+    left: 270px;
+    text-align: left;
+    width: 30%;
+    line-height: 95px;
+    background-color: #6b6862;
+}
+.subcat li{
+    text-align: left;
+    padding-left: 15px;
+    border-left: 1px solid #6b6862;
+}
+.clear{
+    clear:both;
+}
+.deals{
+    width: 44%;
+    margin-left: 55%;
+    position: absolute;
+}
+.dealEncapsulated{
+    
+    border: 2px solid #1e1e1e;
+    height: 200px;
+    margin-bottom: 20px;
+    position:relative;
+}
+.dealEncapsulated img{
+    max-width:520px;
+    max-height: 180px;
+    opacity: 0.3;
+}
+.dealEncapsulated .image{
+    display: table-cell; 
+    vertical-align: middle;
+    text-align:center;
+}
+.dealEncapsulated .centerImage{
+    text-align: center;
+    display: table; 
+    height: 200px;
+    overflow: hidden;
+    width: 100%;
+}
+.dealEncapsulated .dealData{
+    margin-left: 20px;
+}
+
+.dealEncapsulated .title{
+    position: absolute;
+    top: 20px;
+}
+.dealEncapsulated .dealProvider{
+    position: absolute;
+    bottom: 30px;
+    color:#8e8071;
+    font-size:9px;
+}
+.dealEncapsulated .dealPrice{
+    position: absolute;
+    bottom: 10px;
+}
+.stickyFooter{
+    position: fixed;
+    bottom: 0px;
+    height: 50px;
+    background-color: #171717;
+    width:100%;
+}
+.stickyFooter .btt{
+    width: 49%;
+    float: left;
+    color: #fff;
+    padding-top: 10px;
+    height: 50px;
+    text-align: center;
+}
+.stickyFooter .separator{
+    float: left;
+width: 2px;
+border-left: 1px solid #cccccc;
+border-right: 1px solid #999999;
+height: 50px;
+}
+.selected{
+    background-color:#f7961e;
+}

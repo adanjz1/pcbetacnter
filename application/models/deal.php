@@ -186,7 +186,9 @@ class Deal extends CI_Model {
         $this->db->where('deal_end_date >', date('Y-m-d H:i:s'));
         $this->db->where('coupon_code !=',''); 
         ////$this->db->where('((deal_start_date <= NOW() and deal_end_date > NOW()) or (deal_start_date = "0000-00-00 00:00:00" or deal_end_date = "0000-00-00 00:00:00") or (deal_end_date is null or deal_start_date is null))');
-        $this->db->where_not_in('id',$usedDeals);
+        if(!empty($usedDeals)){
+            $this->db->where_not_in('id',$usedDeals);
+        }
         $query = $this->db->get('deals');
        
         return $query->result();
