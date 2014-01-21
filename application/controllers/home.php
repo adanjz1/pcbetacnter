@@ -28,7 +28,7 @@ class Home extends CI_Controller {
         /**
          * HEADER
          */
-        if (/*$this->agent->is_mobile() ||*/ $_GET['m'] = 'debug') {
+        if (/*$this->agent->is_mobile() ||*/ !empty($_GET['m']) && $_GET['m']  == 'debug') {
             $this->load->model('Source');
             $this->load->helper('metaHelper');
             $this->load->model('pages');
