@@ -120,6 +120,14 @@ class Category extends CI_Model {
          $this->db->from('categories');
         return $this->db->count_all_results();
     }
+    function getFirstSubcategory($category){
+        //var_dump($category->idCategory);
+        $this->db->select('id');
+        $this->db->where('idCategory',$category);
+        $this->db->order_by("id", "asc"); 
+        $query = $this->db->get('subcategories');
+        return $query->result();
+    }
     function get_Subcategories($qty='',$limit='',$category)
     {
         if(!empty($qty)){

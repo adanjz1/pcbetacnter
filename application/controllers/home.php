@@ -24,16 +24,17 @@ class Home extends CI_Controller {
         parent::__construct();
     }
 
-    public function index($timeZone = "") {
+    public function index($timeZone = "",$subcat='') {
         /**
          * HEADER
          */
-        if (/*$this->agent->is_mobile() ||*/ !empty($_GET['m']) && $_GET['m']  == 'debug') {
+        if (/*$this->agent->is_mobile() ||*/ !empty($_GET['m']) && $_GET['m']  == 'debug') {;
             $this->load->model('Source');
             $this->load->helper('metaHelper');
             $this->load->model('pages');
             $seoPg = $this->pages->getSEOPage('home');
             $seoPg = $seoPg[0];
+            $data['flagMobile']  = '?m=debug';
             $data['siteUrlMedia']  = $this->config->item('base_url');
             $data['pageTitle'] = $seoPg->Title; //Title tag
             $data['headerText'] = $seoPg->Header; //H1 tag
@@ -43,12 +44,7 @@ class Home extends CI_Controller {
             $this->load->model('Deal');
             $this->load->model('Category');
             
-            $topDeals = $this->Deal->get_topDeals(8, array()); //Get the other deals
-            $data['topDeals'] = encapsuleDeals($topDeals, $this);
             
-            $topCoupons = $this->Deal->get_topCoupons(8, array()); //Get the other deals
-            $data['topCoupons'] = encapsuleDeals($topCoupons, $this);
-
             $this->load->model('Category');
             $categ_list = $this->Category->get_categories(30);
             $data['categArray'] = array();
@@ -71,16 +67,26 @@ class Home extends CI_Controller {
             }
             $data['categories'] = $categ_list;
             $categ_list = $this->Category->get_Subcategories(null, null, $cat);
-                foreach ($categ_list as $cat) {
-                    if (empty($cat->url)) {
-                        $cat->subCategoryUrl = $this->config->item('base_url') . $this->config->item('index_page') . 'deals/index/0/category/' . $_SESSION['categories'][0] . '/' . $categ->id;
+                foreach ($categ_list as $cate) {
+                    if (empty($cate->url)) {
+                        $cate->subCategoryUrl = $this->config->item('base_url') . $this->config->item('index_page') . 'deals/index/0/category/' . $_SESSION['categories'][0] . '/' . $cate->id;
                     } else {
-                        $cat->subCategoryUrl = $this->config->item('base_url') . $this->config->item('index_page') . $cat->url;
+                        $cate->subCategoryUrl = $this->config->item('base_url') . $this->config->item('index_page') . $cate->url;
                     }
                 }
             $data['subcategories'] = $categ_list;
-            $data['selCat']=1;
-            $data['selSubCat']=22;
+            $data['selCat']=$cat;
+            if(empty($subcat)){
+                $subcat = $this->Category->getFirstSubcategory($cat);
+                $subcat = $subcat[0]->id;
+            }
+            $data['selSubCat']=$subcat;
+            
+            $topDeals = $this->Deal->get_m_topDeals(10,$cat,$subcat); //Get the other deals
+            $data['topDeals'] = encapsuleDeals($topDeals, $this);
+            
+            $topCoupons = $this->Deal->get_m_topCoupons(10, $cat,$subcat); //Get the other deals
+            $data['topCoupons'] = encapsuleDeals($topCoupons, $this);
 
 
 

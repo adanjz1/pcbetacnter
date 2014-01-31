@@ -52,8 +52,20 @@
         });
         $('.subcat').css('top',$('.leftCatBar').position().top);
         $('.subcat').css('left',$('.leftCatBar').width());
-        
+        $('.subcat').css('height',$('.leftCatBar').height());
+        $('.dealsbtn').click(function(){
+            $(this).addClass('selected');
+            $('.couponsbtn').removeClass('selected');
+            $('.deals').show();
+            $('.coupons').hide();
         });
+        $('.couponsbtn').click(function(){
+            $(this).addClass('selected');
+            $('.dealsbtn').removeClass('selected');
+            $('.deals').hide();
+            $('.coupons').show();
+        });
+    });
     
     
 </script>

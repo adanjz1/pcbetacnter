@@ -193,6 +193,41 @@ class Deal extends CI_Model {
        
         return $query->result();
     }
+    function get_m_topDeals($qty=0,$cat=1,$subcat=23){
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
+        $this->db->order_by('thumbs','desc');
+        $this->db->limit($qty);
+        $this->db->where('is_active', '1');
+        $this->db->where('deal_start_date <=', date('Y-m-d H:i:s'));
+        $this->db->where('deal_end_date >', date('Y-m-d H:i:s'));
+        $this->db->where('cat_id >', '0');
+        $this->db->where('cat_id', $cat);
+        $this->db->where('sub_cat_id', $subcat);
+        $this->db->where('deal_price !=', '');        
+        $this->db->where('coupon_code',''); 
+        $query = $this->db->get('deals');
+       
+        return $query->result();
+    }
+    function get_m_topCoupons($qty=0,$cat=1,$subcat=23){
+        if(!empty($this->db->ar_orderby)){
+            $this->db->ar_orderby = array();
+        }
+        $this->db->order_by('thumbs','desc');
+        $this->db->limit($qty);
+        $this->db->where('is_active', '1');
+        $this->db->where('cat_id >', '0');
+        $this->db->where('cat_id', $cat);
+        $this->db->where('sub_cat_id', $subcat);
+        $this->db->where('deal_start_date <=', date('Y-m-d H:i:s'));
+        $this->db->where('deal_end_date >', date('Y-m-d H:i:s'));
+        $this->db->where('coupon_code !=',''); 
+        $query = $this->db->get('deals');
+       
+        return $query->result();
+    }
     function get_lastDeals($qty,$from=''/*Paginator*/,$q=''/*Search*/,$category=array(),$subcat=array(),$store=array(),$minPrice=0,$maxPrice=0,$orderBy=array('id','desc'))
     {   
         if(!empty($this->db->ar_orderby)){

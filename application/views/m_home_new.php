@@ -2,7 +2,7 @@
     <ul>
         <?php foreach($categories as $cat){?>
                 <li class="<?=($cat->id==$selCat)?'selected':''?>">
-                    <img src="{siteUrlMedia}media/images/new/cat_icon_<?= $cat->id?>.png">
+                    <a href="/home/index/<?=$cat->id?>/{flagMobile}"><img src="{siteUrlMedia}media/images/new/cat_icon_<?= $cat->id?>.png"></a>
                 </li>
         <? } ?>
     </ul>
@@ -12,7 +12,7 @@
     <ul>
         <?php foreach($subcategories as $sub){?>
             <li id="<?= $sub->id?>" class="<?=($sub->id==$selSubCat)?'selected':''?>">
-                <?=$sub->name?>
+                <a href="/home/index/<?=$selCat?>/<?=$sub->id?>{flagMobile}"><?=$sub->name?></a>
             </li>
         <? } ?>
     </ul>
@@ -39,8 +39,26 @@
         </div>
     {/topDeals}
 </div>
-<div class="coupons">
+<div class="coupons deals">
     {topCoupons}
+    <div class="dealEncapsulated">
+            <div class="centerImage">
+                <div class="image">
+                    <img src="{image}"/>
+                </div>
+            </div>      
+            <div class="dealData">
+                <div class="title">
+                    {title}
+                </div>
+                <div class="dealProvider">
+                    From {provider}
+                </div>
+                <div class="dealPrice">
+                    {coupon_code}
+                </div>
+            </div>
+        </div>
     {/topCoupons}
 </div>
 <div class="clear"></div>

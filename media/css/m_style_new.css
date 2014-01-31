@@ -18,6 +18,7 @@ a{
     float:left;
     width:20%;
     background-color:#0d0c0a;
+    margin-bottom: 50px;
 }
 .leftCatBar li{
     text-align: center;
@@ -48,6 +49,12 @@ ul li{
     text-align: left;
     padding-left: 15px;
     border-left: 1px solid #6b6862;
+}
+.coupons{
+    display:none;
+}
+.subcat li a{
+    color:#fff;
 }
 .clear{
     clear:both;
@@ -88,6 +95,8 @@ ul li{
 .dealEncapsulated .title{
     position: absolute;
     top: 20px;
+    padding-right: 20px;
+
 }
 .dealEncapsulated .dealProvider{
     position: absolute;
@@ -107,19 +116,18 @@ ul li{
     width:100%;
 }
 .stickyFooter .btt{
-    width: 49%;
+    width: 50%;
     float: left;
     color: #fff;
     padding-top: 10px;
     height: 50px;
     text-align: center;
 }
-.stickyFooter .separator{
-    float: left;
-width: 2px;
-border-left: 1px solid #cccccc;
-border-right: 1px solid #999999;
-height: 50px;
+.dealsbtn{
+    border-right: 1px solid #cccccc;
+}
+.couponsbtn{
+    border-left: 1px solid #999999;    
 }
 .selected{
     background-color:#f7961e;

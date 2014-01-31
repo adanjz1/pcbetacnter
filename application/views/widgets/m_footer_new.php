@@ -1,6 +1,5 @@
 <div class="stickyFooter">
-    <div class="btt selected">Deals</div>
-    <div class="separator"></div>
-    <div class="btt">Coupons</div>
-    <div class="clear;"
+    <div class="btt selected dealsbtn">Deals</div>
+    <div class="btt couponsbtn">Coupons</div>
+    <div class="clear"></div>
 </div>
