@@ -33,6 +33,12 @@
 
 
 <script type="text/javascript">
+    function acomodar(){
+            console.log('asdasd');
+        $('.subcat').css('top',$('.leftCatBar').position().top);
+        $('.subcat').css('left',$('.leftCatBar').width());
+        $('.subcat').css('height',$('.leftCatBar').height());
+    }
     $(document).ready(function(){
             $('.unchecked').click(function(){
             $(this).removeClass('unchecked');
@@ -50,6 +56,8 @@
             $('.loginDiv').show();
             $('.overlay').show();
         });
+        setInterval(acomodar, 1000);
+
         $('.subcat').css('top',$('.leftCatBar').position().top);
         $('.subcat').css('left',$('.leftCatBar').width());
         $('.subcat').css('height',$('.leftCatBar').height());
