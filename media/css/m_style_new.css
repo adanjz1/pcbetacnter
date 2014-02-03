@@ -3,6 +3,7 @@
 body{
     margin: 0px;
     font-family: 'Open Sans', sans-serif !important;
+    padding:0px;
 }
 a{
     text-decoration: none;
