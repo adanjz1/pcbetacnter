@@ -3,7 +3,7 @@
 body{
     margin: 0px;
     font-family: 'Open Sans', sans-serif !important;
-    padding:0px;
+    padding:0px !important;
 }
 a{
     text-decoration: none;
@@ -74,7 +74,7 @@ ul li{
 }
 .dealEncapsulated img{
     max-width:520px;
-    max-height: 180px;
+    max-height: 120px;
     opacity: 0.3;
     width: 100%;
 
