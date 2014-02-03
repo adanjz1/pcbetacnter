@@ -86,7 +86,7 @@ ul li{
 .dealEncapsulated .centerImage{
     text-align: center;
     display: table; 
-    height: 200px;
+    height: 130px;  
     overflow: hidden;
     width: 100%;
 }
