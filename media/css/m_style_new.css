@@ -37,7 +37,7 @@ ul li{
     max-width:90%;
 }
 .subcat{
-    
+    font-size: 10px;
     position: absolute;
     left: 270px;
     text-align: left;
@@ -67,7 +67,7 @@ ul li{
 .dealEncapsulated{
     
     border: 2px solid #1e1e1e;
-    height: 200px;
+    height: 130px;
     margin-bottom: 20px;
     position:relative;
 }
@@ -75,6 +75,8 @@ ul li{
     max-width:520px;
     max-height: 180px;
     opacity: 0.3;
+    width: 100%;
+
 }
 .dealEncapsulated .image{
     display: table-cell; 
@@ -96,6 +98,7 @@ ul li{
     position: absolute;
     top: 20px;
     padding-right: 20px;
+    font-size: 10px;
 
 }
 .dealEncapsulated .dealProvider{
