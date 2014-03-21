@@ -18,6 +18,7 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>        
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+        <meta name="google-site-verification" content="3nEWCaOLBqNVqkf4kKDbab0dUDkFCRcTKs1pRyJw8c8" />
     </head>
     <body onload="loadFBConnect();">
  <script type='text/javascript'>

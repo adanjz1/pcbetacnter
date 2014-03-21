@@ -28,7 +28,7 @@ class Home extends CI_Controller {
         /**
          * HEADER
          */
-        if ($this->agent->is_mobile() || (!empty($_GET['m']) && $_GET['m']  == 'debug')) {;
+        if ($this->agent->is_mobile() || (!empty($_GET['m']) && $_GET['m']  == 'debug')||1) {;
             $this->load->model('Source');
             $this->load->helper('metaHelper');
             $this->load->model('pages');
@@ -82,10 +82,10 @@ class Home extends CI_Controller {
             }
             $data['selSubCat']=$subcat;
             
-            $topDeals = $this->Deal->get_m_topDeals(10,$cat,$subcat); //Get the other deals
+            $topDeals = $this->Deal->get_m_topDeals(8,$cat,$subcat); //Get the other deals
             $data['topDeals'] = encapsuleDeals($topDeals, $this);
             
-            $topCoupons = $this->Deal->get_m_topCoupons(10, $cat,$subcat); //Get the other deals
+            $topCoupons = $this->Deal->get_m_topCoupons(8, $cat,$subcat); //Get the other deals
             $data['topCoupons'] = encapsuleDeals($topCoupons, $this);
 
 

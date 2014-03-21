@@ -16,6 +16,16 @@ class Deal extends CI_Model {
         // Call the Model constructor
         parent::__construct();
     }
+    function get_hostDeals($host){
+        
+        $query = $this->db->query('SELECT * FROM  `deals` 
+                            WHERE manufacturer IS NOT NULL 
+                            AND manufacturer !=  ""
+                            AND "'.$host.'" like CONCAT("%", manufacturer, "%")');
+        $a = $query->result();
+        //var_dump($this->db->last_query());
+        return $a;
+    }
     function get_mainMenuDeals($qty)
     {
        
