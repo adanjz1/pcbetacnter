@@ -141,50 +141,120 @@ class Deals extends CI_Controller {
             
             if(!empty($store)){
                 $seoPg = $this->Source->get_source($store);
-                $data['pageTitle'] = $seoPg->title_tag;//Title tag
-                $data['headerText'] = $seoPg->htmlHeader;//H1 tag
-                $data['metaTitle'] = $seoPg->meta_title;
+                if(empty($seoPg->title_tag)){
+                    $data['pageTitle'] = $seoPg->name.' Coupons - Promotional Codes, Discount Deals | Pccounter';
+                }else{
+                    $data['pageTitle'] = $seoPg->title_tag;//Title tag
+                }
+                if(empty($seoPg->htmlHeader)){
+                    $data['headerText'] = $seoPg->name.' Coupons - Promotional Codes, Discount Deals | Pccounter';
+                }else{
+                    $data['headerText'] = $seoPg->htmlHeader;//Title tag
+                }
+                if(empty($seoPg->meta_title)){
+                    $data['metaTitle'] = $seoPg->name.' Coupons - Promotional Codes, Discount Deals | Pccounter';
+                }else{
+                    $data['metaTitle'] = $seoPg->meta_title;
+                }
+                if(empty($seoPg->meta_title)){
+                    $data['metaDescription'] = 'Latest '.$seoPg->name.' coupons & promo codes for '.date('F').', '.date('Y').' . Save with best free '.$seoPg->name.' online deals, discounts, offers and special coupon codes at pccounter';
+                }else{
+                    $data['metaDescription'] = $seoPg->meta_title;
+                }
+                
                 $data['metaKeywords'] = $seoPg->meta_keywords;
-                $data['metaDescription'] = $seoPg->meta_description;
                 $data['activeStores'] = 'active';
             }elseif(!empty($subcat)){
                 $seoPg = $this->Category->get_subcategoryById($subcat);
-                $data['pageTitle'] = $seoPg->title;//Title tag
-                $data['headerText'] = $seoPg->header;//H1 tag
-                $data['metaTitle'] = $seoPg->meta_title;
+                $cat = $this->Category->get_categoryById($seoPg->idCategory);
+                if(empty($seoPg->title)){
+                    $data['pageTitle'] = $seoPg->name.' Deals - Online Sales/Offers on '.$cat->name;
+                }else{
+                    $data['pageTitle'] = $seoPg->title;//Title tag
+                }
+                if(empty($seoPg->header)){
+                    $data['headerText'] = $seoPg->name.' Deals - Online Sales/Offers on '.$cat->name;
+                }else{
+                    $data['headerText'] = $seoPg->header;//Title tag
+                }
+                if(empty($seoPg->meta_title)){
+                    $data['metaTitle'] = $seoPg->name.' Deals - Online Sales/Offers on '.$cat->name;
+                }else{
+                    $data['metaTitle'] = $seoPg->meta_title;//Title tag
+                }
                 $data['metaKeywords'] = $seoPg->meta_keywords;
-                $data['metaDescription'] = $seoPg->meta_description;
+                if(empty($seoPg->meta_title)){
+                    $data['metaDescription'] = 'Check our latest deals on '.$seoPg->name.' sales. Get the best free online deals, discounts, offers and special coupon codes on '.$cat->name;
+                }else{
+                    $data['metaDescription'] = $seoPg->meta_description;//Title tag
+                }
                 $data['activeCategory'] = 'active';
             }elseif(!empty($category)){
                 $seoPg = $this->Category->get_categoryById($category);
-                $data['pageTitle'] = $seoPg->title;//Title tag
-                $data['headerText'] = $seoPg->header;//H1 tag
-                $data['metaTitle'] = $seoPg->meta_title;
+                if(empty($seoPg->title)){
+                    $data['pageTitle'] = $seoPg->name.' Deals - Online Sales/Offers on '.$seoPg->name;
+                }else{
+                    $data['pageTitle'] = $seoPg->title;//Title tag
+                }
+                if(empty($seoPg->header)){
+                    $data['headerText'] = $seoPg->name.' Deals - Online Sales/Offers on '.$seoPg->name;
+                }else{
+                    $data['headerText'] = $seoPg->header;//H1 tag
+                }
+                if(empty($seoPg->meta_title)){
+                    $data['metaTitle'] = $seoPg->name.' Deals - Online Sales/Offers on '.$seoPg->name;
+                }else{
+                    $data['metaTitle'] = $seoPg->meta_title;
+                }
+                if(empty($seoPg->meta_description)){
+                    $data['metaDescription'] = 'Check our latest deals on '.$seoPg->name.' sales for '.date('F').', '.date('Y').'. Get the best online deals, discounts,offers and special coupon codes on '.$seoPg->name;
+                }else{
+                    $data['metaDescription'] = $seoPg->meta_description;
+                }
+                
+
                 $data['metaKeywords'] = $seoPg->meta_keywords;
-                $data['metaDescription'] = $seoPg->meta_description;
                 $data['activeCategory'] = 'active';
             }else{
                 if(!empty($data['urlFlag'])){
                     $seoPg = $this->pages->getSEOPage('multi-filter-deals');
                     if(!empty($seoPg)){
                         $seoPg = $seoPg[0];
-                        $data['pageTitle'] = $seoPg->Title;//Title tag
-                        $data['headerText'] = $seoPg->Header;//H1 tag
-                        $data['metaTitle'] = $seoPg->Meta_title;
+                        if(empty($seoPg->Title)){
+                            $data['pageTitle'] = 'Best Tech deals,discounts,coupons and offers online by pccounter';
+                        }else{
+                            $data['pageTitle'] = $seoPg->Title;//Title tag
+                        }
+                        if(empty($seoPg->Header)){
+                            $data['headerText'] = 'Best Tech deals,discounts,coupons and offers online by pccounter';
+                        }else{
+                            $data['headerText'] = $seoPg->Header;//H1 tag
+                        }
+                        if(empty($seoPg->Meta_title)){
+                            $data['metaTitle'] = 'Best Tech deals,discounts,coupons and offers online by pccounter';
+                        }else{
+                            $data['metaTitle'] = $seoPg->Meta_title;//H1 tag
+                        }
+                        if(empty($seoPg->Meta_Description)){
+                            $data['metaDescription'] = 'Find best technology deals, discounts, coupons and offers across the web and save Big on your buy. We handpick best sales and promo codes for you.';
+                        }else{
+                            $data['metaDescription'] = $seoPg->Meta_Description;//H1 tag
+                        }
                         $data['metaKeywords'] = $seoPg->Meta_keywords;
-                        $data['metaDescription'] = $seoPg->Meta_Description;
                         $data['activeDeals'] = 'active';
                     }
-                }else{
-                    $seoPg = $this->pages->getSEOPage('deals');
-                    $seoPg = $seoPg[0];
-                    $data['pageTitle'] = $seoPg->Title;//Title tag
-                    $data['headerText'] = $seoPg->Header;//H1 tag
-                    $data['metaTitle'] = $seoPg->Meta_title;
-                    $data['metaKeywords'] = $seoPg->Meta_keywords;
-                    $data['metaDescription'] = $seoPg->Meta_Description;
-                    $data['activeDeals'] = 'active';
                 }
+            }
+            if(empty($seoPg)){
+                $seoPg = $this->pages->getSEOPage('deals');
+                $seoPg = $seoPg[0];
+                $data['pageTitle'] = $seoPg->Title;//Title tag
+                $data['headerText'] = $seoPg->Header;//H1 tag
+                $data['metaTitle'] = $seoPg->Meta_title;
+                $data['metaKeywords'] = $seoPg->Meta_keywords;
+                $data['metaDescription'] = $seoPg->Meta_Description;
+                $data['activeDeals'] = 'active';
+
             }
             /**
              * Selected Menu deals and lastest deals
@@ -307,13 +377,13 @@ class Deals extends CI_Controller {
             if(!empty($data['subCategories'])){
                 $data['subCategories'] = deleteUsed($data['subCategories'],'id',$_SESSION['subcategories'],'subcategories',$this);
                 $data['subCategories'] = array_filter($data['subCategories'],'normalizeArray');
+                
             }
             
             if(!empty($data['stores'])){
                 $data['stores'] = deleteUsed($data['stores'],'deal_source_id',$_SESSION['stores'],'stores',$this);
                 $data['stores'] = array_filter($data['stores'],'normalizeArray');
              }
-        
               $data['noDeals'] =  ((count($data['deals'])==0)?'<div class="pro_box">
                                                         <span style="color:#FF0000;">NO DEALS ARE THERE.</span>
                                                  </div>':'');
@@ -379,7 +449,7 @@ class Deals extends CI_Controller {
                 if(empty($deal->display_name)){
                     $deal->display_name = $deal->title;
                 }
-                $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="/all-deals" class="prevPath">Deals</a> > <a href="/all-deals" class="activePath">'.$deal->display_name.'</a>';
+                $data['pathLocation']='<a class="prevPath" href="/">HOME</a> > <a href="/deals-list" class="prevPath">Deals</a> > <a href="/deals-list" class="activePath">'.$deal->display_name.'</a>';
                 if(empty($deal->image_url)){
                         $deal->image = 'http://pccounter.net/media/images/noImage.jpg';
                 }else{

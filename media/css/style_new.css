@@ -102,6 +102,9 @@ ul li{
 .mainTitle{
     margin-bottom: 30px;
     min-height: 10px;
+    text-align: center;
+    font-size: 21px;
+    font-weight: bold;
 }
 .mainTitle h1{
     color: #4d4c4c;
@@ -359,6 +362,10 @@ margin-top: 16px;
     width: 200px;
     overflow-wrap: break-word;
     
+}
+.dealTitle{
+    height: 70px;
+    overflow: hidden;
 }
 .dealProvider{
     color:#8e8071;

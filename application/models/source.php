@@ -39,23 +39,23 @@ class Source extends CI_Model {
     {
         $this->db->where('deal_source_id', $idDealSource);
         $query = $this->db->get('deal_sources');
-        $row = $query->result();
-        return $row[0]->deal_source_name;
+        $row = $query->row();
+        return (!empty($row->deal_source_name))?$row->deal_source_name:'';
     }
     function get_source($idDealSource)
     {
         $this->db->where('deal_source_id', $idDealSource);
         $query = $this->db->get('deal_sources');
         $this->db->order_by("deal_source_name", "asc"); 
-        $row = $query->result();
-        return $row[0];
+        $row = $query->row();
+        return $row;
     }
     function get_dealSourceImg($idDealSource)
     {
         $this->db->where('deal_source_id', $idDealSource);
         $query = $this->db->get('deal_sources');
-        $row = $query->result();
-        return $row[0]->deal_source_logo_url;
+        $row = $query->row();
+        return (!empty($row->deal_source_logo_url))?$row->deal_source_logo_url:'';
     }
     function getNonEmptyStores(){
         
