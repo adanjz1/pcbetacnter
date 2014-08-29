@@ -4,12 +4,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
         <title>
-            <?= (empty($pageTitle))?$pageTitle:'Best Tech deals,discounts,coupons and offers online by pccounter'?>
+            <?= (!empty($pageTitle))?$pageTitle:'Best Tech deals,discounts,coupons and offers online by pccounter'?>
         </title>
         <link rel="shortcut icon" href="media/images/new/favicon.ico" />
-        <meta name="Title" content="<?= (empty($metaTitle))?$metaTitle:'Best Tech deals,discounts,coupons and offers online by pccounter'?>">
+        <meta name="Title" content="<?= (!empty($metaTitle))?$metaTitle:'Best Tech deals,discounts,coupons and offers online by pccounter'?>">
         <meta name="keywords" content="{metaKeywords}"/>
-        <meta name="description" content="<?= (empty($metaDescription))?$metaDescription:'Find best technology deals, discounts, coupons and offers across the web and save Big on your buy. We handpick best sales and promo codes for you.'?>"/>
+        <meta name="description" content="<?= (!empty($metaDescription))?$metaDescription:'Find best technology deals, discounts, coupons and offers across the web and save Big on your buy. We handpick best sales and promo codes for you.'?>"/>
         <link href="/media/css/style_new.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Cache-control" content="public">
         <meta http-equiv="content-language" content="en-US"></meta>
