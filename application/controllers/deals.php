@@ -416,7 +416,12 @@ class Deals extends CI_Controller {
                 redirect('/deals/index/'.$var1.'/'.$var2);
             }
         }
-        public function review($id='',$saved=false,$dat=false,$err = false){
+        public function view($text,$saved=false,$dat=false,$err = false){
+            $idPos = strrpos($text, '-');
+            $id = substr($text,$idPos+1);
+            $this->review($id,$text,$saved,$dat,$err);
+        }
+        public function review($id='',$text='',$saved=false,$dat=false,$err = false){
             $this->load->helper('metaHelper');
             $this->load->helper(array('form', 'url')); 
             $data = getConstData($this);
@@ -471,7 +476,8 @@ class Deals extends CI_Controller {
                 }else{
                     $deal->hot = '';
                 }
-                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'deals/review/'.$deal->id;
+                $displayNameUrl = str_replace(" ","-",$deal->display_name);
+                $deal->offerUrl = $this->config->item('base_url').$this->config->item('index_page').'deals/view/'.  urlencode($displayNameUrl).'-'.$deal->id;
                 
                
                 $this->load->model('Review');

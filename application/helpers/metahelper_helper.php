@@ -278,6 +278,7 @@
                 }
                 if(empty($deal->display_name)){
                     $deal->display_name = $deal->title;
+                    $deal->url_name = urlencode(str_replace(" ","-",$deal->title));
                 }
                 if(empty($deal->image_url)){
                     $deal->image = 'noImage.jpg';
@@ -305,7 +306,8 @@
                     $deal->short_display_name = $deal->display_name;
                 }
                 
-                $deal->offerUrl = $t->config->item('base_url').$t->config->item('index_page').'deals/review/'.$deal->id;
+                $displayNameUrl = str_replace(" ","-",$deal->display_name);
+                $deal->offerUrl = $t->config->item('base_url').$t->config->item('index_page').'deals/view/'.  urlencode($displayNameUrl).'-'.$deal->id;
                 $deal->encodedUrl = urlencode($deal->offerUrl);
                 $sess = $t->session->all_userdata();
                 if(!empty($sess[$deal->id])){

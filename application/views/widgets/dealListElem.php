@@ -26,7 +26,7 @@
                             <div class="shareLinks">
                                 <div class="{thumbsClass}" rel="{id}"><div class="thumbsValue">{thumbs}</div></div>
                                 <div class="share"></div>
-                                <div class="comment" onclick="document.location='deals/review/{id}/0/true#TabbedPanels1'"></div>
+                                <div class="comment" onclick="document.location='deals/view/<?= urlencode('{display_name}');?>-{id}/0/true#TabbedPanels1'"></div>
                                 <div class="clear"></div>
                             </div>
                            <div class="shareBox">

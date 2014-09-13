@@ -24,7 +24,7 @@
                 </a>
                  <div class="dealActions">
                     <div class="{thumbsClass}" rel="{id}"><div class="thumbsValue">{thumbs}</div></div>
-                    <div class="comment" onclick="document.location='deals/review/{id}/0/true#TabbedPanels1'"><div class="commentQty">{qtyComments}</div></div>
+                    <div class="comment" onclick="document.location='deals/view/{url_name}-{id}/0/true#TabbedPanels1'"><div class="commentQty">{qtyComments}</div></div>
                     <div class="share"></div>
                     <div class="clear"></div>
                      
